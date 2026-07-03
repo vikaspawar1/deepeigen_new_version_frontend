@@ -9,7 +9,7 @@
 
 .careers-container {
     width: 100%;
-    max-width: 956px;
+    max-width: 1056px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -145,6 +145,8 @@
 
 .job-apply {
     display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
 }
 
 .apply-button {
@@ -167,6 +169,120 @@
 
 .apply-button:hover {
     background: rgba(23, 76, 210, 0.12);
+}
+
+/* Modal styles for job description */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 60;
+}
+
+.modal-content {
+    width: 90%;
+    max-width: 680px;
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+}
+
+.modal-header h3 {
+    margin: 0;
+    font-size: 20px;
+    color: #1A212F;
+}
+
+.modal-close {
+    background: transparent;
+    border: none;
+    font-size: 24px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.modal-body {
+    margin-top: 12px;
+    color: rgba(26,33,47,0.92);
+    font-size: 16px;
+    line-height: 1.7;
+}
+
+.modal-section {
+    margin-top: 20px;
+}
+
+.modal-section h4 {
+    margin: 0 0 10px;
+    color: #E46E0B;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.modal-section ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.modal-section li {
+    margin-bottom: 8px;
+    color: rgba(26,33,47,0.8);
+    font-size: 15px;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+    margin-top: 24px;
+}
+
+.modal-close-secondary {
+    background: #fff;
+    border: 1px solid rgba(26,33,47,0.12);
+    padding: 10px 14px;
+    border-radius: 8px;
+    color: rgba(26,33,47,0.85);
+    cursor: pointer;
+}
+
+.view-desc-button {
+    margin-left: 12px;
+    padding: 10px 14px;
+    border-radius: 12px;
+    background: transparent;
+    border: 1px solid rgba(23,76,210,0.12);
+    color: #174CD2;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .modal-content { padding: 16px; }
+    .modal-content {
+        max-width: 90%;
+    }
+    .modal-section h4 {
+        font-size: 16px;
+    }
+    .modal-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .modal-actions a,
+    .modal-actions button {
+        width: 100%;
+    }
 }
 
 /* Tablet styles */
