@@ -177,14 +177,14 @@ export default function EditProfile({
       <div className="lg:py-14 w-full px-6 md:px-12 lg:px-16">
 
         {/* Profile Picture Upload */}
-        <div className="flex flex-col items-center mb-6">
+        <div className="flex flex items-center mb-6">
           <div className="relative w-40 h-40 lg:w-48 lg:h-48 mb-4">
-            <div className="w-full h-full rounded-xl bg-[rgba(0,0,0,0.04)] flex justify-center items-center overflow-hidden">
+            <div className="w-full h-full rounded-xl flex justify-center items-center overflow-hidden">
               {profilePicturePreview ? (
                 <img
                   src={profilePicturePreview}
                   alt="Profile"
-                  className="w-full h-full rounded-xl object-cover"
+                  className="w-full h-full , rounded-xl object-cover"
                 />
               ) : (
                 <svg
@@ -240,9 +240,7 @@ export default function EditProfile({
             </label>
           </div>
 
-          <p className="text-[rgba(26,33,47,0.7)] text-sm">
-            Click the camera icon to upload a new profile picture
-          </p>
+     
         </div>
 
         {/* Form */}
@@ -464,7 +462,7 @@ export default function EditProfile({
             <button
               type="button"
               onClick={handleSave}
-              className="px-1 py-3 bg-[#174CD2] text-white font-semibold text-base rounded-lg hover:bg-blue-700 transition-colors w-full lg:w-auto disabled:opacity-50"
+              className="px-3 py-3 bg-[#174CD2] text-white font-semibold text-base rounded-lg hover:bg-blue-700 transition-colors w-full lg:w-auto disabled:opacity-50"
               disabled={saving}
             >
               {saving ? "Saving..." : "Save Changes"}
@@ -475,4 +473,3 @@ export default function EditProfile({
     </div>
   );
 }
-
