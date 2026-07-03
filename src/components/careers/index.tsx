@@ -1,43 +1,71 @@
+import  { useState } from 'react';
 import './styles/career.css';
 import team_photo from "../../assets/Careers/Images/team_career.svg"
 
 export default function index() {
+  const [selectedJob, setSelectedJob] = useState<any>(null);
+
   const jobs = [
     {
       id: 1,
-      title: 'Full Stack Developer',
+      title: 'Senior Machine Learning Engineer',
       location: 'Bhopal, Madhya Pradesh',
       type: 'Full Time',
-      experience: '2 - 3year'
+      experience: '2 - 3year',
+      description: 'Machine learning research scientist at Deep Eigen AI Labs is responsible for articulating, designing and developing custom ML/DL/RL algorithms for various robotic and autonomous driving applications, along with doing foundational research in developing novel algorithmic frameworks for autonomous vehicles negotiating complex traffic scenarios. ML research scientist is required to have the mathematical aptitude and the ability to work on projects involving multidisciplinary theoretical concepts and ideas.',
+      responsibilities: [
+        'Designing front-end static templates.',
+        'Ensuring responsiveness of applications.',
+        'Creating servers and databases for functionality.',
+      ],
+      requirements: [
+        'PhD in Computer Science or related areas, such as, PhD in ML/RL/Robotics.',
+        'Advanced mathematical knowledge in a mix of following areas: convex optimization, probabilistic graphical models, reinforcement learning, stochastic processes, manifold theory and manifold alignment.',
+        'Ability to quickly grasp concepts in other theoretical areas when required.',
+      ],
+      techStack: ['C++', 'Python'],
     },
     {
       id: 2,
-      title: 'Full Stack Developer',
+      title: 'Senior Deep Learning Engineer',
       location: 'Bhopal, Madhya Pradesh',
       type: 'Full Time',
-      experience: '2 - 3year'
+      experience: '2 - 3year',
+      description: 'Machine learning research scientist at Deep Eigen AI Labs is responsible for articulating, designing and developing custom ML/DL/RL algorithms for various robotic and autonomous driving applications, along with doing foundational research in developing novel algorithmic frameworks for autonomous vehicles negotiating complex traffic scenarios. ML research scientist is required to have the mathematical aptitude and the ability to work on projects involving multidisciplinary theoretical concepts and ideas.',
+      responsibilities: [
+        'Designing front-end static templates.',
+        'Ensuring responsiveness of applications.',
+        'Creating servers and databases for functionality.',
+      ],
+      requirements: [
+        'PhD in Computer Science or related areas, such as, PhD in ML/RL/Robotics.',
+        'Advanced mathematical knowledge in a mix of following areas: convex optimization, probabilistic graphical models, reinforcement learning, stochastic processes, manifold theory and manifold alignment.',
+        'Ability to quickly grasp concepts in other theoretical areas when required.',
+      ],
+      techStack: ['Python', 'C++'],
     },
     {
       id: 3,
-      title: 'Full Stack Developer',
+      title: 'Senior NLP/LLM Engineer',
       location: 'Bhopal, Madhya Pradesh',
       type: 'Full Time',
-      experience: '2 - 3year'
+      experience: '2 - 3year',
+      description: 'The Senior NLP/LLM Engineer at Deep Eigen AI Labs will le for designing and developing advanced natural language processing and large language models (LLM). The role requires expertise in deep learning algorithms, NLP techniques, and a deep understanding of transformer-based models. This position involves cutting-edge research as well as hands-on implementation of state-of-the-art models for real-world use cases.',
+      responsibilities: [
+        'Designing and developing NLP systems and LLM architectures for complex language tasks.',
+        'Implementing, fine-tuning, and optimizing large transformer-based models.',
+        'Collaborating with cross-functional teams to deploy models in real-world applications.',
+        'Staying current with emerging research in NLP, LLM, and deep learning.',
+        'Conducting experiments and evaluations to enhance model accuracy and performance.'
+      ],
+      requirements: [
+        'Master or PhD in Computer Science.',
+        'Extensive experience in NLP and deep learning, particularly with transformer models (e.g., GPT, BERT, T5, etc.).',
+        'Strong understanding of machine learning frameworks such as TensorFlow or PyTorch.',
+        'Familiarity with modern LLM frameworks such as: HuggingFace, LLaMA.cpp, LangChain or similar tools for developing robust NLP pipelines'
+      ],
+      techStack: ['Python', 'TensorFlow', 'PyTorch', 'Hugging Face Transformers', 'NLTK / SpaCy'],
     },
-    {
-      id: 4,
-      title: 'Full Stack Developer',
-      location: 'Bhopal, Madhya Pradesh',
-      type: 'Full Time',
-      experience: '2 - 3year'
-    },
-    {
-      id: 5,
-      title: 'Full Stack Developer',
-      location: 'Bhopal, Madhya Pradesh',
-      type: 'Full Time',
-      experience: '2 - 3year'
-    }
   ];
 
   return (
@@ -59,7 +87,7 @@ export default function index() {
         </div>
 
         <div className="jobs-section">
-          <p className="open-roles">Open Roles: 5</p>
+          <p className="open-roles">Open Roles: {jobs.length}</p>
 
           <div className="jobs-list">
             {jobs.map((job) => (
@@ -74,14 +102,14 @@ export default function index() {
                       </svg>
                       <span>{job.location}</span>
                     </div>
-
+                    
                     <div className="job-meta-item">
                       <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path fillRule="evenodd" clipRule="evenodd" d="M10.0003 2.29169C7.95595 2.29169 5.9953 3.10381 4.54971 4.54941C3.10412 5.995 2.29199 7.95564 2.29199 10C2.29199 12.0444 3.10412 14.005 4.54971 15.4506C5.9953 16.8962 7.95595 17.7084 10.0003 17.7084C12.0447 17.7084 14.0053 16.8962 15.4509 15.4506C16.8965 14.005 17.7087 12.0444 17.7087 10C17.7087 7.95564 16.8965 5.995 15.4509 4.54941C14.0053 3.10381 12.0447 2.29169 10.0003 2.29169ZM1.04199 10C1.04199 5.05252 5.05283 1.04169 10.0003 1.04169C14.9478 1.04169 18.9587 5.05252 18.9587 10C18.9587 14.9475 14.9478 18.9584 10.0003 18.9584C5.05283 18.9584 1.04199 14.9475 1.04199 10ZM10.0003 6.04169C10.1661 6.04169 10.3251 6.10754 10.4423 6.22475C10.5595 6.34196 10.6253 6.50093 10.6253 6.66669V9.74169L12.5253 11.6417C12.5867 11.6989 12.636 11.7679 12.6701 11.8446C12.7043 11.9212 12.7227 12.004 12.7242 12.0879C12.7256 12.1718 12.7102 12.2552 12.6788 12.333C12.6473 12.4108 12.6005 12.4815 12.5412 12.5409C12.4818 12.6002 12.4111 12.647 12.3333 12.6785C12.2555 12.7099 12.1721 12.7253 12.0882 12.7238C12.0043 12.7224 11.9215 12.704 11.8449 12.6698C11.7682 12.6357 11.6992 12.5864 11.642 12.525L9.55866 10.4417C9.44142 10.3246 9.37547 10.1657 9.37533 10V6.66669C9.37533 6.50093 9.44117 6.34196 9.55838 6.22475C9.67559 6.10754 9.83457 6.04169 10.0003 6.04169Z" fill="#1A212F" fillOpacity="0.7"/>
                       </svg>
                       <span>{job.type}</span>
                     </div>
-
+                    
                     <div className="job-meta-item">
                       <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M13.3337 4.99999C13.3337 3.42832 13.3337 2.64332 12.8453 2.15499C12.357 1.66666 11.572 1.66666 10.0003 1.66666C8.42866 1.66666 7.64366 1.66666 7.15533 2.15499C6.66699 2.64332 6.66699 3.42832 6.66699 4.99999M1.66699 11.6667C1.66699 8.52416 1.66699 6.95249 2.64366 5.97666C3.62033 5.00082 5.19116 4.99999 8.33366 4.99999H11.667C14.8095 4.99999 16.3812 4.99999 17.357 5.97666C18.3328 6.95332 18.3337 8.52416 18.3337 11.6667C18.3337 14.8092 18.3337 16.3808 17.357 17.3567C16.3803 18.3325 14.8095 18.3333 11.667 18.3333H8.33366C5.19116 18.3333 3.61949 18.3333 2.64366 17.3567C1.66783 16.38 1.66699 14.8092 1.66699 11.6667Z" stroke="#1A212F" strokeOpacity="0.7" strokeWidth="1.25"/>
@@ -91,16 +119,65 @@ export default function index() {
                     </div>
                   </div>
                 </div>
-
+                
                 <div className="job-apply">
                   <a href="mailto:career@deepeigen.com" className="apply-button">
                     Send Resume to career@deepeigen.com
                   </a>
+                  <button
+                    className="view-desc-button"
+                    onClick={() => setSelectedJob(job)}
+                    aria-label={`View description for ${job.title}`}
+                  >
+                    View Description
+                  </button>
                 </div>
               </div>
             ))}
           </div>
         </div>
+      
+        {selectedJob && (
+          <div className="modal-overlay" onClick={() => setSelectedJob(null)}>
+            <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+              <div className="modal-header">
+                <h3>Job description:</h3>
+                <button className="modal-close" onClick={() => setSelectedJob(null)}>×</button>
+              </div>
+              <div className="modal-body">
+                <p>{selectedJob.description}</p>
+                <div className="modal-section">
+                  <h4>Responsibilities:</h4>
+                  <ul>
+                    {selectedJob.responsibilities.map((item: string, index: number) => (
+                      <li key={index}>{item}</li>
+                    ))}
+                  </ul>
+                </div>
+                <div className="modal-section">
+                  <h4>Requirements:</h4>
+                  <ul>
+                    {selectedJob.requirements.map((item: string, index: number) => (
+                      <li key={index}>{item}</li>
+                    ))}
+                  </ul>
+                </div>
+                <div className="modal-section">
+                  <h4>Tech Stack:</h4>
+                  <ul>
+                    {selectedJob.techStack.map((item: string, index: number) => (
+                      <li key={index}>{item}</li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+              <div className="modal-actions">
+                <a href="mailto:career@deepeigen.com" className="apply-button">Apply</a>
+                <button className="modal-close-secondary" onClick={() => setSelectedJob(null)}>Close</button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
