@@ -1,6 +1,7 @@
 import InstructorProfile from "./InstructorProfile"
 import SanjeevsharmaImage from "../../assets/AboutUs/Images/sanjeevLNCT.png"
-import banner_video from "../../assets/Hero/Videos/Web-Video-1.mp4"
+// import banner_video from "../../assets/Hero/Videos/Web-Video-1.mp4"
+import robo_video from "../../assets/Hero/Videos/Deep-Eigen-Website-Hero-1.mp4";
 import './styles/aboutus.css'
 import TeamSection from "../team"
 
@@ -24,7 +25,7 @@ const index = () => {
                 <div className="relative flex justify-center items-center h-[clamp(8rem,18vw,12rem)] w-full rounded-[1.25rem] overflow-hidden">
           <video
             className="absolute inset-0 w-full h-full object-cover z-0"
-            src={banner_video}
+            src={robo_video}
             autoPlay
             loop
             muted
