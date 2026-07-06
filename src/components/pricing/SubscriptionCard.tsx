@@ -194,7 +194,7 @@ const SubscriptionCard = () => {
                                 <p className="text-[15px] text-gray-700 font-[300]">Beginners, Software Engineers, Students wanting practical AI Skills</p>
                             </div>
 
-                            <div className="flex items-center mt-4 cursor-pointer gap-2">
+                            <div className="flex items-center mt-4 cursor-pointer gap-2" onClick={() => navigate("/showallcourses")}>
                                 <span className="text-sm font-semibold text-blue-700 leading-none">
                                     View Courses
                                 </span>
@@ -377,7 +377,7 @@ const SubscriptionCard = () => {
 
 
 
-                            <div className="flex items-center mt-4 cursor-pointer gap-2">
+                            <div className="flex items-center mt-4 cursor-pointer gap-2" onClick={() => navigate("/showallcourses")}>
                                 <span className="text-sm font-semibold text-blue-700 leading-none">
                                     View Courses
                                 </span>
@@ -587,7 +587,7 @@ const SubscriptionCard = () => {
                             </div>
 
 
-                            <div className="flex items-center mt-4 cursor-pointer gap-2">
+                            <div className="flex items-center mt-4 cursor-pointer gap-2" onClick={() => navigate("/showallcourses")}>
                                 <span className="text-sm font-semibold text-blue-700 leading-none">
                                     View Courses
                                 </span>

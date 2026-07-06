@@ -61,7 +61,7 @@ export default function HeroSection() {
             </div>
             <button
               className="inline-flex h-[3.25rem] items-center justify-center px-10 md:px-[4.25rem] rounded-lg bg-[#174CD2] text-white font-bold text-lg border-none cursor-pointer transition-colors duration-300 ease-in-out w-fit mx-auto md:mx-0 hover:bg-[#0e38a5]"
-              onClick={() => navigate("/showallcourses")}
+              onClick={() => navigate("/login")}
             >
               Join Now
             </button>
