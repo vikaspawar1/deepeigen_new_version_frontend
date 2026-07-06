@@ -390,7 +390,7 @@ const DiscussionForum: React.FC<DiscussionForumProps> = ({
           <div className="loading-message">Loading posts...</div>
         ) : error ? (
           <div className="error-message">
-            <p>⚠️ Failed to load posts: {error}</p>
+            <p>Failed to load posts: {error}</p>
             <button className="write-post-btn" onClick={() => window.location.reload()}>
               Retry
             </button>

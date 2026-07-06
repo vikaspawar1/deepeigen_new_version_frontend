@@ -12,7 +12,6 @@ import hero_video from "../../assets/course_videos/Hero-banner.mp4";
 import robo_video from "../../assets/Hero/Videos/Deep-Eigen-Website-Hero-1.mp4";
 
 import { useNavigate } from "react-router-dom";
-import { collapseToast } from "react-toastify";
 
 export default function HeroSection() {
   const navigate = useNavigate();
