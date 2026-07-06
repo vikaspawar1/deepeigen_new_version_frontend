@@ -29,7 +29,7 @@ export default function index() {
                 <div className="contact-text">
                   <div className="contact-label">Location</div>
                   <div className="contact-value">
-                    No. 42, Abhinav Regal Homes, Awadhpuri, Piplani, Bhopal, Madhya Pradesh - 462022
+                      Swaayatt Robots Pvt. Ltd., 2, COSMOS 67-B, near, Narmadapuram Rd, Vidya Nagar, Bhopal, Madhya Pradesh 462026
                   </div>
                 </div>
               </div>
@@ -69,13 +69,8 @@ export default function index() {
 
           <div className="contact-map">
             <div className='contact-link'>
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1833.1056239549937!2d77.49040705818524!3d23.23539866087246!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x397c419539193ad7%3A0xaf919818e21ac4c6!2sSwaayatt%20Robots%20Pvt.%20Ltd.!5e0!3m2!1sen!2sbg!4v1631000851644!5m2!1sen!2sbg"
-                frameBorder="0"
-                allowFullScreen
-                loading="lazy"
-                title="Google Map"
-              ></iframe>
+              <iframe src="https://www.google.com/maps/embed?pb=!1m17!1m11!1m3!1d238.20189516688697!2d77.45094496213558!3d23.18201230742898!2m2!1f49.62963928983274!2f44.9999999999988!3m2!1i1024!2i768!4f35!3m3!1m2!1s0x397c437714a3000f%3A0x2e9e231d55feb1b9!2sUNICORP%20SOLUTIONS%20PRIVATE%20LIMITED!5e1!3m2!1sen!2sin!4v1783328889851!5m2!1sen!2sin"
+                width="600" height="450" loading="lazy"></iframe>
             </div>
           </div>
         </div>
