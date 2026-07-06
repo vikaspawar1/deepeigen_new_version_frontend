@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 import { changePassword } from "../data/typesprofile";
 // import { spread } from "axios";
 
-export default function ChangePasswordForm({ profilePicture }: { profilePicture?: string | null }) {
+export default function ChangePasswordForm() {
   const [showCurrent, setShowCurrent] = useState(false);
   const [showNew, setShowNew] = useState(false);
   const [showReNew, setShowReNew] = useState(false);
