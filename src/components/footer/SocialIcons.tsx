@@ -1,6 +1,8 @@
 import "../landing/footer.css"
-import { FaLinkedin, FaTwitter} from "react-icons/fa"; // or any icons you prefer
-import { IoMdMail } from "react-icons/io";
+import { FaLinkedin } from "react-icons/fa"; // or any icons you prefer
+
+import insta from "../../assets/Hero/Images/instagram.svg"
+import lab from "../../assets/Hero/Images/twitter-x.svg"
 const SocialIcons = () => {
   return (
     <div className="social-icons">
@@ -11,7 +13,7 @@ const SocialIcons = () => {
         rel="noopener noreferrer"
         aria-label="Instagram"
       >
-        <IoMdMail />
+     <img src={insta} alt="" />
       </a>
       <a
         href="https://twitter.com/deepeigen"
@@ -19,7 +21,7 @@ const SocialIcons = () => {
         rel="noopener noreferrer"
         aria-label="Twitter"
       >
-        <FaTwitter />
+        <img src={lab} alt="" />
       </a>
       <a
         href="https://www.linkedin.com/company/deepeigen"

@@ -147,8 +147,8 @@ export default function HeroSection() {
 
 
               <div className="flex-1 flex flex-col items-center justify-center text-center px-4 min-h-[110px]">
-                <img src={collab} alt="" className="w-[42px] h-[42px] object-contain mb-3" />
-                <p className="text-base text-[#333] leading-[1.4] font-medium">
+                <img src={infra} alt="" className="w-[42px] h-[42px] object-contain mb-3" />
+                <p className="text-base w-[10vw] text-[#333] leading-[1.4] font-medium">
                    State-of-the-Art Research Infrastructure
                 </p>
               </div>
@@ -157,7 +157,7 @@ export default function HeroSection() {
 
 
                  <div className="flex-1 flex flex-col items-center justify-center text-center px-4 min-h-[110px]">
-                <img src={infra} alt="" className="w-[42px] h-[42px] object-contain mb-3" />
+                <img src={collab} alt="" className="w-[42px] h-[42px] object-contain mb-3" />
                 <p className="text-base text-[#333] leading-[1.4] font-medium">
                   Collaboration with Researchers
                 </p>

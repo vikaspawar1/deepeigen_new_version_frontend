@@ -88,6 +88,7 @@ const DiscussionForum: React.FC<DiscussionForumProps> = ({
   const [activeFilter] = useState('all');
   const [activeSort, setActiveSort] = useState('recent');
   const [showSortDropdown, setShowSortDropdown] = useState(false);
+  const [showSectionDropdown, setShowSectionDropdown] = useState(false);
   const [selectedSection, setSelectedSection] = useState<string>(initialSectionUrl || '');
   const [sections, setSections] = useState<ForumSectionInfo[]>([]);
 
@@ -103,6 +104,7 @@ const DiscussionForum: React.FC<DiscussionForumProps> = ({
   const [submittingReply, setSubmittingReply] = useState(false);
 
   const sortRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLDivElement>(null);
 
   const requireAuth = useCallback(() => {
     if (!isAuthenticated) {
@@ -116,6 +118,9 @@ const DiscussionForum: React.FC<DiscussionForumProps> = ({
     const handleClickOutside = (event: MouseEvent) => {
       if (sortRef.current && !sortRef.current.contains(event.target as Node)) {
         setShowSortDropdown(false);
+      }
+      if (sectionRef.current && !sectionRef.current.contains(event.target as Node)) {
+        setShowSectionDropdown(false);
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
@@ -317,21 +322,35 @@ const DiscussionForum: React.FC<DiscussionForumProps> = ({
     setPostModal(true);
   };
 
-  const renderSectionSelector = () => (
-    <div className="section-selector">
-      <select
-        value={selectedSection}
-        onChange={(e) => setSelectedSection(e.target.value)}
-        className="section-select"
-      >
-        {sections.map(section => (
-          <option key={section.url} value={section.url}>
-            {section.name}{section.question_count !== undefined ? ` (${section.question_count})` : ''}
-          </option>
-        ))}
-      </select>
-    </div>
-  );
+  const renderSectionSelector = () => {
+    const selectedSectionObj = sections.find(s => s.url === selectedSection);
+    const selectedLabel = selectedSectionObj
+      ? `${selectedSectionObj.name}${selectedSectionObj.question_count !== undefined ? ` (${selectedSectionObj.question_count})` : ''}`
+      : 'Select Section';
+
+    return (
+      <div ref={sectionRef} className={`section-dropdown ${showSectionDropdown ? 'active' : ''}`}>
+        <button className="section-btn" onClick={() => setShowSectionDropdown(v => !v)}>
+          <span>{selectedLabel}</span>
+          <ChevronDown size={15} className={`chevron-icon ${showSectionDropdown ? 'rotate-180' : ''}`} />
+        </button>
+        <div className="dropdown-content" style={{ display: showSectionDropdown ? 'block' : 'none' }}>
+          {sections.map(section => (
+            <button
+              key={section.url}
+              className={`dropdown-option-btn ${selectedSection === section.url ? 'active' : ''}`}
+              onClick={() => {
+                setSelectedSection(section.url);
+                setShowSectionDropdown(false);
+              }}
+            >
+              {section.name}{section.question_count !== undefined ? ` (${section.question_count})` : ''}
+            </button>
+          ))}
+        </div>
+      </div>
+    );
+  };
 
   const authCheck = requireAuth();
   if (authCheck) return authCheck;
@@ -359,10 +378,14 @@ const DiscussionForum: React.FC<DiscussionForumProps> = ({
           {renderSectionSelector()}
 
           <div ref={sortRef} className={`sort-dropdown ${showSortDropdown ? 'active' : ''}`}>
+
+            
             <button className="sort-btn" onClick={toggleSortDropdown}>
               <ArrowUp size={15} />
               <span>{getSortLabel()}</span>
             </button>
+
+            
             <div className="dropdown-content" style={{ display: showSortDropdown ? 'block' : 'none' }}>
               {forumData.forum.sortOptions.map((option) => (
                 <button

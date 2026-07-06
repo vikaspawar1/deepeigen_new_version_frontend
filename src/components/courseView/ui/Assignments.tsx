@@ -7,6 +7,7 @@ import type { Assignment } from '../types/courseView';
 interface AssignmentsProps {
   courseId?: number;
   courseUrl?: string;
+  playlistAssignments?: Assignment[];
 }
 
 interface AssignmentWithSubmission extends Assignment {
@@ -36,7 +37,7 @@ const setCachedSubmissionStatus = (courseId: number, assignmentId: number, submi
   }
 };
 
-const Assignments: React.FC<AssignmentsProps> = ({ courseId, courseUrl }) => {
+const Assignments: React.FC<AssignmentsProps> = ({ courseId, courseUrl, playlistAssignments }) => {
   const [assignments, setAssignments] = useState<AssignmentWithSubmission[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -46,10 +47,21 @@ const Assignments: React.FC<AssignmentsProps> = ({ courseId, courseUrl }) => {
 
   useEffect(() => {
     const fetchAssignments = async () => {
+      if (playlistAssignments) {
+        const assignmentsWithCache = playlistAssignments.map((a: AssignmentWithSubmission) => ({
+          ...a,
+          submitted: a.submitted || (a.course_id ? getCachedSubmissionStatus(a.course_id, a.id) : false)
+        }));
+        setAssignments(assignmentsWithCache);
+        setLoading(false);
+        return;
+      }
+
       if (!courseId || !courseUrl) {
         setLoading(false);
         return;
       }
+
 
       try {
         setLoading(true);

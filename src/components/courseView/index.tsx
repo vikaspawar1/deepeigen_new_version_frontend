@@ -27,7 +27,8 @@ import { useParams, useLocation } from 'react-router-dom';
 import video_c from '../../assets/Hero/Videos/drone.mp4';
 import SideBar from './ui/SideBar';
 import VideoPlayer from './ui/VideoPlayer';
-import type { Week, TabType, Lecture } from './types/courseView';
+import type { Week, TabType, Lecture, Assignment } from './types/courseView';
+
 import Overview from './ui/Overview';
 import DiscussionForum from './ui/DiscussionForum';
 import Announcements from './ui/Announcements';
@@ -94,6 +95,8 @@ const Index: React.FC = () => {
   const courseUrl = params.course_url || params.slug;
   const sectionUrl = params.section_url || params.sectionUrl;
   const courseId = courseIdStr ? parseInt(courseIdStr, 10) : undefined;
+  const playlistIdStr = params.playlistId;
+  const playlistId = playlistIdStr ? parseInt(playlistIdStr, 10) : undefined;
 
   // Get course title and image from navigation state
   const courseTitle = location.state?.courseTitle || '';
@@ -105,10 +108,11 @@ const Index: React.FC = () => {
   const [weeks, setWeeks] = useState<Week[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [playlistAssignments, setPlaylistAssignments] = useState<Assignment[] | undefined>(undefined);
 
   const [expandedWeeks, setExpandedWeeks] = useState<number[]>([]);
   const [activeTab, setActiveTab] = useState<TabType>('overview');
-  const isReady = (courseId && courseUrl && sectionUrl); // Updated readiness check
+  const isReady = (courseId && courseUrl && sectionUrl) || !!playlistId; // Updated readiness check
   const [accessibleSectionIds, setAccessibleSectionIds] = useState<Set<number> | null>(null);
   // Video player state
   const [currentLecture, setCurrentLecture] = useState<Lecture | null>(null);
@@ -124,6 +128,111 @@ const Index: React.FC = () => {
 
   useEffect(() => {
     const fetchCourseData = async () => {
+      // Handle Playlist View
+      if (playlistId) {
+        try {
+          setLoading(true);
+          setError(null);
+
+          const response = await api.get(`/customplaylist/details/${playlistId}/`);
+          const data = response.data;
+          console.log('Playlist API Response:', data);
+
+          if (data.success && data.playlist) {
+            const playlist = data.playlist;
+
+            // Set playlist assignments
+            if (playlist.include_assignments && playlist.assignments) {
+              setPlaylistAssignments(playlist.assignments);
+            }
+
+            // Transform lectures into Week format
+            const lectures = playlist.lectures || [];
+            
+            // Group lectures by course title
+            const courseGroups: { [courseTitle: string]: Lecture[] } = {};
+            lectures.forEach((lecture: any) => {
+              const courseTitle = lecture.course || "General";
+              if (!courseGroups[courseTitle]) {
+                courseGroups[courseTitle] = [];
+              }
+              courseGroups[courseTitle].push({
+                id: lecture.id,
+                title: lecture.title,
+                duration: lecture.duration || '00:00',
+                completed: false,
+                videoUrl: lecture.videoUrl || lecture.link,
+                videoId: lecture.id,
+                sectionId: playlist.id, // Mark section ID as accessible
+                course_id: lecture.course_id,
+                course_url: lecture.course_url,
+                section_url: lecture.section_url
+              });
+            });
+
+            const sections = Object.keys(courseGroups).map(courseTitle => ({
+              name: courseTitle,
+              lectures: courseGroups[courseTitle]
+            }));
+
+            const playlistWeeks: Week[] = [
+              {
+                id: 1,
+                name: playlist.title || "Custom Playlist",
+                sections: sections
+              }
+            ];
+
+            setWeeks(playlistWeeks);
+            if (playlistWeeks.length > 0) {
+              setExpandedWeeks([playlistWeeks[0].id]);
+              // Select first lecture by default
+              if (sections.length > 0 && sections[0].lectures.length > 0) {
+                const firstLecture = sections[0].lectures[0];
+                setCurrentLecture(firstLecture);
+                setCurrentVideoUrl(firstLecture.videoUrl || '');
+
+              }
+            }
+
+            // Since it is a playlist view, all its sections are accessible
+            const accessibleIds = new Set<number>();
+            accessibleIds.add(playlist.id);
+            setAccessibleSectionIds(accessibleIds);
+
+            // Mock/simulated CourseAPIResponse to prevent other sub-components from crashing
+            setCourseData({
+              success: true,
+              course: {
+                id: playlist.id,
+                title: playlist.title,
+                level: 'Custom',
+                category: 'Playlist'
+              },
+              sections: [],
+              enrolled_user: {
+                id: playlist.id,
+                enrolled: true,
+                end_at: '',
+                full_access_flag: true,
+                no_of_installments: 1
+              },
+              title: playlist.title,
+              canonical_url: ''
+            });
+
+          } else {
+            setError(data.message || 'Failed to load playlist data');
+          }
+        } catch (err) {
+          console.error('Failed to fetch playlist data:', err);
+          setError('Failed to load playlist data. Please try again.');
+        } finally {
+          setLoading(false);
+        }
+        return;
+      }
+
       // Handle Standard Course
       if (!courseId || !courseUrl) {
         setLoading(false);
@@ -133,6 +242,7 @@ const Index: React.FC = () => {
       try {
         setLoading(true);
         setError(null);
+
 
         const response = await api.get(`/courses/${courseId}/${courseUrl}/overview`);
         const data: CourseAPIResponse = response.data;
@@ -182,14 +292,14 @@ const Index: React.FC = () => {
                 sections.forEach((section: { id: number }) => {
                   accessibleIds.add(section.id);
                 });
-                console.log(`✅ Loaded ${accessibleIds.size} accessible sections`);
+                console.log(` Loaded ${accessibleIds.size} accessible sections`);
               }
               setAccessibleSectionIds(accessibleIds);
             } else {
-              console.warn('⚠️ Access API success flag is false or data is missing');
+              console.warn(' Access API success flag is false or data is missing');
             }
           } catch (accessErr) {
-            console.warn('❌ Failed to fetch access data:', accessErr);
+            console.warn(' Failed to fetch access data:', accessErr);
             // On error, we still want to keep the restricted state unless we explicitly decided otherwise
           }
 
@@ -221,7 +331,8 @@ const Index: React.FC = () => {
     };
 
     fetchCourseData();
-  }, [courseId, courseUrl]);
+  }, [courseId, courseUrl, playlistId]);
+
 
 
 
@@ -363,16 +474,16 @@ const Index: React.FC = () => {
 
     // Save video progress to backend when user clicks on a video
     const saveVideoProgress = async () => {
-      if (courseId && lecture.videoId) {
-        try {
-          // Get section ID from the current section URL
-          const sectionId = courseData?.sections?.[0]?.id || 1;
+      const targetCourseId = playlistId ? lecture.course_id : courseId;
+      const targetSectionId = playlistId ? (lecture.sectionId || 1) : (courseData?.sections?.[0]?.id || 1);
 
+      if (targetCourseId && lecture.videoId) {
+        try {
           // Send video progress update
           await api.post('/courses/save-video-progress/', {
             video_id: lecture.videoId,
-            course_id: courseId,
-            section_id: sectionId,
+            course_id: targetCourseId,
+            section_id: targetSectionId,
             completed: false,
           });
           console.log('Video progress saved for:', lecture.title);
@@ -399,7 +510,8 @@ const Index: React.FC = () => {
       setCurrentVideoUrl(video_c);
     }
     setActiveTab('overview');
-  }, [courseId, courseData]);
+  }, [courseId, playlistId, courseData]);
+
 
 
 
@@ -472,15 +584,16 @@ const Index: React.FC = () => {
 
       // Save video progress to backend with completed: true
       const markVideoCompleted = async () => {
-        if (courseId && currentLecture.videoId) {
-          try {
-            const sectionId = courseData?.sections?.[0]?.id || 1;
+        const targetCourseId = playlistId ? currentLecture.course_id : courseId;
+        const targetSectionId = playlistId ? (currentLecture.sectionId || 1) : (courseData?.sections?.[0]?.id || 1);
 
+        if (targetCourseId && currentLecture.videoId) {
+          try {
             // Send final completion status
             await api.post('/courses/save-video-progress/', {
               video_id: currentLecture.videoId,
-              course_id: courseId,
-              section_id: sectionId,
+              course_id: targetCourseId,
+              section_id: targetSectionId,
               completed: true,
             });
             console.log('Video marked as completed:', currentLecture.title);
@@ -498,7 +611,8 @@ const Index: React.FC = () => {
     if (nextLecture) {
       handleLectureClick(nextLecture);
     }
-  }, [currentLecture, courseId, courseData, findNextLecture, handleLectureClick]);
+  }, [currentLecture, courseId, playlistId, courseData, findNextLecture, handleLectureClick]);
+
 
   // Handle video progress - mark as completed when 90% watched
   // Only update progress bar, do not mark completed or switch video here
@@ -546,6 +660,13 @@ const Index: React.FC = () => {
 
     switch (activeTab) {
       case 'overview':
+        if (playlistId) {
+          if (!currentLecture?.course_id) {
+            return <div className="p-6">Select a lecture to view overview...</div>;
+          }
+          return <Overview courseId={currentLecture.course_id} courseSlug={currentLecture.course_url} isPlaylist={true} />;
+
+        }
         if (!isReady) {
           return <div>Loading overview...</div>;
         }
@@ -554,10 +675,10 @@ const Index: React.FC = () => {
       case 'forum':
         return (
           <DiscussionForum
-            courseId={courseId}
-            courseUrl={courseUrl}
-            sectionUrl={sectionUrl || 'main-lectures'}
-            sectionId={courseData?.sections[0]?.id || 1}
+            courseId={playlistId ? currentLecture?.course_id : courseId}
+            courseUrl={playlistId ? currentLecture?.course_url : courseUrl}
+            sectionUrl={playlistId ? currentLecture?.section_url : (sectionUrl || 'main-lectures')}
+            sectionId={playlistId ? (currentLecture?.sectionId || 1) : (courseData?.sections[0]?.id || 1)}
           />
         );
       case 'announcements':
@@ -565,8 +686,9 @@ const Index: React.FC = () => {
       case 'assignments':
         return (
           <Assignments
-            courseId={courseId}
-            courseUrl={courseUrl}
+            courseId={playlistId ? currentLecture?.course_id : courseId}
+            courseUrl={playlistId ? currentLecture?.course_url : courseUrl}
+            playlistAssignments={playlistAssignments}
           />
         );
       default:
@@ -577,9 +699,57 @@ const Index: React.FC = () => {
 
 
 
+
+  // if (loading) {
+  //   return (
+  //     <div className="course-view-wrapper animate-pulse">
+  //       <div className="course-view-container">
+  //         <div className="course-view-main">
+  //           <div className="course-view-header">
+  //             <div className="h-8 bg-gray-200 rounded w-1/3 my-2"></div>
+  //           </div>
+
+  //           <div className="video-section bg-gray-200 rounded-xl flex items-center justify-center min-h-[300px] md:min-h-[400px]">
+  //             <div className="w-16 h-16 bg-gray-300 rounded-full flex items-center justify-center">
+  //               <div className="w-0 h-0 border-y-8 border-y-transparent border-l-[12px] border-l-gray-400 ml-1"></div>
+  //             </div>
+  //           </div>
+
+  //           <div className="tabs-container flex gap-4 mt-6">
+  //             {[1, 2, 3, 4].map((i) => (
+  //               <div key={i} className="h-10 bg-gray-200 rounded w-24"></div>
+  //             ))}
+  //           </div>
+
+  //           <div className="mt-6 space-y-4 px-4">
+  //             <div className="h-6 bg-gray-200 rounded w-1/4"></div>
+  //             <div className="h-4 bg-gray-200 rounded w-full"></div>
+  //             <div className="h-4 bg-gray-200 rounded w-5/6"></div>
+  //             <div className="h-4 bg-gray-200 rounded w-4/5"></div>
+  //           </div>
+  //         </div>
+
+  //         <div className="course-view-sidebar">
+  //           <div className="w-full lg:w-[28vw] mr-9 lg:ml-5 lg:p-0 mb:ml-10 h-screen bg-white border-l border-gray-300 overflow-hidden">
+  //             <div className="pb-8 space-y-4 p-4">
+  //               {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((i) => (
+  //                 <div key={i} className="py-4 border-b border-gray-200 flex justify-between items-center">
+  //                   <div className="h-6 bg-gray-200 rounded w-3/4"></div>
+  //                   <div className="h-4 bg-gray-200 rounded-full w-4 h-4 ml-4 flex-shrink-0"></div>
+  //                 </div>
+  //               ))}
+  //             </div>
+  //           </div>
+  //         </div>
+  //       </div>
+  //     </div>
+  //   );
+  // }
+
   const displayTitle = courseTitle || courseData?.course?.title || 'Course';
 
   return (
+
     <div className="course-view-wrapper">
       <div className='course-view-container'>
         <div className="course-view-main">
@@ -622,6 +792,14 @@ const Index: React.FC = () => {
                   loop
                   muted
                   playsInline
+                   onTimeUpdate={(e) => {
+    const video = e.currentTarget;
+
+    if (video.currentTime >= 6) {
+      video.currentTime = 0;
+      video.play();
+    }
+  }}
                   className="w-full h-full object-cover"
                 />
               </div>

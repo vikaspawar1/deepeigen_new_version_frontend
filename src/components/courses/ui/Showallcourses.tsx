@@ -211,16 +211,16 @@ export default function Showallcourses() {
                             </span>
                         </div>
 
-                        {/* <div className="flex flex-col items-start gap-1">
-                            <span className="text-[10px] sm:text-xs text-gray-500  tracking-wider font-semibold">Foreign Fee</span>
-                            <div className="flex items-center font-bold text-base sm:text-lg">
+                        <div className="flex  gap-1">
+                            {/* <span className="text-[10px] sm:text-xs text-gray-500  tracking-wider font-semibold">Foreign Fee</span> */}
+                            <div className="flex items-center font-bold text-lg sm:text-xl">
                                 <span className="mr-0.5">$</span>
                                 <span>{course.foreign_fee ?? 0}</span>
                             </div>
                             <span className="text-[10px] sm:text-xs text-gray-400 line-through">
                                 ${(course.foreign_fee ?? 0) + 50}
                             </span>
-                        </div> */}
+                        </div>
 
                         <button
                             onClick={(e) => {

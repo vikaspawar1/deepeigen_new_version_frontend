@@ -49,8 +49,16 @@ interface CourseResponse {
 
 
 
-const Overview: React.FC = () => {
-  const { id, slug } = useParams();
+interface OverviewProps {
+  courseId?: number;
+  courseSlug?: string;
+  isPlaylist?: boolean;
+}
+
+const Overview: React.FC<OverviewProps> = ({ courseId, courseSlug, isPlaylist }) => {
+  const params = useParams();
+  const id = courseId ? String(courseId) : params.id;
+  const slug = courseSlug || params.slug;
   const [courseData, setCourseData] = useState<CourseResponse | null>(null);
   const [, setExpandedSections] = useState<number[]>([]);
   const [loading, setLoading] = useState(true);
@@ -87,6 +95,7 @@ const Overview: React.FC = () => {
 
 
 
+
   if (loading) return <p className="p-6">Loading course...</p>;
   if (error) return <p className="p-6 text-red-600">{error}</p>;
   if (!courseData) return null;
@@ -109,128 +118,131 @@ const Overview: React.FC = () => {
         </p>
       </div>
 
-      {/* ================= Course Schema ================= */}
-      <div className="mb-8">
-        <h3 className="text-xl font-semibold text-gray-900 mb-4">
-          Course Schema
-        </h3>
-
-        <div className="space-y-3">
-          {sections.map((section) => (
-            <div
-              key={section.id}
-              className="flex items-start gap-4 bg-gray-50 p-4 rounded-lg border border-gray-200"
-            >
-              <span className="font-semibold text-gray-800 min-w-[70px]">
-                {section.name}:
-              </span>
-              <span className="text-gray-900">
-                {section.title} <br />   <span className="text-sm text-gray-600">{section.estimated_time}</span>
-              </span>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* ================= Course Details ================= */}
-      <div className="mb-10">
-          <h3 className="text-xl font-semibold text-gray-900 mb-6">
-            Course Details
+      {/* ================= Course Schema - hidden in playlist mode ================= */}
+      {!isPlaylist && (
+        <div className="mb-8">
+          <h3 className="text-xl font-semibold text-gray-900 mb-4">
+            Course Schema
           </h3>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-x-12 gap-y-6">
-            {/* Instructor */}
-            <div className="flex items-start gap-4">
-              <div className="w-15 h-15 rounded-xl bg-blue-100 flex items-center justify-center">
-                <img src={instructorIcon} alt="" />
+          <div className="space-y-3">
+            {sections.map((section) => (
+              <div
+                key={section.id}
+                className="flex items-start gap-4 bg-gray-50 p-4 rounded-lg border border-gray-200"
+              >
+                <span className="font-semibold text-gray-800 min-w-[70px]">
+                  {section.name}:
+                </span>
+                <span className="text-gray-900">
+                  {section.title} <br />   <span className="text-sm text-gray-600">{section.estimated_time}</span>
+                </span>
               </div>
-              <div>
-                <p className="text-sm font-semibold text-gray-500 mb-1">
-                  Instructor
-                </p>
-                <p className="text-gray-900 font-medium">
-                  {instructors[0]?.name}
-                </p>
-              </div>
-            </div>
+            ))}
+          </div>
+        </div>
+      )}
 
-            {/* Free Videos */}
-            <div className="flex items-start gap-4">
-              <div className="w-15 h-15 rounded-xl bg-green-100 flex items-center justify-center">
-                <img src={videoIcon} alt="" />
-              </div>
-              <div>
-                <p className="text-sm font-semibold text-gray-500 mb-1">
-                  Course Type
-                </p>
-                <p className="text-gray-900 font-medium">
-                  {course.course_type}
-                </p>
-              </div>
-            </div>
+      {/* ================= Course Details - hidden in playlist mode ================= */}
+      {!isPlaylist && (
+        <div className="mb-10">
+            <h3 className="text-xl font-semibold text-gray-900 mb-6">
+              Course Details
+            </h3>
 
-            {/* Foreign Fee */}
-            <div className="flex items-start gap-4">
-              <div className="w-15 h-15 rounded-xl bg-purple-100 flex items-center justify-center">
-                <img src={foreignIcon} alt="" />
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-x-12 gap-y-6">
+              {/* Instructor */}
+              <div className="flex items-start gap-4">
+                <div className="w-15 h-15 rounded-xl bg-blue-100 flex items-center justify-center">
+                  <img src={instructorIcon} alt="" />
+                </div>
+                <div>
+                  <p className="text-sm font-semibold text-gray-500 mb-1">
+                    Instructor
+                  </p>
+                  <p className="text-gray-900 font-medium">
+                    {instructors[0]?.name}
+                  </p>
+                </div>
               </div>
-              <div>
-                <p className="text-sm font-semibold text-gray-500 mb-1">
-                  Fee (Foreign)
-                </p>
-                <p className="text-gray-900 font-medium">
-                  ${course.foreign_fee}
-                </p>
-              </div>
-            </div>
 
-            {/* India Fee */}
-            <div className="flex items-start gap-4">
-              <div className="w-15 h-15 rounded-xl bg-orange-100 flex items-center justify-center">
-                <img src={indiaIcon} alt="" />
+              {/* Free Videos */}
+              <div className="flex items-start gap-4">
+                <div className="w-15 h-15 rounded-xl bg-green-100 flex items-center justify-center">
+                  <img src={videoIcon} alt="" />
+                </div>
+                <div>
+                  <p className="text-sm font-semibold text-gray-500 mb-1">
+                    Course Type
+                  </p>
+                  <p className="text-gray-900 font-medium">
+                    {course.course_type}
+                  </p>
+                </div>
               </div>
-              <div>
-                <p className="text-sm font-semibold text-gray-500 mb-1">
-                  Fee (India)
-                </p>
-                <p className="text-gray-900 font-medium">
-                  ₹{course.indian_fee}
-                </p>
-              </div>
-            </div>
 
-            {/* Duration */}
-            <div className="flex items-start gap-4">
-              <div className="w-15 h-15 rounded-xl bg-pink-100 flex items-center justify-center">
-                <img src={offeredIcon} alt="" />
+              {/* Foreign Fee */}
+              <div className="flex items-start gap-4">
+                <div className="w-15 h-15 rounded-xl bg-purple-100 flex items-center justify-center">
+                  <img src={foreignIcon} alt="" />
+                </div>
+                <div>
+                  <p className="text-sm font-semibold text-gray-500 mb-1">
+                    Fee (Foreign)
+                  </p>
+                  <p className="text-gray-900 font-medium">
+                    ${course.foreign_fee}
+                  </p>
+                </div>
               </div>
-              <div>
-                <p className="text-sm font-semibold text-gray-500 mb-1">
-                  Duration
-                </p>
-                <p className="text-gray-900 font-medium">
-                  {course.duration} Weeks
-                </p>
-              </div>
-            </div>
 
-            {/* Level */}
-            <div className="flex items-start gap-4">
-              <div className="w-15 h-15 rounded-xl bg-yellow-100 flex items-center justify-center">
-                <img src={eggIcon} alt="" />
+              {/* India Fee */}
+              <div className="flex items-start gap-4">
+                <div className="w-15 h-15 rounded-xl bg-orange-100 flex items-center justify-center">
+                  <img src={indiaIcon} alt="" />
+                </div>
+                <div>
+                  <p className="text-sm font-semibold text-gray-500 mb-1">
+                    Fee (India)
+                  </p>
+                  <p className="text-gray-900 font-medium">
+                    ₹{course.indian_fee}
+                  </p>
+                </div>
               </div>
-              <div>
-                <p className="text-sm font-semibold text-gray-500 mb-1">
-                  Level
-                </p>
-                <p className="text-gray-900 font-medium">
-                  {course.level}
-                </p>
+
+              {/* Duration */}
+              <div className="flex items-start gap-4">
+                <div className="w-15 h-15 rounded-xl bg-pink-100 flex items-center justify-center">
+                  <img src={offeredIcon} alt="" />
+                </div>
+                <div>
+                  <p className="text-sm font-semibold text-gray-500 mb-1">
+                    Duration
+                  </p>
+                  <p className="text-gray-900 font-medium">
+                    {course.duration} Weeks
+                  </p>
+                </div>
+              </div>
+
+              {/* Level */}
+              <div className="flex items-start gap-4">
+                <div className="w-15 h-15 rounded-xl bg-yellow-100 flex items-center justify-center">
+                  <img src={eggIcon} alt="" />
+                </div>
+                <div>
+                  <p className="text-sm font-semibold text-gray-500 mb-1">
+                    Level
+                  </p>
+                  <p className="text-gray-900 font-medium">
+                    {course.level}
+                  </p>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      
+        )}
 
       {/* ================= Need Help ================= */}
       <div className="border border-gray-200 rounded-xl px-6 mb-10 py-5">
@@ -246,3 +258,4 @@ const Overview: React.FC = () => {
 };
 
 export default Overview;
+

@@ -4,6 +4,8 @@ import { toast } from "react-toastify";
 import api from "../../lib/api";
 import { useAppSelector } from "../../redux/hooks";
 import { selectIsAuthenticated, selectIsAdmin } from "../../redux/slices/auth";
+import { getCourseVideo } from "../courses/utils/courseVideos";
+
 
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -586,9 +588,13 @@ export default function MakePlaylist() {
                   >
                     {/* Course image or category badge */}
                     {course.course_image ? (
-                      <img
-                        src={`${api.defaults.baseURL}${course.course_image}`}
-                        alt={course.title}
+                      <video
+                        src={getCourseVideo(course.title)}
+                        poster={`${api.defaults.baseURL}${course.course_image}`}
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
                         className="w-20 md:w-32 h-16 md:h-[5.625rem] rounded-md object-cover shrink-0"
                       />
                     ) : (

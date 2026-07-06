@@ -31,7 +31,11 @@ export interface Lecture {
     videoUrl?: string;
     videoId?: number;
     sectionId?: number; // Store the parent section ID for access control
+    course_id?: number;
+    course_url?: string;
+    section_url?: string;
 }
+
 
 export interface FormattedSection {
     name: string;

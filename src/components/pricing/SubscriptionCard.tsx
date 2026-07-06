@@ -50,6 +50,8 @@ const SubscriptionCard = () => {
     const basic = pricingData[active]?.basic || {};
     const standard = pricingData[active]?.standard || {};
     const premium = pricingData[active]?.premium || {};
+    const periodLabel = active === "Monthly" ? "/month" : active === "Quarterly" ? "/quarter" : "/year";
+
 
     return (
         <div className="Pricing-card-wrapper">
@@ -80,13 +82,13 @@ const SubscriptionCard = () => {
                             <div className="price-group">
                                 <span className="currency">₹</span>
                                 <span className="price-large">{basic.inr}</span>
-                                <span className="price-period">/year</span>
+                                <span className="price-period">{periodLabel}</span>
                             </div>
                             <div className="price-divider"></div>
                             <div className="price-group">
                                 <span className="currency-small">$</span>
                                 <span className="price-medium">{basic.usd}</span>
-                                <span className="price-period-small">/year</span>
+                                <span className="price-period-small">{periodLabel}</span>
                             </div>
                         </div>
 
@@ -244,13 +246,13 @@ const SubscriptionCard = () => {
                             <div className="price-group">
                                 <span className="currency">₹</span>
                                 <span className="price-large">{standard.inr}</span>
-                                <span className="price-period">/year</span>
+                                <span className="price-period">{periodLabel}</span>
                             </div>
                             <div className="price-divider"></div>
                             <div className="price-group">
                                 <span className="currency-small">$</span>
                                 <span className="price-medium">{standard.usd}</span>
-                                <span className="price-period-small">/year</span>
+                                <span className="price-period-small">{periodLabel}</span>
                             </div>
                         </div>
 
@@ -424,14 +426,14 @@ const SubscriptionCard = () => {
                                 <span className="currency">₹</span>
                                 <span className="price-large">{premium.inr}</span>
                                 {/* <span className="price-strikethrough">₹9,999</span> */}
-                                <span className="price-period">/year</span>
+                                <span className="price-period">{periodLabel}</span>
                             </div>
                             <div className="price-divider"></div>
                             <div className="price-group">
                                 <span className="currency-small">$</span>
                                 <span className="price-medium">{premium.usd}</span>
                                 {/* <span className="price-strikethrough-small">$75</span> */}
-                                <span className="price-period-small">/year</span>
+                                <span className="price-period-small">{periodLabel}</span>
                             </div>
                         </div>
 

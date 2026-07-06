@@ -86,7 +86,7 @@ const SideBar: React.FC<SideBarProps> = ({
     return (
         <div className="sidebar-container">
             <div className="desktop-sidebar ">
-                <div className="w-full lg:w-[28vw] overflow-y-auto scrollbar-none mr-9 lg:ml-5 lg:p-0 mb:ml-10 h-auto bg-white border-l border-gray-300   overflow-hidden">
+                <div className="w-full lg:w-[28vw] overflow-y-auto scrollbar-none mr-9 lg:ml-5 lg:p-0 mb:ml-10 h-screen bg-white border-l border-gray-300   overflow-hidden">
                     <div className="pb-8">
                         {weeks.map((week) => {
                             return (

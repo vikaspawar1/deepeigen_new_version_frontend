@@ -41,13 +41,28 @@ interface VideoPlayerProps {
     autoPlay?: boolean;
 }
 
-const isVimeoEmbedUrl = (url: string): boolean => {
-    return /player\.vimeo\.com\/video\/\d+/.test(url);
+const isVimeoUrl = (url: string): boolean => {
+    return /(?:vimeo\.com)\/(?:video\/|channels\/\S+\/|groups\/[^\/]*\/videos\/|)(\d+)/.test(url) ||
+           /player\.vimeo\.com\/video\/\d+/.test(url);
 };
 
-// Helper function to extract video ID from Vimeo URL
+// Helper function to extract video ID from any Vimeo URL format
 const getVimeoVideoId = (url: string): string | null => {
-    const match = url.match(/player\.vimeo\.com\/video\/(\d+)/);
+    // Match player embed URL: player.vimeo.com/video/123
+    const embedMatch = url.match(/player\.vimeo\.com\/video\/(\d+)/);
+    if (embedMatch) return embedMatch[1];
+    // Match regular vimeo.com URLs: vimeo.com/123 or vimeo.com/video/123 etc.
+    const regularMatch = url.match(/vimeo\.com\/(?:video\/|channels\/\S+\/|groups\/[^\/]*\/videos\/|)(\d+)/);
+    return regularMatch ? regularMatch[1] : null;
+};
+
+// YouTube URL detection
+const isYouTubeUrl = (url: string): boolean => {
+    return /(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/.test(url);
+};
+
+const getYouTubeVideoId = (url: string): string | null => {
+    const match = url.match(/(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
     return match ? match[1] : null;
 };
 
@@ -82,51 +97,61 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
     const [showSettings, setShowSettings] = useState(false);
     const [buffered, setBuffered] = useState(0);
     const [isVimeo, setIsVimeo] = useState(false);
+    const [isYouTube, setIsYouTube] = useState(false);
     const [vimeoVideoId, setVimeoVideoId] = useState<string | null>(null);
+    const [youtubeVideoId, setYoutubeVideoId] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(true);
     const hasEndedRef = useRef(false);
 
     const controlsTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
     const vimeoPlayerRef = useRef<any>(null);
     const vimeoIframeRef = useRef<HTMLIFrameElement>(null);
-
+    const youtubeIframeRef = useRef<HTMLIFrameElement>(null);
 
 
     // Reset loading state and ended flag when src changes
     useEffect(() => {
-        // Reset state for new video
         setIsLoading(true);
         setCurrentTime(0);
         setDuration(0);
         hasEndedRef.current = false;
-        setIsPlaying(false); // Reset playing state
+        setIsPlaying(false);
 
-        if (isVimeoEmbedUrl(src)) {
+        const isVimeoSrc = isVimeoUrl(src);
+        const isYouTubeSrc = isYouTubeUrl(src);
+
+        if (isVimeoSrc) {
             const videoId = getVimeoVideoId(src);
             setIsVimeo(true);
+            setIsYouTube(false);
             setVimeoVideoId(videoId);
+            setYoutubeVideoId(null);
+        } else if (isYouTubeSrc) {
+            const videoId = getYouTubeVideoId(src);
+            setIsYouTube(true);
+            setIsVimeo(false);
+            setYoutubeVideoId(videoId);
+            setVimeoVideoId(null);
         } else {
             setIsVimeo(false);
+            setIsYouTube(false);
             setVimeoVideoId(null);
+            setYoutubeVideoId(null);
         }
 
-        // Auto-play video when src changes (for lecture switching)
-        // We need to wait for the video to be ready
-        if (!isVimeo && videoRef.current) {
+        // Auto-play native video (not Vimeo or YouTube) when src changes
+        if (!isVimeoSrc && !isYouTubeSrc && videoRef.current) {
             const video = videoRef.current;
-            // Reset video element
             video.currentTime = 0;
             video.muted = false;
             setIsMuted(false);
-            // Try to play when video is ready
+
             const tryPlay = () => {
                 if (video) {
                     const playPromise = video.play();
                     if (playPromise !== undefined) {
                         playPromise
-                            .then(() => {
-                                setIsPlaying(true);
-                            })
+                            .then(() => setIsPlaying(true))
                             .catch((err) => {
                                 setIsPlaying(false);
                                 console.log('Auto-play prevented:', err.message);
@@ -134,11 +159,10 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
                     }
                 }
             };
-            // If video is already loaded enough, try to play
+
             if (video.readyState >= 2) {
                 tryPlay();
             } else {
-                // Wait for canplay event
                 const handleCanPlay = () => {
                     tryPlay();
                     video.removeEventListener('canplay', handleCanPlay);
@@ -146,13 +170,14 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
                 video.addEventListener('canplay', handleCanPlay);
             }
         }
-    }, [src, autoPlay]);
+    }, [src]);
+
+
 
 
     // Setup Vimeo player progress tracking
     useEffect(() => {
         if (isVimeo && vimeoVideoId) {
-            // Dynamically load Vimeo Player SDK
             const loadVimeoSDK = async () => {
                 if ((window as any).Vimeo && vimeoIframeRef.current) {
                     try {
@@ -162,6 +187,8 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
                         });
 
                         vimeoPlayerRef.current = player;
+
+                        player.on('loaded', () => setIsLoading(false));
 
                         player.on('progress', (data: { percent: number }) => {
                             const progressPercent = data.percent * 100;
@@ -177,7 +204,6 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
                 }
             };
 
-            // Load Vimeo SDK script if not already loaded
             if (!(window as any).Vimeo) {
                 const script = document.createElement('script');
                 script.src = 'https://player.vimeo.com/api/player.js';
@@ -196,8 +222,6 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
             }
         };
     }, [isVimeo, vimeoVideoId, onProgress, onEnded]);
-
-
 
 
     // Format time as MM:SS
@@ -447,12 +471,25 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
             {isVimeo && vimeoVideoId ? (
                 <iframe
                     ref={vimeoIframeRef}
-                    src={`https://player.vimeo.com/video/${vimeoVideoId}?autoplay=1`}
+                    src={`https://player.vimeo.com/video/${vimeoVideoId}?autoplay=1&title=0&byline=0&portrait=0`}
                     className="w-full h-full"
                     frameBorder="0"
                     allow="autoplay; fullscreen; picture-in-picture"
                     allowFullScreen
                     title={title}
+                    onLoad={() => setIsLoading(false)}
+                />
+            ) : isYouTube && youtubeVideoId ? (
+                /* YouTube Video - Iframe */
+                <iframe
+                    ref={youtubeIframeRef}
+                    src={`https://www.youtube.com/embed/${youtubeVideoId}?autoplay=1&rel=0&modestbranding=1`}
+                    className="w-full h-full"
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    title={title}
+                    onLoad={() => setIsLoading(false)}
                 />
             ) : (
                 /* Native Video Element */
@@ -478,8 +515,8 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
                 </video>
             )}
 
-            {/* Big Play Button Overlay - Only for native video */}
-            {!isPlaying && !isVimeo && (
+            {/* Big Play Button Overlay - Only for native video (not Vimeo or YouTube) */}
+            {!isPlaying && !isVimeo && !isYouTube && (
                 <div
                     className="absolute inset-0 flex items-center justify-center bg-black/30 cursor-pointer"
                     onClick={() => {
@@ -495,7 +532,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
 
             {/* Loading Spinner Overlay */}
             {isLoading && !isVimeo && (
-                <div className="absolute inset-0 flex items-center justify-center bg-black/50 z-10">
+                <div className="absolute inset-0 flex items-center justify-center bg-black/0 z-10">
                     <div className="w-16 h-16 border-4 border-white/30 border-t-white rounded-full animate-spin"></div>
                 </div>
             )}

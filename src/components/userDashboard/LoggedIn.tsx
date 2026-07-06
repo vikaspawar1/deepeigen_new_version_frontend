@@ -34,7 +34,9 @@ export default function LoggedIn() {
     }
   });
   const [loading, setLoading] = useState(true);
+  const [playlistLoading, setPlaylistLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
 
   const [activeSection, setActiveSection] = useState<SectionType>("courses");
   const [indicatorStyle, setIndicatorStyle] = useState({ left: 0, width: 0 });
@@ -89,6 +91,7 @@ export default function LoggedIn() {
 
         let playlistsData = null;
         try {
+          setPlaylistLoading(true);
           // Fetch default/section-based playlists
           const playlistsResponse = await api.get("/accounts/playlists/");
           playlistsData = playlistsResponse.data;
@@ -103,6 +106,8 @@ export default function LoggedIn() {
           customPlaylistsData = customPlaylistsResponse.data;
         } catch (err) {
           console.warn("Failed to fetch custom playlists:", err);
+        } finally {
+          setPlaylistLoading(false);
         }
 
         // Fetch certificates data
@@ -656,15 +661,22 @@ export default function LoggedIn() {
                     <div key={course.id} className="border border-[#1a212f]/24 rounded-xl overflow-hidden hover:shadow-lg transition">
                       {/* Course Image */}
                       <div className="h-62 bg-gray-300 relative overflow-hidden">
-                        <video
-                          src={getCourseVideo(course.title)}
-                          poster={course.image}
-                          autoPlay
-                          loop
-                          muted
-                          playsInline
-                          className="w-full h-full object-cover"
-                        />
+                   <video
+  src={getCourseVideo(course.title)}
+  poster={course.image}
+  autoPlay
+  muted
+  playsInline
+  onTimeUpdate={(e) => {
+    const video = e.currentTarget;
+
+    if (video.currentTime >= 6) {
+      video.currentTime = 0;
+      video.play();
+    }
+  }}
+  className="w-full h-full object-cover"
+/>
                         <div className="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 hover:opacity-100 transition">
                           <button
                             onClick={() => {
@@ -889,6 +901,10 @@ export default function LoggedIn() {
               </>
             )}
 
+
+
+            
+
             {/* Playlist Section */}
             {activeSection === "playlist" && (
               <div>
@@ -907,53 +923,83 @@ export default function LoggedIn() {
                   </button>
                 </div>
 
-                {/* Playlist Cards */}
-                <div className="space-y-4">
-                  {data.playlists.map((playlist) => (
-                    <div
-                      key={playlist.id}
-                      onClick={() => {
-                        if (playlist.isCustom) {
-                          navigate(`/playlist-view/${playlist.originalId}`, {
-                            state: {
-                              courseTitle: playlist.title,
-                              returnTo: "/user_dashboard",
-                              activeSection: "playlist"
-                            }
-                          });
-                        }
-                        // Add navigation for section playlists if needed
-                      }}
-                      className="border border-gray-300 rounded-xl px-6 py-4 hover:shadow-sm transition cursor-pointer"
-                    >
-                      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
-                        <div className="flex items-center gap-3">
-                          <div className="w-9 h-9 flex items-center justify-center">
-                            <img src={paylistimg} alt="" />
+                {/* Playlist Cards — Skeleton while loading */}
+                {playlistLoading ? (
+                  <div className="space-y-4">
+                    {[1, 2, 3, 4].map((i) => (
+                      <div
+                        key={i}
+                        className="border border-gray-200 rounded-xl px-6 py-4 animate-pulse"
+                      >
+                        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+                          <div className="flex items-center gap-3">
+                            <div className="w-9 h-9 bg-gray-200 rounded-full flex-shrink-0" />
+                            <div className="h-4 bg-gray-200 rounded w-48" />
                           </div>
-                          <h3 className="text-sm font-medium text-gray-900 flex items-center gap-2">
-                            {playlist.title}
-                            {playlist.isCustom && (
-                              <span className="px-1.5 py-0.5 bg-blue-100 text-blue-600 text-[10px] rounded-md font-bold uppercase tracking-wider">
-                                Custom
-                              </span>
-                            )}
-                          </h3>
-                        </div>
-                        <div className="hidden md:flex items-center text-sm text-gray-500 gap-4">
-                          <span>{playlist.lectures} Lectures</span>
-                          <span className="text-gray-300">|</span>
-                          <span>{playlist.assignments} Assignments</span>
-                        </div>
-                        <div className="flex md:hidden items-center text-sm text-gray-500 gap-3 pl-12">
-                          <span>{playlist.lectures} Lectures</span>
-                          <span className="text-gray-300">|</span>
-                          <span>{playlist.assignments} Assignments</span>
+                          <div className="hidden md:flex items-center gap-4">
+                            <div className="h-3 bg-gray-200 rounded w-20" />
+                            <div className="h-3 bg-gray-200 rounded w-24" />
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  ))}
-                </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="space-y-4">
+                    {data.playlists.length === 0 ? (
+                      <div className="flex flex-col items-center justify-center py-16 text-center">
+                        <img src={paylistimg} alt="" className="w-14 h-14 opacity-30 mb-4" />
+                        <p className="text-gray-500 text-base font-medium">No playlists yet</p>
+                        <p className="text-gray-400 text-sm mt-1">Create your first custom playlist to get started.</p>
+                      </div>
+                    ) : (
+                      data.playlists.map((playlist) => (
+                        <div
+                          key={playlist.id}
+                          onClick={() => {
+                            if (playlist.isCustom) {
+                              navigate(`/playlist-view/${playlist.originalId}`, {
+                                state: {
+                                  courseTitle: playlist.title,
+                                  returnTo: "/user_dashboard",
+                                  activeSection: "playlist"
+                                }
+                              });
+                            }
+                            // Add navigation for section playlists if needed
+                          }}
+                          className="border border-gray-300 rounded-xl px-6 py-4 hover:shadow-sm transition cursor-pointer"
+                        >
+                          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+                            <div className="flex items-center gap-3">
+                              <div className="w-9 h-9 flex items-center justify-center">
+                                <img src={paylistimg} alt="" />
+                              </div>
+                              <h3 className="text-sm font-medium text-gray-900 flex items-center gap-2">
+                                {playlist.title}
+                                {playlist.isCustom && (
+                                  <span className="px-1.5 py-0.5 bg-blue-100 text-blue-600 text-[10px] rounded-md font-bold uppercase tracking-wider">
+                                    Custom
+                                  </span>
+                                )}
+                              </h3>
+                            </div>
+                            <div className="hidden md:flex items-center text-sm text-gray-500 gap-4">
+                              <span>{playlist.lectures} Lectures</span>
+                              <span className="text-gray-300">|</span>
+                              <span>{playlist.assignments} Assignments</span>
+                            </div>
+                            <div className="flex md:hidden items-center text-sm text-gray-500 gap-3 pl-12">
+                              <span>{playlist.lectures} Lectures</span>
+                              <span className="text-gray-300">|</span>
+                              <span>{playlist.assignments} Assignments</span>
+                            </div>
+                          </div>
+                        </div>
+                      ))
+                    )}
+                  </div>
+                )}
               </div>
             )}
 
