@@ -130,13 +130,14 @@ export default function AccountLayout() {
                         {/* Profile */}
                         <button
                             onClick={() => handleSectionClick("profile")}
-                            className={`flex items-center cursor-pointer gap-3 px-4 lg:px-10 py-4 lg:py-5 w-full ${activeSection === "profile" ? "bg-[rgba(23,76,210,0.06)]" : "hover:bg-gray-50"}`}
+                            className={`flex items-center cursor-pointer gap-3 px-4 lg:px-10 py-4 lg:py-5 w-full 
+                                ${activeSection === "profile" ? "bg-[rgba(23,76,210,0.06)]" : "hover:bg-gray-50"}`}
                         >
                             <svg
                                 className={
                                     activeSection === "profile"
                                         ? "text-[#174CD2]"
-                                        : "text-[#1A212F]"
+                                        : "text-[rgba(26,33,47,0.7)]"
                                 }
                                 width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M10.0013 8.33317C11.8423 8.33317 13.3346 6.84079 13.3346 4.99984C13.3346 3.15889 11.8423 1.6665 10.0013 1.6665C8.16035 1.6665 6.66797 
@@ -164,7 +165,7 @@ export default function AccountLayout() {
 
 
 
-                            <span className={`flex-1 text-left font-semibold text-base ${activeSection === "profile" ? "text-[#174CD2]" : "text-[#1A212F]"}`}>
+                            <span className={`flex-1 text-left font-semibold text-base ${activeSection === "profile" ? "text-[#174CD2]" : "text-[rgba(26,33,47,0.7)]"}`}>
                                 Profile
                             </span>
 
@@ -185,7 +186,7 @@ export default function AccountLayout() {
                                 className={
                                     activeSection === "billing"
                                         ? "text-[#174CD2]"
-                                        : "text-[#1A212F]"
+                                        : "text-[rgba(26,33,47,0.7)]"
                                 }
                                 width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"
                             >
@@ -198,7 +199,7 @@ export default function AccountLayout() {
                                 />
                             </svg>
 
-                            <span className={`flex-1 text-left font-semibold text-base ${activeSection === "billing" ? "text-[#174CD2]" : "text-[#1A212F]"}`}>
+                            <span className={`flex-1 text-left font-semibold text-base ${activeSection === "billing" ? "text-[#174CD2]" : "text-[rgba(26,33,47,0.7)]"}`}>
                                 Billing and Invoices
                             </span>
                         </button>
@@ -217,7 +218,7 @@ export default function AccountLayout() {
                                 className={
                                     activeSection === "settings"
                                         ? "text-[#174CD2]"
-                                        : "text-[#1A212F]"
+                                        : "text-[rgba(26,33,47,0.7)]"
                                 }
                                 width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M7.91602 11.6668C8.57906 11.6668 9.21494 11.9302 9.68378 12.3991C10.1526 12.8679 10.416 13.5038 10.416 14.1668C10.416 14.8299 10.1526 15.4658 9.68378 15.9346C9.21494 16.4034 8.57906 16.6668 7.91602 16.6668C7.25297 16.6668 6.61709 16.4034 6.14825 15.9346C5.67941 15.4658 5.41602 14.8299 5.41602 14.1668C5.41602 13.5038 5.67941 12.8679 6.14825 12.3991C6.61709 11.9302 7.25297 11.6668 7.91602 11.6668ZM12.0827 3.3335C11.7544 3.3335 11.4293 3.39816 11.126 3.5238C10.8227 3.64943 10.5471 3.83358 10.3149 4.06573C10.0828 4.29788 9.89862 4.57347 9.77298 4.87679C9.64735 5.1801 9.58268 5.50519 9.58268 5.8335C9.58268 6.1618 9.64735 6.48689 9.77298 6.7902C9.89862 7.09352 10.0828 7.36912 10.3149 7.60126C10.5471 7.83341 10.8227 8.01756 11.126 8.1432C11.4293 8.26883 11.7544 8.3335 12.0827 8.3335C12.7457 8.3335 13.3816 8.0701 13.8504 7.60126C14.3193 7.13242 14.5827 6.49654 14.5827 5.8335C14.5827 5.17045 14.3193 4.53457 13.8504 4.06573C13.3816 3.59689 12.7457 3.3335 12.0827 3.3335Z" stroke="currentColor" stroke-opacity="0.7" stroke-width="1.25" strokeOpacity={activeSection === "settings" ? "1" : "0.7"} />
@@ -230,7 +231,7 @@ export default function AccountLayout() {
                             </svg>
 
 
-                            <span className={`flex-1 text-left font-semibold text-base ${activeSection === "settings" ? "text-[#174CD2]" : "text-[#1A212F]"}`}>
+                            <span className={`flex-1 text-left font-semibold text-base ${activeSection === "settings" ? "text-[#174CD2]" : "text-[rgba(26,33,47,0.7)]"}`}>
                                 Settings
                             </span>
                         </button>
