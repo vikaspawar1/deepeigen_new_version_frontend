@@ -647,6 +647,17 @@ export default function BillingAndInvoices({ billingData }: BillingAndInvoicesPr
     }
   };
 
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center ">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#174cd2] mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-col gap-4 w-full max-w-[71vw]
       sm:gap-6 lg:gap-8 py-8 sm:py-10 lg:py-12 flex-1 overflow-x-hidden">

@@ -13,38 +13,53 @@ const SubscriptionCard = () => {
         Quarterly: {},
         Yearly: {},
     });
+
+
+    const [loading, setLoading] = useState(true);
+
     const [active, setActive] = useState<string>("Yearly");
     const navigate = useNavigate();
     const isAuthenticated = useAppSelector(selectIsAuthenticated);
     const isAdmin = useAppSelector(selectIsAdmin);
 
-    useEffect(() => {
-        api.get("subscriptions/plans/")
-            .then(res => {
-                const plans = res.data.plans;
-                const formatted: any = {
-                    Monthly: {},
-                    Quarterly: {},
-                    Yearly: {},
+ useEffect(() => {
+    setLoading(true);
+
+    api.get("subscriptions/plans/")
+        .then((res) => {
+            const plans = res.data.plans;
+
+            const formatted: any = {
+                Monthly: {},
+                Quarterly: {},
+                Yearly: {},
+            };
+
+            plans.forEach((plan: any) => {
+                let durationKey = "";
+
+                if (plan.duration === "MONTHLY") durationKey = "Monthly";
+                if (plan.duration === "FOUR_MONTH") durationKey = "Quarterly";
+                if (plan.duration === "YEARLY") durationKey = "Yearly";
+
+                const planKey = plan.plan_type.toLowerCase();
+
+                formatted[durationKey][planKey] = {
+                    inr: plan.indian_price,
+                    usd: plan.foreign_price,
+                    is_active: plan.is_currently_active,
                 };
-                plans.forEach((plan: any) => {
-                    let durationKey = "";
-                    if (plan.duration === "MONTHLY") durationKey = "Monthly";
-                    if (plan.duration === "FOUR_MONTH") durationKey = "Quarterly";
-                    if (plan.duration === "YEARLY") durationKey = "Yearly";
-                    const planKey = plan.plan_type.toLowerCase();
-                    formatted[durationKey][planKey] = {
-                        inr: plan.indian_price,
-                        usd: plan.foreign_price,
-                        is_active: plan.is_currently_active,
-                    };
-                });
-                setPricingData(formatted);
-            })
-            .catch(err => {
-                console.error(err);
             });
-    }, []);
+
+            setPricingData(formatted);
+        })
+        .catch((err) => {
+            console.error(err);
+        })
+        .finally(() => {
+            setLoading(false);
+        });
+}, []);
 
     const tabs = Object.keys(pricingData).filter((k): k is string => typeof k === "string");
     const basic = pricingData[active]?.basic || {};
@@ -52,6 +67,19 @@ const SubscriptionCard = () => {
     const premium = pricingData[active]?.premium || {};
     const periodLabel = active === "Monthly" ? "/month" : active === "Quarterly" ? "/quarter" : "/year";
 
+if (loading) {
+    return (
+        <div className="min-h-screen flex items-center mt-[-160px] justify-center ">
+            <div className="text-center">
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#174cd2] mx-auto mb-4"></div>
+
+                <p className="text-gray-600  ">
+                    Loading subscription plans...
+                </p>
+            </div>
+        </div>
+    );
+}
 
     return (
         <div className="Pricing-card-wrapper">

@@ -4,6 +4,7 @@ import api from "../../lib/api"
 import { useAppSelector } from "../../redux/hooks"
 import { selectUser, selectIsAdmin } from "../../redux/slices/auth"
 import { toast } from "react-toastify"
+import Loader from "../ui/Loader"
 
 declare global {
   interface Window {
@@ -19,33 +20,52 @@ interface Lecture {
   purchased?: boolean
 }
 
+const normalizeDuration = (dur: string) => {
+  if (!dur) return "Yearly";
+  const d = dur.toLowerCase();
+  if (d.includes("month") && !d.includes("6")) return "Monthly";
+  if (d.includes("quarter") || d.includes("6") || d.includes("four")) return "Quarterly";
+  if (d.includes("year") || d.includes("1 year")) return "Yearly";
+  return dur.charAt(0).toUpperCase() + dur.slice(1);
+};
+
+const durationOptions = [
+  { value: "Monthly", label: "1 Month" },
+  { value: "Quarterly", label: "6 Months" },
+  { value: "Yearly", label: "1 Year" }
+];
+
 function ChoosePlanStandard() {
-  const [searchParams] = useSearchParams()
+  const [searchParams, setSearchParams] = useSearchParams()
   const location = useLocation()
   const state = location.state as { planName?: string, subtitle?: string, priceInr?: number, priceUsd?: number, duration?: string } | null
 
   const planParam = searchParams.get("plan") || state?.planName?.toLowerCase() || "standard"
   const durationParam = searchParams.get("duration") || state?.duration || "Yearly"
 
+  const [selectedDuration, setSelectedDuration] = useState(() => normalizeDuration(durationParam))
+
   const user = useAppSelector(selectUser)
   const isAdmin = useAppSelector(selectIsAdmin)
   const navigate = useNavigate()
 
-  const [loading, setLoading] = useState(true)
+  const [pageLoading, setPageLoading] = useState(true);
+  const [paymentLoading, setPaymentLoading] = useState(false);
+
   const [planData, setPlanData] = useState<any>(null)
 
   useEffect(() => {
     const fetchPlanDetails = async () => {
       try {
-        setLoading(true)
-        const { data, status } = await api.get(`subscriptions/plan-details/${planParam}/${durationParam}/`)
+        setPageLoading(true)
+        const { data, status } = await api.get(`subscriptions/plan-details/${planParam}/${selectedDuration}/`)
         if (status === 200 && data.success) {
           setPlanData(data)
         }
       } catch (err) {
         console.error("Failed to fetch plan details:", err)
       } finally {
-        setLoading(false)
+        setPageLoading(false)
       }
     }
 
@@ -55,7 +75,7 @@ function ChoosePlanStandard() {
     }
 
     fetchPlanDetails()
-  }, [planParam, durationParam])
+  }, [planParam, selectedDuration])
 
   const lectures: Lecture[] = planData ? [
     ...planData.courses.map((c: any) => ({
@@ -88,7 +108,7 @@ function ChoosePlanStandard() {
       return;
     }
 
-    setLoading(true);
+    setPaymentLoading(true);
 
     try {
       // 1. Place order
@@ -113,7 +133,7 @@ function ChoosePlanStandard() {
       const orderNumber = orderData.order.order_number;
 
       const options = {
-        key: "rzp_test_SC3habFpUn2zel", // Should use environment variable in production
+        key: "rzp_test_SC3habFpUn2zel", 
         amount: razorpayOptions.amount,
         currency: razorpayOptions.currency,
         name: "Deep Eigen",
@@ -160,12 +180,29 @@ function ChoosePlanStandard() {
       console.error("Payment error:", err);
       toast.error(err.message || "An error occurred while initiating payment.");
     } finally {
-      setLoading(false);
+      setPaymentLoading(false);
     }
   };
 
-  if (loading && !state) {
-    return <div className="min-h-screen flex items-center justify-center font-bricolage bg-[#e9effb]">Loading...</div>
+  if (pageLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-100">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#174cd2] mx-auto mb-4"></div>
+            <p className="text-gray-600">Loading...</p>
+          </div>
+        </div>
+    )
+  }
+
+  const getFriendlyDuration = () => {
+    const rawDuration = planData?.duration || selectedDuration
+    if (!rawDuration) return ""
+    const d = rawDuration.toUpperCase()
+    if (d === "MONTHLY" || d === "1 MONTH") return "1 Month"
+    if (d === "FOUR_MONTH" || d === "QUARTERLY" || d === "6 MONTHS") return "6 Months"
+    if (d === "YEARLY" || d === "1 YEAR") return "1 Year"
+    return rawDuration
   }
 
   const displayName = planData?.plan || state?.planName || "Standard"
@@ -176,7 +213,9 @@ function ChoosePlanStandard() {
   const displayTotal = planData ? planData.plan_price : (isIndia ? state?.priceInr : state?.priceUsd) || 0
 
   return (
-    <div className=" font-bricolage  max-w-full sm:max-w-[84vw] md:max-w-[90vw] lg:max-w-[86vw] mx-auto min-h-screen bg-[#e9effb] px-3 sm:px-4 md:px-8 lg:px-12 py-4 sm:py-6 md:py-10">
+    <div className=" font-bricolage  max-w-full sm:max-w-[84vw] md:max-w-[90vw] lg:max-w-[86vw] mx-auto min-h-screen 
+    bg-[#e9effb] px-3 sm:px-4 md:px-8 lg:px-12 py-4 sm:py-6 md:py-10">
+
       <div className=" w-full">
         {/* Back */}
         <button
@@ -189,15 +228,45 @@ function ChoosePlanStandard() {
         {/* Card */}
         <div className="bg-white rounded-xl sm:rounded-2xl border border-gray-200 p-4 sm:p-6 md:p-8 lg:p-10">
           {/* Header */}
-          <div className="flex flex-col mb-6 sm:mb-8">
-            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 sm:gap-0">
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6 sm:mb-8 border-b border-gray-400 pb-6">
+            <div>
               <h1 className="text-xl sm:text-2xl md:text-3xl font-semibold">
-                {displayName} Plan
+                {displayName} Plan - {getFriendlyDuration()}
               </h1>
+              <p className="text-sm sm:text-base text-gray-500 mt-1">
+                {state?.subtitle || (planParam === "standard" ? "Deep & specialized courses" : "")}
+              </p>
             </div>
-            <p className="text-sm sm:text-base text-gray-500 mt-1">
-              {state?.subtitle || (planParam === "standard" ? "Deep & specialized courses" : "")}
-            </p>
+
+            {/* Duration Switcher */}
+            <div className="flex items-center gap-3">
+              <span className="text-sm sm:text-base font-semibold text-gray-800">Subscribe for</span>
+              <div className="inline-flex bg-white border border-gray-400 rounded-full p-1 ">
+                {durationOptions.map((opt) => {
+                  const isActive = normalizeDuration(selectedDuration) === opt.value;
+                  return (
+                    <button
+                      key={opt.value}
+                      type="button"
+                      onClick={() => {
+                        setSelectedDuration(opt.value);
+                        setSearchParams((prev) => {
+                          prev.set("duration", opt.value);
+                          return prev;
+                        });
+                      }}
+                      className={`px-3 sm:px-4 py-1.5 text-xs sm:text-sm font-semibold rounded-full transition-all duration-200 cursor-pointer ${
+                        isActive
+                          ? "bg-blue-600 text-white shadow"
+                          : "text-gray-600 hover:text-blue-600"
+                      }`}
+                    >
+                      {opt.label}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
           </div>
 
           {/* Name / Email */}
@@ -206,6 +275,7 @@ function ChoosePlanStandard() {
               <span className="font-medium">Name: </span>
               {user ? `${user.first_name || ""} ${user.last_name || ""}`.trim() || user.username : "John Doe"}
             </p>
+           
             <p className="text-sm font-bricolage sm:text-base">
               <span className="font-medium">Registered Email: </span>
               {user?.email || "johndoe@email.com"}
@@ -229,13 +299,9 @@ function ChoosePlanStandard() {
                     </p>
                   </div>
 
-                  {l.purchased ? (
+                  {l.purchased && (
                     <span className="text-sm text-green-600 font-medium whitespace-nowrap">
                       Purchased
-                    </span>
-                  ) : (
-                    <span className="text-sm text-gray-600 whitespace-nowrap">
-                      {currency}{l.price}
                     </span>
                   )}
                 </div>
@@ -244,7 +310,7 @@ function ChoosePlanStandard() {
           </div>
 
           {/* Total */}
-          <div className="flex justify-between items-center py-4 border-t">
+          <div className="flex justify-between items-center py-4 border-t border-gray-400">
             <h3 className="text-sm sm:text-base font-semibold">Total</h3>
             <span className="text-lg sm:text-xl font-semibold text-blue-600">
               {currency}{displayTotal}
@@ -254,10 +320,17 @@ function ChoosePlanStandard() {
           {/* Pay */}
           <button
             onClick={handlePayment}
-            disabled={loading}
-            className="w-full mt-2 bg-blue-600 cursor-pointer text-white py-3 sm:py-4 rounded-xl text-base sm:text-lg font-medium hover:bg-blue-700 active:scale-[0.98] transition disabled:opacity-50"
+            disabled={paymentLoading}
+            className="w-full mt-2 bg-blue-600 cursor-pointer text-white py-3 sm:py-4 rounded-xl text-base sm:text-lg font-medium hover:bg-blue-700 active:scale-[0.98] transition disabled:opacity-50 flex items-center justify-center gap-2"
           >
-            {loading ? "Loading Details..." : `Pay ${currency}${displayPrice}`}
+            {paymentLoading ? (
+              <>
+                <Loader size={18} className="text-white" />
+                <span>Processing...</span>
+              </>
+            ) : (
+              `Pay ${currency}${displayPrice}`
+            )}
           </button>
         </div>
       </div>
