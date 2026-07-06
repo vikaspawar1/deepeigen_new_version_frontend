@@ -4,10 +4,15 @@ import lab from "../../assets/Hero/Images/lab.svg";
 import teacher from "../../assets/Hero/Images/teacher.svg";
 import note from "../../assets/Hero/Images/note.svg";
 
-// import banner_video from "../../assets/Hero/Videos/Web-Video-1.mp4";
+import collab from "../../assets/Hero/Images/collaboration.svg";
+import infra from "../../assets/Hero/Images/infrastructure.svg";
+import innovation from "../../assets/Hero/Images/innovation.svg";
+
+import hero_video from "../../assets/course_videos/Hero-banner.mp4";
 import robo_video from "../../assets/Hero/Videos/Deep-Eigen-Website-Hero-1.mp4";
 
 import { useNavigate } from "react-router-dom";
+import { collapseToast } from "react-toastify";
 
 export default function HeroSection() {
   const navigate = useNavigate();
@@ -29,7 +34,7 @@ export default function HeroSection() {
         <div className="relative flex justify-center items-center h-[clamp(8rem,18vw,12rem)] w-full rounded-[1.25rem] overflow-hidden">
           <video
             className="absolute inset-0 w-full h-full object-cover z-0"
-            src={robo_video}
+            src={hero_video}
             autoPlay
             loop
             muted
@@ -79,9 +84,9 @@ export default function HeroSection() {
         </section>
 
         {/* Feature Cards - Tablet & Desktop (md and up) */}
-        <section className="hidden md:grid w-[92%] mx-auto sm:-mt-12  grid-cols-2 gap-6 max-[992px]:grid-cols-1">
+        <section className="hidden md:grid w-[92%] mx-auto sm:-mt-12 grid-cols-1 min-[992px]:grid-cols-7 gap-6">
           {/* Courses Card */}
-          <div className="relative bg-white rounded-[20px] px-6 py-8 shadow-[0_5px_18px_rgba(0,0,0,0.12)]">
+          <div className="relative bg-white col-span-1 min-[992px]:col-span-3 rounded-[20px] px-6 py-8 shadow-[0_5px_18px_rgba(0,0,0,0.12)]">
             <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-[#dce8ff] text-[#2c3e63] px-[18px] py-[7px] rounded-full text-[15px] font-semibold whitespace-nowrap">
               Courses
             </div>
@@ -94,14 +99,8 @@ export default function HeroSection() {
                 </p>
               </div>
 
-              <div className="w-px h-[55px] bg-[#d8d8d8]" />
 
-              <div className="flex-1 flex flex-col items-center justify-center text-center px-4 min-h-[110px]">
-                <img src={note} alt="" className="w-[42px] h-[42px] object-contain mb-3" />
-                <p className="text-base text-[#333] leading-[1.4] font-medium">
-                  Hands <br /> on Training
-                </p>
-              </div>
+      
 
               <div className="w-px h-[55px] bg-[#d8d8d8]" />
 
@@ -111,24 +110,29 @@ export default function HeroSection() {
                   Experienced <br /> Coach
                 </p>
               </div>
-            </div>
-          </div>
 
-          {/* Research Labs Card */}
-          <div className="relative bg-white rounded-[20px] px-6 py-8 shadow-[0_5px_18px_rgba(0,0,0,0.12)]">
-            <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-[#dce8ff] text-[#2c3e63] px-[18px] py-[7px] rounded-full text-[15px] font-semibold whitespace-nowrap">
-              Research Labs
-            </div>
 
-            <div className="flex items-center justify-between">
-              <div className="flex-1 flex flex-col items-center justify-center text-center px-4 min-h-[110px]">
+
+              <div className="w-px h-[55px] bg-[#d8d8d8]" />
+
+               <div className="flex-1 flex flex-col items-center justify-center text-center px-4 min-h-[110px]">
                 <img src={certificates} alt="" className="w-[42px] h-[42px] object-contain mb-3" />
                 <p className="text-base text-[#333] leading-[1.4] font-medium">
                   Earn <br /> Certificates
                 </p>
               </div>
+            </div>
+          </div>
 
-              <div className="w-px h-[55px] bg-[#d8d8d8]" />
+          {/* Research Labs Card */}
+          <div className="relative bg-white col-span-1 min-[992px]:col-span-4 rounded-[20px] px-6 py-8 shadow-[0_5px_18px_rgba(0,0,0,0.12)]">
+            <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-[#dce8ff] text-[#2c3e63] px-[18px] py-[7px] rounded-full text-[15px] font-semibold whitespace-nowrap">
+              Research Labs
+            </div>
+
+            <div className="flex items-center justify-between">
+             
+
 
               <div className="flex-1 flex flex-col items-center justify-center text-center px-4 min-h-[110px]">
                 <img src={lab} alt="" className="w-[42px] h-[42px] object-contain mb-3" />
@@ -137,14 +141,39 @@ export default function HeroSection() {
                 </p>
               </div>
 
+
+
+
               <div className="w-px h-[55px] bg-[#d8d8d8]" />
 
+
               <div className="flex-1 flex flex-col items-center justify-center text-center px-4 min-h-[110px]">
-                <img src={books} alt="" className="w-[42px] h-[42px] object-contain mb-3" />
+                <img src={collab} alt="" className="w-[42px] h-[42px] object-contain mb-3" />
                 <p className="text-base text-[#333] leading-[1.4] font-medium">
-                  Industry Projects
+                   State-of-the-Art Research Infrastructure
                 </p>
               </div>
+
+             <div className="w-px h-[55px] bg-[#d8d8d8]" />
+
+
+                 <div className="flex-1 flex flex-col items-center justify-center text-center px-4 min-h-[110px]">
+                <img src={infra} alt="" className="w-[42px] h-[42px] object-contain mb-3" />
+                <p className="text-base text-[#333] leading-[1.4] font-medium">
+                  Collaboration with Researchers
+                </p>
+              </div>
+
+           <div className="w-px h-[55px] bg-[#d8d8d8]" />
+
+              <div className="flex-1 flex flex-col items-center justify-center text-center px-4 min-h-[110px]">
+                <img src={innovation} alt="" className="w-[42px] h-[42px] object-contain mb-3" />
+                <p className="text-base text-[#333] leading-[1.4] font-medium">
+              Innovation & Experimentation
+                </p>
+              </div>
+
+
             </div>
           </div>
         </section>

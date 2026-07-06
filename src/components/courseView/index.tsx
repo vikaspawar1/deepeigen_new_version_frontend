@@ -34,6 +34,8 @@ import Announcements from './ui/Announcements';
 import Assignments from './ui/Assignments';
 import { useNavigate } from "react-router-dom";
 import api from "../../lib/api";
+import { getCourseVideo } from "../courses/utils/courseVideos";
+
 
 
 // Interface for API response
@@ -611,19 +613,18 @@ const Index: React.FC = () => {
                 onEnded={handleVideoEnded}
                 onProgress={handleVideoProgress}
               />
-            ) : courseImage ? (
-              <div className="w-full h-full flex items-center justify-center bg-gray-900">
-                <img src={courseImage} alt={displayTitle} className="w-full h-full object-contain" />
-              </div>
             ) : (
-              <video
-                src={video_c}
-                autoPlay
-                loop
-                muted
-                playsInline
-                className="w-full h-full"
-              />
+              <div className="w-full h-full flex items-center justify-center bg-gray-900">
+                <video
+                  src={getCourseVideo(displayTitle)}
+                  poster={courseImage || undefined}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  className="w-full h-full object-cover"
+                />
+              </div>
             )}
           </div>
 

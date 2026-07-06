@@ -1,9 +1,20 @@
-import  { useState } from 'react';
+import  { useState, useEffect } from 'react';
 import './styles/career.css';
 import team_photo from "../../assets/Careers/Images/team_career.svg"
 
 export default function index() {
   const [selectedJob, setSelectedJob] = useState<any>(null);
+
+  useEffect(() => {
+    if (selectedJob) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [selectedJob]);
 
   const jobs = [
     {

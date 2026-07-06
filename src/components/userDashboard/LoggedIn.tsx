@@ -10,6 +10,8 @@ import { FaPlay } from "react-icons/fa";
 import type { SectionType, LoggedInData, Certificate } from "./data/types";
 import paylistimg from "../../assets/Logo/playlist.svg";
 import api from "../../lib/api";
+import { getCourseVideo } from "../courses/utils/courseVideos";
+
 
 
 
@@ -654,7 +656,15 @@ export default function LoggedIn() {
                     <div key={course.id} className="border border-[#1a212f]/24 rounded-xl overflow-hidden hover:shadow-lg transition">
                       {/* Course Image */}
                       <div className="h-62 bg-gray-300 relative overflow-hidden">
-                        <img src={course.image} alt={course.title} className="w-full h-full object-cover" />
+                        <video
+                          src={getCourseVideo(course.title)}
+                          poster={course.image}
+                          autoPlay
+                          loop
+                          muted
+                          playsInline
+                          className="w-full h-full object-cover"
+                        />
                         <div className="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 hover:opacity-100 transition">
                           <button
                             onClick={() => {

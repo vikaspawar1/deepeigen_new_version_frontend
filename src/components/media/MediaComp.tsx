@@ -27,7 +27,7 @@ const MediaComp = () => {
                 <div className="media-header">
                     <h1 className="media-heading">Media Coverage</h1>
                     <p className="media-subheading">
-                        Meet the incredible people who are making a difference at our organization.
+                 Our latest media mentions, press coverage, and industry recognition.
                     </p>
                 </div>
 

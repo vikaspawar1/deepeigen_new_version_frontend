@@ -4,6 +4,8 @@ import { useAppSelector } from "../../redux/hooks";
 import { selectIsAuthenticated, selectIsAdmin } from "../../redux/slices/auth/index";
 import api from "../../lib/api";
 import { toast } from "react-toastify";
+import { getCourseVideo } from "./utils/courseVideos";
+
 
 
 
@@ -467,9 +469,13 @@ export default function CourseDetails() {
 
           <div className="w-full lg:w-[55%] xl:w-[50%] lg:mt-0 mt-4 md:mt-5">
             <div className="w-full aspect-video rounded-xl overflow-hidden">
-              <img
-                src={`${api.defaults.baseURL}${course.course.image}`}
-                alt="Course Video"
+              <video
+                src={getCourseVideo(course.course.title)}
+                poster={`${api.defaults.baseURL}${course.course.image}`}
+                autoPlay
+                loop
+                muted
+                playsInline
                 className="w-full h-full object-cover"
               />
             </div>

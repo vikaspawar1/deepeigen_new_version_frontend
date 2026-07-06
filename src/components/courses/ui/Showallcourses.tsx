@@ -1,6 +1,8 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import api from "../../../lib/api";
+import { getCourseVideo } from "../utils/courseVideos";
+
 // import { useAppSelector } from "../../../redux/hooks";
 // import { selectIsAuthenticated } from "../../../redux/slices/auth";
 
@@ -139,13 +141,17 @@ export default function Showallcourses() {
               >
                 {/* Image */}
                 <div className="relative group">
-                  <img
-                    src={
+                  <video
+                    src={getCourseVideo(course.title)}
+                    poster={
                       course.course_image?.startsWith("http")
                         ? course.course_image
                         : `${api.defaults.baseURL}${course.course_image}`
                     }
-                    alt={course.title}
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
                     className="w-full h-56 object-cover  transition duration-500"
                   />
 

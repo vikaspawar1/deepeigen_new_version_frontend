@@ -7,6 +7,8 @@ import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { selectIsAuthenticated, selectIsAdmin } from "../../../redux/slices/auth";
 import api from "../../../lib/api";
+import { getCourseVideo } from "../../courses/utils/courseVideos";
+
 
 
 declare global {
@@ -263,9 +265,13 @@ export default function Payment() {
               <h2 className="text-xl font-semibold text-gray-900 mb-4">Course Details</h2>
 
               <div className="aspect-video rounded-lg overflow-hidden mb-4">
-                <img
-                  src={`${api.defaults.baseURL}${course.image}`}
-                  alt={course.title}
+                <video
+                  src={getCourseVideo(course.title)}
+                  poster={`${api.defaults.baseURL}${course.image}`}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
                   className="w-full h-full object-cover"
                 />
               </div>

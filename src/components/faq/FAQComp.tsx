@@ -12,12 +12,12 @@ const faqs = [
                     Category-I (Cat-I), and (ii) Category-II (Cat-II). Cat-I is further
                     subdivided into Cat-IA and Cat-IB.
                 </p>
-                <p>
+                <p className="mt-2">  
                     The primary categories divide courses into two broad segments: (i)
                     deeply theoretical and practical, and (ii) broad and practical, with
                     deep theory wherever required.
                 </p>
-                <p>
+                <p className="mt-2">
                     (i) The deep theoretical courses are designed to cover theoretical
                     concepts of the particular topic, with mathematical derivations
                     wherever applicable. The assignments are designed to train you to
@@ -25,7 +25,8 @@ const faqs = [
                     relevance to the 21st century real-world industrial problems. Such
                     courses are Cat-I courses.
                 </p>
-                <p>
+                
+                <p className="mt-2">
                     (ii) The broad practical, with deep enough required theory, courses
                     mostly focus on the practical applications of a particular theoretical
                     concept, and the emphasis is on learning to apply those concepts
@@ -46,7 +47,7 @@ const faqs = [
                     lot of background knowledge before you begin a course.
                 </p>
 
-                <p>
+                <p className="mt-2">
                     The Cat-I courses at Deep Eigen AI Labs also provide you the state-of-the-art
                     knowledge, combining information from text-books and research papers. However,
                     our courses try to teach concepts from scratch, covering most of the required
@@ -57,7 +58,7 @@ const faqs = [
                     concept is applied to solve a real-world problem.
                 </p>
 
-                <p>
+                <p className="mt-2">
                     The courses are detailed and deep enough, and after thoroughly
                     completing a course, along with all the mandatory and optional
                     assignments, you may be in a position to compare yourself with
@@ -79,7 +80,7 @@ const faqs = [
                     base may help a candidate in securing a job in the relevant areas.
                 </p>
 
-                <p>
+                <p className="mt-2">
                     For example, while Cat-I courses specifically are designed to be
                     as knowledgeable and as competitive as best of the best graduate
                     programs' courses, the Cat-II courses do not necessarily contain
@@ -91,7 +92,7 @@ const faqs = [
                     to provide a more holistic experience to the registrants.
                 </p>
 
-                <p>
+                <p className="mt-2">
                     There are rarely any alternative to the Cat-I courses offered by
                     Deep Eigen AI Labs, as they aim to provide you state-of-the-art
                     knowledge. We consider that the only real alternative to Deep Eigen
@@ -102,7 +103,7 @@ const faqs = [
                     given that the fee is increasing every year.
                 </p>
 
-                <p>
+                <p className="mt-2">
                     The other alternative, for masses, is to enroll in courses by other
                     online platforms. Some such platforms have already trained thousands
                     of students and professionals. However, the knowledge provided by
@@ -136,18 +137,18 @@ const faqs = [
                     To informally define these categories:
                 </p>
 
-                <p>
+                <p className="mt-2">
                     Cat-IA courses can be considered as one semester course on the same
                     topic at top graudate programs in the world, with additional emphasis
                     on research papers.
                 </p>
 
-                <p>
+                <p className="mt-2">
                     Cat-IB courses are equivalent to a one semester course on the
                     same topic at top graduate programs in the world.
                 </p>
 
-                <p>
+                <p className="mt-2">
                     Cat-II courses are very broad (they are a combination of several
                     courses into one) and practical in nature. The theoretical depth
                     of some of the topics may be as that of a graduate program course,

@@ -4,6 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 import api from "../../lib/api";
 import { useAppSelector } from "../../redux/hooks";
 import { selectIsAuthenticated } from "../../redux/slices/auth";
+import { getCourseVideo } from "./utils/courseVideos";
+
 
 
 interface Course {
@@ -43,13 +45,17 @@ const CourseCardITem: FC<CourseCardItemProps> = ({ course }) => {
 
             <div key={course.id} className="course-card h-full flex flex-col">
                 <div className="course-image-container flex-shrink-0">
-                    <img
-                        src={
+                    <video
+                        src={getCourseVideo(course.title)}
+                        poster={
                             course.course_image?.startsWith("http")
                                 ? course.course_image
                                 : `${api.defaults.baseURL}${course.course_image}`
                         }
-                        alt={course.title}
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
                         className="course-image"
                     />
                     <div className="course-overlay">

@@ -176,6 +176,7 @@
     position: fixed;
     inset: 0;
     background: rgba(0,0,0,0.45);
+    backdrop-filter: blur(4px);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -183,12 +184,17 @@
 }
 
 .modal-content {
-    width: 90%;
+    width: calc(100% - 40px);
     max-width: 680px;
+    max-height: 60vh;
     background: #fff;
     border-radius: 12px;
     padding: 20px;
     box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+    margin: 0 auto;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
 }
 
 .modal-header {
@@ -217,6 +223,9 @@
     color: rgba(26,33,47,0.92);
     font-size: 16px;
     line-height: 1.7;
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 10px;
 }
 
 .modal-section {
