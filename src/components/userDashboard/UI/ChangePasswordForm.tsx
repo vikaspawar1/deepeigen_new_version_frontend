@@ -71,7 +71,7 @@ export default function ChangePasswordForm({ profilePicture }: { profilePicture?
       <form className="max-w-full lg:max-w-md w-full space-y-4 lg:space-y-5" onSubmit={handleSubmit}>
 
 
-        {/* Avatar */}
+        {/* 
         <div className="w-32 h-32 lg:w-40 lg:h-40 flex justify-center items-center rounded-xl bg-[rgba(0,0,0,0.04)] self-center lg:self-start overflow-hidden">
           {profilePicture ? (
             <img 
@@ -100,7 +100,7 @@ export default function ChangePasswordForm({ profilePicture }: { profilePicture?
               />
             </svg>
           )}
-        </div>
+        </div> */}
         {/* Current Password */}
         <div className="flex flex-col gap-1">
           <label className="text-sm lg:text-base font-medium text-gray-700">
