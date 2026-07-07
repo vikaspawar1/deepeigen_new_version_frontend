@@ -96,29 +96,29 @@ const CourseCardITem: FC<CourseCardItemProps> = ({ course }) => {
 
                     <div className="course-divider my-4"></div>
 
-                    <div className="flex items-center justify-between ">
-                        <div className="flex items-start gap-2">
-                            {/* <span className="text-[10px] sm:text-xs text-gray-500  tracking-wider font-semibold">Indian Fee</span> */}
-                            <div className="flex items-center font-bold text-2xl">
+                    {/* Prices row — always visible */}
+                    <div className="flex items-center justify-between gap-2">
+                        <div className="flex items-start gap-1">
+                            <div className="flex items-center font-bold text-xl sm:text-2xl">
                                 <span className="mr-0.5">₹</span>
                                 <span>{course.indian_fee}</span>
                             </div>
-                            <span className="text-[10px] sm:text-xs text-gray-400 line-through">
+                            <span className="text-[9px] sm:text-xs text-gray-400 line-through mt-1">
                                 ₹{course.indian_fee + 2000}
                             </span>
                         </div>
 
-                        <div className="flex  gap-1">
-                            {/* <span className="text-[10px] sm:text-xs text-gray-500  tracking-wider font-semibold">Foreign Fee</span> */}
-                            <div className="flex items-center font-bold text-lg sm:text-xl">
+                        <div className="flex flex-col items-center gap-0.5">
+                            <div className="flex items-center font-bold text-base sm:text-xl">
                                 <span className="mr-0.5">$</span>
                                 <span>{course.foreign_fee ?? 0}</span>
                             </div>
-                            <span className="text-[10px] sm:text-xs text-gray-400 line-through">
+                            <span className="text-[9px] sm:text-xs text-gray-400 line-through">
                                 ${(course.foreign_fee ?? 0) + 50}
                             </span>
                         </div>
 
+                        {/* Buy Course button — inline on sm+ screens, hidden on mobile */}
                         <button
                             onClick={(e) => {
                                 e.preventDefault();
@@ -128,11 +128,26 @@ const CourseCardITem: FC<CourseCardItemProps> = ({ course }) => {
                                     navigate(buyCourseUrl);
                                 }
                             }}
-                            className="bg-blue-700 hover:bg-blue-800 text-white font-semibold px-4 cursor-pointer py-3 rounded-lg transition-colors"
+                            className="hidden sm:block bg-blue-700 hover:bg-blue-800 text-white font-semibold px-4 cursor-pointer py-3 rounded-lg transition-colors whitespace-nowrap"
                         >
                             Buy Course
                         </button>
                     </div>
+
+                    {/* Buy Course button — full-width at bottom on mobile only */}
+                    <button
+                        onClick={(e) => {
+                            e.preventDefault();
+                            if (!isAuthenticated) {
+                                navigate("/login", { state: { from: buyCourseUrl } });
+                            } else {
+                                navigate(buyCourseUrl);
+                            }
+                        }}
+                        className="sm:hidden mt-3 w-full bg-blue-700 hover:bg-blue-800 text-white font-semibold py-2.5 rounded-lg transition-colors cursor-pointer text-sm"
+                    >
+                        Buy Course
+                    </button>
                 </div>
             </div>
 

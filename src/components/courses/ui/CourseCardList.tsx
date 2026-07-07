@@ -60,10 +60,12 @@ const CourseCardList: FC<CourseCardListProps> = ({
               nextEl: ".swiper-next",
             }}
             spaceBetween={20}
-            slidesPerView={3}
+            slidesPerView={1}
             breakpoints={{
               640: { slidesPerView: 1 },
-              1024: { slidesPerView: 3 },
+              769: { slidesPerView: 2 },
+              1025: { slidesPerView: 3 },
+              1440: { slidesPerView: 3 },
             }}
           >
             {courses.map((course) => (

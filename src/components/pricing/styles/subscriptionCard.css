@@ -15,7 +15,7 @@
      --pricing-cross-red: #CE2823;
      --pricing-best-value-bg: #FFE4C3;
      --pricing-best-value-text: #8E5004;
-     background: #f1f4fc;
+     background: #ffffff;
  }
 
  .Pricing-card-wrapper {
@@ -77,14 +77,14 @@
          display: flex;
          flex-direction: column;
          justify-content: space-between;
-         /* padding: 48px 42px; */
-         padding: 1vw 2vw;
+         padding: clamp(16px, 2vw, 48px) clamp(16px, 2.5vw, 42px);
          border-radius: 20px;
          border: .5px solid var(--pricing-border-grey-2);
          background: var(--pricing-bg-white);
          flex: 1;
-         /* min-width: 320px; */
          position: relative;
+         box-sizing: border-box;
+         min-width: 0;
      }
 
      .premium-access {
@@ -181,14 +181,14 @@
 
      .price-large {
          color: var(--pricing-fg-grey-1);
-         font-size: 32px;
+         font-size: clamp(22px, 3vw, 32px);
          font-weight: 700;
          letter-spacing: -0.64px;
      }
 
      .price-period {
          color: var(--pricing-fg-grey-1);
-         font-size: 20px;
+         font-size: clamp(14px, 1.8vw, 20px);
          font-weight: 400;
      }
 
@@ -208,13 +208,13 @@
 
      .price-medium {
          color: var(--pricing-fg-grey-1);
-         font-size: 24px;
+         font-size: clamp(18px, 2.5vw, 24px);
          font-weight: 700;
      }
 
      .price-period-small {
          color: var(--pricing-fg-grey-1);
-         font-size: 16px;
+         font-size: clamp(12px, 1.5vw, 16px);
          font-weight: 400;
      }
 
@@ -380,21 +380,15 @@
  }
 
 
+/* Desktop collapse to vertical stack */
  @media (max-width: 1200px) {
      .Pricing-card-wrapper {
-         display: flex;
-         flex-direction: column;
-         justify-content: center;
-         align-items: center;
-
          .pricing-cards {
              flex-direction: column;
          }
-
          .card-body {
              flex-direction: column;
          }
-
          .column-divider {
              width: 100%;
              height: 1px;
@@ -403,19 +397,25 @@
      }
  }
 
+/* iPad (768px) */
  @media (max-width: 768px) {
      .Pricing-card-wrapper {
-         display: flex;
-         flex-direction: column;
-         justify-content: center;
-         align-items: center;
+         padding: 0 16px;
+         box-sizing: border-box;
+         width: 100%;
 
          .pricing-tabs {
-             margin-bottom: 32px;
+             margin-bottom: 24px;
+             gap: 8px;
+         }
+
+         .pricing-cards {
+             width: 100%;
          }
 
          .pricing-card {
-             padding: 32px 24px;
+             padding: 24px 20px;
+             box-sizing: border-box;
          }
 
          .price-row {
@@ -426,57 +426,145 @@
      }
  }
 
+/* Mobile ≤480px (covers 420px, 380px) */
  @media (max-width: 480px) {
      .Pricing-card-wrapper {
-         display: flex;
-         flex-direction: column;
-         justify-content: center;
-         align-items: center;
+         padding: 0 12px;
+         box-sizing: border-box;
+         width: 100%;
 
          .pricing-tabs {
              gap: 4px;
              padding: 5px;
-         }
-
-         .pricing-cards {
-             width: 90vw;
-         }
-
-         .pricing-card {
-             padding: 15px 10px;
-         }
-
-         .card-header {
-             margin-bottom: 5px;
-         }
-
-         .full-price-row {
-             gap: 2px;
-             display: flex;
-             justify-content: space-between;
-             align-items: flex-end;
-         }
-
-         .full-access-pricing {
-             gap: 5px;
-         }
-
-         .join-now-btn {
-             padding: 8px 10px;
-             height: 42px;
-         }
-
-         .premium-access-btn {
-             background: var(--pricing-bg-primary);
-             font-size: 15px;
+             margin-bottom: 20px;
+             flex-wrap: wrap;
+             justify-content: center;
+             width: 100%;
          }
 
          .tab-button {
-             width: 100%;
+             font-size: 13px;
+             padding: 6px 10px;
+             flex: 1;
+             min-width: 70px;
          }
 
          .tab-active {
+             font-size: 13px;
+             padding: 6px 10px;
+         }
+
+         .pricing-cards {
              width: 100%;
+         }
+
+         .pricing-card {
+             padding: 16px 14px;
+             box-sizing: border-box;
+         }
+
+         .card-header {
+             margin-bottom: 8px;
+         }
+
+         .card-title {
+             font-size: 20px;
+         }
+
+         .card-subtitle {
+             font-size: 14px;
+         }
+
+         .full-price-row {
+             gap: 4px;
+             flex-wrap: wrap;
+         }
+
+         .price-group {
+             gap: 4px;
+         }
+
+         .price-divider {
+             margin: 0 4px;
+         }
+
+         .full-access-pricing {
+             gap: 8px;
+             margin-bottom: 16px;
+         }
+
+         .join-now-btn {
+             padding: 10px 12px;
+             height: 44px;
+             font-size: 14px;
+             width: 100%;
+         }
+
+         .premium-access-btn {
+             font-size: 14px;
+         }
+
+         .feature-item {
+             font-size: 13px;
+         }
+     }
+ }
+
+/* Tiny screens: 320px */
+ @media (max-width: 360px) {
+     .Pricing-card-wrapper {
+         padding: 0 10px;
+
+         .pricing-tabs {
+             gap: 2px;
+             padding: 4px;
+         }
+
+         .tab-button {
+             font-size: 12px;
+             padding: 5px 8px;
+             min-width: 60px;
+         }
+
+         .pricing-card {
+             padding: 12px 10px;
+         }
+
+         .card-title {
+             font-size: 18px;
+         }
+
+         .price-large {
+             font-size: 20px;
+         }
+
+         .price-medium {
+             font-size: 16px;
+         }
+
+         .price-period {
+             font-size: 12px;
+         }
+
+         .price-period-small {
+             font-size: 11px;
+         }
+
+         .currency {
+             font-size: 13px;
+         }
+
+         .currency-small {
+             font-size: 13px;
+         }
+
+         .feature-item {
+             font-size: 12px;
+         }
+
+         .join-now-btn {
+             font-size: 13px;
+             height: 40px;
          }
      }
  }

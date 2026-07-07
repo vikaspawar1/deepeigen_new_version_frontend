@@ -359,7 +359,7 @@ export default function Profile() {
 
           {/* Page Title - Hidden on mobile, shown on desktop */}
           <h1 className="hidden lg:block text-[#1A212F] text-[32px] lg:text-[40px]
-           font-normal leading-normal tracking-[-0.64px] lg:tracking-[-0.8px] mb-6 lg:mb-10">
+           font-normal leading-normal tracking-[-0.64px] lg:tracking-[-0.8px] mb-6 lg:mb-10 cursor-pointer">
             {activeSection === "profile" && "Profile"}
             {activeSection === "billing" && "Billing and Invoices"}
             {activeSection === "settings" && "Settings"}
@@ -499,7 +499,7 @@ export default function Profile() {
                       </clipPath>
                     </defs>
                   </svg>
-                  <span className="text-[#174CD2] font-semibold text-sm lg:text-base leading-[93%]">
+                  <span className="text-[#174CD2] font-semibold text-sm lg:text-base cursor-pointer leading-[93%]">
                     Edit profile
                   </span>
                 </button>

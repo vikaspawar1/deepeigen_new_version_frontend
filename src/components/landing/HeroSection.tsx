@@ -26,7 +26,7 @@ export default function HeroSection() {
 
   return (
     <>
-      <div className="w-full mx-auto p-4 sm:p-6 box-border sm:px-[6vw] lg:px-[10vw]">
+      <div className="w-full bg-white mx-auto p-3 sm:p-6 box-border sm:px-[6vw] lg:px-[10vw] overflow-x-hidden">
         {/* Brilliance Initiated Banner */}
         <div className="relative flex justify-center items-center h-[clamp(7rem,16vw,12rem)] w-full rounded-[1.25rem] overflow-hidden">
           <video
@@ -92,9 +92,9 @@ export default function HeroSection() {
           On iPad (md, 768px): show two stacked cards (each full width)
           On desktop (lg, 992px+): show them side by side in a 7-col grid
         */}
-        <section className="hidden md:block w-[95%] mx-auto mt-6 lg:-mt-12">
-          {/* Desktop: side-by-side grid */}
-          <div className="hidden lg:grid grid-cols-7 gap-6">
+        <section className="hidden md:block w-[95%] mx-auto mt-6 xl:-mt-12">
+          {/* Desktop: side-by-side grid - only on extra large screens (1280px+) */}
+          <div className="hidden xl:grid grid-cols-7 gap-6">
             {/* Courses Card */}
             <div className="relative bg-white col-span-3 rounded-[20px] px-6 py-8 shadow-[0_5px_18px_rgba(0,0,0,0.12)]">
               <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-[#dce8ff] text-[#2c3e63] px-[18px] py-[7px] rounded-full text-[15px] font-semibold whitespace-nowrap">
@@ -161,11 +161,11 @@ export default function HeroSection() {
             </div>
           </div>
 
-          {/* iPad (md to lg): two full-width stacked cards */}
-          <div className="lg:hidden flex flex-col gap-6">
+          {/* iPad & Tablet (md to xl): two full-width stacked cards */}
+          <div className="xl:hidden flex flex-col gap-6">
             {/* Courses Card */}
-            <div className="relative bg-white rounded-[20px] px-6 py-8 shadow-[0_5px_18px_rgba(0,0,0,0.12)]">
-              <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-[#dce8ff] text-[#2c3e63] px-[18px] py-[7px] rounded-full text-[15px] font-semibold whitespace-nowrap">
+            <div className="relative bg-white rounded-[20px] px-6 py-8 shadow-[0_5px_18px_rgba(0,0,0,0.12)] border border-gray-100">
+              <div className="absolute -top-4 left-1/2 -translate-x-1/2  bg-[#dce8ff] text-black px-[18px] py-[7px] rounded-full text-[15px] font-semibold whitespace-nowrap">
                 Courses
               </div>
               <div className="flex items-center justify-around">
@@ -193,8 +193,8 @@ export default function HeroSection() {
             </div>
 
             {/* Research Labs Card */}
-            <div className="relative bg-white rounded-[20px] px-6 py-8 shadow-[0_5px_18px_rgba(0,0,0,0.12)]">
-              <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-[#dce8ff] text-[#2c3e63] px-[18px] py-[7px] rounded-full text-[15px] font-semibold whitespace-nowrap">
+            <div className="relative bg-white rounded-[20px] px-6 py-8 shadow-[0_5px_18px_rgba(0,0,0,0.12)] border border-gray-100">
+              <div className="absolute -top-4 left-1/2 -translate-x-1/2  bg-[#dce8ff] text-black px-[18px] py-[7px] rounded-full text-[15px] font-semibold whitespace-nowrap">
                 Research Labs
               </div>
               <div className="flex items-center justify-around flex-wrap gap-4">
@@ -228,7 +228,7 @@ export default function HeroSection() {
         </section>
 
         {/* Feature Grid - Mobile only (below md) */}
-        <section className="md:hidden bg-white rounded-[20px] mx-auto mt-6 px-6 py-8 shadow-[0_5px_18px_rgba(0,0,0,0.12)] relative z-10">
+        <section className="md:hidden bg-white rounded-[20px] mx-auto mt-6 px-4 py-6 shadow-[0_5px_18px_rgba(0,0,0,0.12)] relative z-10">
           <div className="grid grid-cols-2 gap-x-5 gap-y-8">
             {mobileFeatures.map((feature, i) => (
               <div

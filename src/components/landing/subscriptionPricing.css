@@ -19,8 +19,7 @@
 
 /* Base — all screens */
 .Subscription-container-wrapper {
-  padding: 1.5rem;
-  /* p-6 */
+  padding: 1.5rem 1rem;
   background: var(--pricing-bg-white);
   display: flex;
   flex-direction: column;
@@ -28,6 +27,7 @@
   align-items: center;
   width: 100%;
   box-sizing: border-box;
+  overflow-x: hidden;
 }
 
 .pricing-header {
@@ -111,8 +111,7 @@
 /* Mobile — up to 480px */
 @media (max-width: 480px) {
   .Subscription-container-wrapper {
-    padding: 1.5rem;
-    /* p-6 */
+    padding: 1rem 0.75rem;
   }
 
   .pricing-title {
@@ -127,5 +126,26 @@
   .pricing-header {
     width: 100%;
     margin-bottom: 24px;
+  }
+}
+
+/* 320px tiny phones */
+@media (max-width: 360px) {
+  .Subscription-container-wrapper {
+    padding: 0.75rem 0.5rem;
+  }
+
+  .pricing-title {
+    font-size: 1.1rem;
+    letter-spacing: -0.4px;
+  }
+
+  .pricing-description {
+    font-size: 0.8rem;
+  }
+
+  .pricing-header {
+    margin-bottom: 16px;
+    margin-top: 16px;
   }
 }

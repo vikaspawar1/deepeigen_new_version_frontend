@@ -454,7 +454,7 @@ export default function EditProfile({
             <button
               type="button"
               onClick={handleCancel}
-              className="px-10 py-3 border border-gray-300 text-[#1A212F] font-semibold text-base rounded-lg hover:bg-gray-50 transition-colors w-full lg:w-auto"
+              className="px-10 py-3 border cursor-pointer border-gray-300 text-[#1A212F] font-semibold text-base rounded-lg hover:bg-gray-50 transition-colors w-full lg:w-auto"
               disabled={saving}
             >
               Cancel
@@ -462,7 +462,7 @@ export default function EditProfile({
             <button
               type="button"
               onClick={handleSave}
-              className="px-3 py-3 bg-[#174CD2] text-white font-semibold text-base rounded-lg hover:bg-blue-700 transition-colors w-full lg:w-auto disabled:opacity-50"
+              className="px-3 py-3 bg-[#174CD2] cursor-pointer text-white font-semibold text-base rounded-lg hover:bg-blue-700 transition-colors w-full lg:w-auto disabled:opacity-50"
               disabled={saving}
             >
               {saving ? "Saving..." : "Save Changes"}

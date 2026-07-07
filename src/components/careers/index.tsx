@@ -1,6 +1,6 @@
 import  { useState, useEffect } from 'react';
 import './styles/career.css';
-import team_photo from "../../assets/Careers/Images/team_career.svg"
+import team_photo from "../../assets/Careers/Images/hirring.png"
 
 export default function index() {
   const [selectedJob, setSelectedJob] = useState<any>(null);
@@ -17,8 +17,64 @@ export default function index() {
   }, [selectedJob]);
 
   const jobs = [
-    {
+
+
+
+     {
       id: 1,
+      title: 'Senior Theoretical Computer Science Research Scientist',
+      location: 'On-site (Preferred)',
+      type: 'Full-Time (Equity-Based)',
+      experience: 'Master\'s or PhD',
+      description: 'Deep Eigen is looking for a Senior Theoretical Computer Science Research Scientist to conduct original research in algorithms, computational theory, optimization, mathematical modeling, and the theoretical foundations of AI. You will work on problems where no existing solution is sufficient, developing new frameworks that can influence future AI systems.',
+      responsibilities: [
+        'Conduct original research in theoretical computer science.',
+        'Design novel algorithms with provable guarantees.',
+        'Develop mathematical models for complex computational problems.',
+        'Research optimization, graph algorithms, probability, combinatorics, computational geometry, and related areas.',
+        'Analyze algorithmic complexity, correctness, convergence, and scalability.',
+        'Collaborate with AI researchers to bridge theory and practical implementation.',
+        'Publish research in leading conferences and journals.',
+        'Contribute to patents and long-term research initiatives.',
+        'Mentor junior researchers and help define research direction.',
+      ],
+      requirements: [
+        'Master\'s or PhD in Computer Science, Mathematics, Theoretical Computer Science, or a closely related discipline.',
+        'Strong foundation in algorithms, complexity theory, optimization, discrete mathematics, probability, and mathematical reasoning.',
+        'Experience solving open-ended research problems.',
+        'Excellent programming skills in Python, C++, or similar languages.',
+        'Ability to communicate complex ideas clearly.',
+      ],
+      techStack: ['Python', 'C++'],
+    },
+    {
+      id: 2,
+      title: 'Senior Deep Learning Research Scientist',
+      location: ' On-site (Preferred)',
+      type: 'Full-Time (Equity-Based)',
+      experience: 'Master\'s or PhD',
+      description: 'As a Senior Deep Learning Research Scientist at Deep Eigen, you will lead research into next-generation neural architectures, representation learning, multimodal intelligence, and efficient AI systems. Your work will contribute to developing novel approaches that move beyond existing state-of-the-art methods.',
+      responsibilities: [
+        'Conduct original research in deep learning and machine learning.',
+        'Design and evaluate novel neural network architectures.',
+        'Research representation learning, self-supervised learning, transformers, multimodal AI, and foundation models.',
+        'Develop efficient training methodologies and scalable AI systems.',
+        'Collaborate with theoretical researchers to bridge mathematical insights with practical models.',
+        'Design experiments, analyze results, and publish findings.',
+        'Mentor junior researchers and contribute to the research roadmap.',
+        'File patents and contribute to intellectual property development.',
+      ],
+      requirements: [
+        'Master\'s or PhD in Computer Science, Artificial Intelligence, Machine Learning, or a related field.',
+        'Strong understanding of deep learning principles and optimization.',
+        'Experience with PyTorch, TensorFlow, or JAX.',
+        'Strong programming skills in Python.',
+        'Demonstrated research ability through publications, open-source contributions, or significant projects.',
+      ],
+      techStack: ['Python', 'PyTorch', 'TensorFlow', 'JAX'],
+    },
+    {
+      id: 3,
       title: 'Senior Machine Learning Engineer',
       location: 'Bhopal, Madhya Pradesh',
       type: 'Full Time',
@@ -37,7 +93,7 @@ export default function index() {
       techStack: ['C++', 'Python'],
     },
     {
-      id: 2,
+      id: 4,
       title: 'Senior Deep Learning Engineer',
       location: 'Bhopal, Madhya Pradesh',
       type: 'Full Time',
@@ -56,7 +112,7 @@ export default function index() {
       techStack: ['Python', 'C++'],
     },
     {
-      id: 3,
+      id: 5,
       title: 'Senior NLP/LLM Engineer',
       location: 'Bhopal, Madhya Pradesh',
       type: 'Full Time',
@@ -77,24 +133,28 @@ export default function index() {
       ],
       techStack: ['Python', 'TensorFlow', 'PyTorch', 'Hugging Face Transformers', 'NLTK / SpaCy'],
     },
+   
   ];
 
   return (
     <div className="careers-page">
       <div className="careers-container">
-        <div className="hero-image">
-          <img 
-            src={team_photo} 
-            alt="Team members"
-          />
-        </div>
 
-        <div className="careers-header">
-          <h1 className="careers-title">Join Our Journey</h1>
-          <p className="careers-subtitle">
-            We're building something amazing together.<br />
-            Come grow, learn, and make an impact with us
-          </p>
+        {/* Hero banner — image with text overlaid on top */}
+        <div className="hero-image">
+          <img
+            src={team_photo}
+            alt="Team members at Deep Eigen AI Labs"
+          />
+          {/* Dark gradient overlay for text readability */}
+          <div className="hero-overlay" />
+          <div className="careers-header">
+            <h1 className="careers-title">Join Our Journey</h1>
+            <p className="careers-subtitle">
+              We're building something amazing together.<br />
+              Come grow, learn, and make an impact with us
+            </p>
+          </div>
         </div>
 
         <div className="jobs-section">

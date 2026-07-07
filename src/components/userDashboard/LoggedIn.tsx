@@ -158,7 +158,7 @@ export default function LoggedIn() {
               name: dashboardData.user?.first_name || "",
               email: dashboardData.user?.email || "",
               avatar: dashboardData.user?.profile_picture || "",
-              plan: dashboardData.user?.active_plan || "Free",
+              plan: dashboardData.user?.active_plan || "",
             },
             currentCourse: {
               title: currentCourse?.title || "",
@@ -421,9 +421,9 @@ export default function LoggedIn() {
                   </p>
                 </div>
 
-                <div className="inline-flex px-3 py-1.5 mt-10 bg-[#0f9c95] text-white text-xs sm:text-sm font-semibold rounded-full flex-shrink-0">
+                {/* <div className="inline-flex px-3 py-1.5 mt-10 bg-[#0f9c95] text-white text-xs sm:text-sm font-semibold rounded-full flex-shrink-0">
                   {data.user.plan}
-                </div>
+                </div> */}
               </div>
 
               {/* Current Course Card - Shows Recent Watch if available, else shows enrolled course */}
@@ -646,7 +646,7 @@ export default function LoggedIn() {
                   </div>
                   <button
                     onClick={handleAddCourseClick}
-                    className="flex items-center justify-center gap-2 px-4 py-3 bg-[#174cd2] text-white text-base font-semibold rounded-lg hover:bg-[#174cd2]/90 transition w-full md:w-auto"
+                    className="flex items-center justify-center gap-2 px-4 py-3 bg-[#174cd2] text-white text-base cursor-pointer font-semibold rounded-lg hover:bg-[#174cd2]/90 transition w-full md:w-auto"
                   >
                     Add Course
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -693,7 +693,7 @@ export default function LoggedIn() {
   `}
                           >
                             {course.completion === 0 && (
-                              <div className="flex gap-2 items-center">
+                              <div className="flex gap-2 items-center cursor-pointer ">
                                 <FaPlay className="text-xs" /> Start Learning
                               </div>
                             )}
@@ -916,7 +916,7 @@ export default function LoggedIn() {
 
                   <button
                     onClick={() => navigate("/make_playlist")}
-                    className="flex items-center gap-2 bg-[#174cd2] text-white px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap flex-shrink-0"
+                    className="flex items-center gap-2 bg-[#174cd2] text-white px-4 py-2 cursor-pointer  rounded-lg text-sm font-medium whitespace-nowrap flex-shrink-0"
                   >
                     Create Playlist
                     <span className="text-lg">+</span>

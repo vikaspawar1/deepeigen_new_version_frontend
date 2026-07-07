@@ -17,7 +17,7 @@
   background: linear-gradient(180deg, #FFF 0%, #ffffff 100%);
   padding: 6px;
   /* p-6 */
-  padding-bottom: 3rem;
+  padding-bottom: 6rem;
 }
 
 .ai-courses-container {
@@ -42,7 +42,7 @@
   flex-direction: column;
   gap: 8px;
   flex: 1;
-  min-width: 280px;
+  min-width: 0;
   margin-top: 20px;
 }
 
@@ -91,7 +91,7 @@
 
 .courses-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
   gap: 24px;
   align-items: stretch;
 }
@@ -391,16 +391,28 @@
   font-size: 14px;
 }
 
+/* Desktop (1025px and above) */
+@media (min-width: 1025px) {
+  .courses-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+}
 
-@media (max-width: 1024px) {
+/* Tablet Landscape (769px - 1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
   .ai-courses-hero {
     padding: 6px;
-    /* p-6 */
     padding-bottom: 2.5rem;
   }
 
   .ai-courses-header {
     margin-bottom: 40px;
+  }
+
+  .courses-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
   }
 
   .nav-arrow-left {
@@ -412,6 +424,7 @@
   }
 }
 
+/* Tablet & Below (max 768px) */
 @media (max-width: 768px) {
   .ai-courses-hero {
     padding: 6px;
@@ -451,14 +464,16 @@
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 480px)  {
   .ai-courses-hero {
     padding: 6px;
+    padding-bottom: 4rem;
     /* p-6 */
   }
 
   .ai-courses-container {
     width: 100%;
+    padding: 0 0.75rem;
   }
 
   .explore-button {
@@ -492,19 +507,58 @@
   }
 
   .course-footer {
-    /* border: 1px solid black; */
-    /* background-color: greenyellow; */
     padding: 0px 0px;
     gap: .3rem;
   }
 
   .price-container {
     gap: 4px;
-    /* border: 1px solid black; */
-    /* background-color: green; */
   }
 
   .course-content {
-    padding: 18px 16px;
+    padding: 14px 12px;
   }
+
+  .ai-courses-header {
+    margin-bottom: 20px;
+    gap: 1rem;
+  }
+}
+
+/* 320px / tiny phone fixes */
+@media (max-width: 360px) {
+  .ai-courses-container {
+    padding: 0 0.5rem;
+  }
+
+  .course-hero-title {
+    font-size: clamp(22px, 7vw, 28px);
+  }
+
+  .course-hero-description {
+    font-size: 13px;
+  }
+
+  .course-content {
+    padding: 12px 10px;
+  }
+
+  .course-title {
+    font-size: 16px;
+  }
+
+  .ai-courses-header {
+    margin-bottom: 16px;
+  }
+}
+
+
+
+@media (max-width: 780px) {
+  .ai-courses-hero {
+    padding: 6px;
+    padding-bottom: 4rem;
+    /* p-6 */
+  }
+
 }

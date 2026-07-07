@@ -38,7 +38,10 @@
 }
 
 /* Tablet */
-@media (max-width: 768px) {
+@media (max-width: 768px)  {
+  .course-card{
+    width: 100%;
+  }
   .CourseComp {
     padding: 1.5rem;
     /* p-6 */
@@ -63,5 +66,21 @@
 
   .CourseComp-subheading {
     margin-bottom: 16px;
+  }
+}
+
+
+/* Tablet */
+@media (max-width: 1024px)  {
+  .course-card{
+    width: 100%;
+  }
+  .CourseComp {
+    padding: 1.5rem;
+    /* p-6 */
+  }
+
+  .CourseComp-subheading {
+    margin-bottom: 24px;
   }
 }

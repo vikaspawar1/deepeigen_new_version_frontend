@@ -91,7 +91,7 @@ export default function Showallcourses() {
   }
 
   return (
-    <div className="text-black py-10">
+    <div className="text-black py-10 bg-white pb-18">
       <div className="max-w-[100vw] sm:max-w-[82vw] md:max-w-[87vw] lg:max-w-[82vw] mx-auto px-6">
 
         {/* Header */}
