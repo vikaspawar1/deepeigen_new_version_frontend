@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "../../redux/store";
 import { logout, setUser } from "../../redux/slices/auth";
 import { logoutUser } from "../userDashboard/data/typesprofile";
-import logo_svg from "../../assets/Logo/logo-black.png";
+import logo_svg from "../../assets/Logo/deepeigen.svg";
 import api from "../../lib/api";
 
 
@@ -186,9 +186,8 @@ export default function Navigation() {
       <div className="mx-auto flex justify-between items-center sm:px-[10vw] px-4 py-6 relative">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-3 z-10">
-          <img src={logo_svg} alt="" className="w-35 h-auto" />
+          <img src={logo_svg} alt="" className="w-45 h-auto" />
         </Link>
-
         {/* Desktop Menu */}
         <div className="hidden lg:flex items-center gap-8 absolute left-1/2 transform -translate-x-1/2 z-10">
           {/* Courses Dropdown */}

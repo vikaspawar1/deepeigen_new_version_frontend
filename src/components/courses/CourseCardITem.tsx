@@ -89,7 +89,7 @@ const CourseCardITem: FC<CourseCardItemProps> = ({ course }) => {
                         </div>
                         <div className="meta-divider"></div>
                         <div className="meta-item">
-                            <span className="text-gray-500 sm:text-md text-md ">Assisment</span>
+                            <span className="text-gray-500 sm:text-md text-md ">Assignment</span>
                             <span className="text-start">{course.assignments}</span>
                         </div>
                     </div>

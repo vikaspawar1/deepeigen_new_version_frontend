@@ -1,12 +1,12 @@
 import svgPaths from "../imports/svg";
 import { Link } from "react-router-dom";
 import "./footer.css";
-import logo_svg from "../../assets/Logo/logo-white.png";
+import logo_svg from "../../assets/Logo/logowhite36.svg";
 import SocialIcons from "../footer/SocialIcons";
 
 const Logo = () => (
     <Link to="/" className="flex items-center gap-3">
-        <img src={logo_svg} alt="Deep Eigen AI Labs" className="w-35 h-auto" />
+        <img src={logo_svg} alt="Deep Eigen AI Labs" className="w-45 text-white h-auto" />
 
     </Link>
 );

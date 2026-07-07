@@ -23,7 +23,7 @@
   gap: 40px;
   border-radius: 20px;
   background: #fff;
-  box-shadow: -3px 4px 24.8px 0 rgba(23, 76, 210, 0.2);
+  border: 1px solid rgba(26, 33, 47, 0.08);
 }
 
 .contact-info {
