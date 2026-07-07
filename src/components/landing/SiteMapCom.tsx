@@ -23,25 +23,32 @@ const Sitemap: React.FC = () => {
         <Divider />
 
         {/* About */}
-        <Section title="About">
+        <Section title="Company">
+            <LinkItem text="About Us" link="/about-us" />
+              <LinkItem text="Courses" link="/showallcourses" />
           <LinkItem text="Team" link="/team" />
-          <LinkItem text="FAQ’s" link="/faqs" />
-          <LinkItem text="Terms" link="/terms_conditio" />
+          <LinkItem text="Contact" link="/contactus" />
+          {/* <LinkItem text="Terms" link="/terms_conditio" /> */}
         </Section>
 
         <Divider />
 
         {/* Careers */}
-        <Section title="Careers">
-          <LinkItem text="Careers" link="/career" />
+        <Section title="Quick Links">
+          <LinkItem text="Subscribe" link="/pricing" />
+             <LinkItem text="Custom Playlist" link="/make_playlist" />
+                <LinkItem text="FAQs" link="/faqs" />
+                   <LinkItem text="Terms of service" link="/terms_conditions" />
+                      <LinkItem text="Privacy Policy" link="/privacy_policy" />
+                         {/* <LinkItem text="Careers" link="/career" /> */}
         </Section>
 
         <Divider />
 
         {/* Contact */}
-        <Section title="Contact">
+        {/* <Section title="Contact">
           <LinkItem text="Contact" link="/contactus" />
-        </Section>
+        </Section> */}
       </div>
     </div>
   )

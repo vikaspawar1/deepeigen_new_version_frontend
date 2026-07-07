@@ -34,7 +34,7 @@ const FooterLeft = () => (
 const FooterLinks = () => (
     <div className="footer__links">
         <div className="footer__section">
-            <h4>Deep Eigen AI Labs</h4>
+            <h4>Company</h4>
             <div className="footer__list">
                 <p>
                     <Link to="/about-us">
@@ -76,11 +76,11 @@ const FooterLinks = () => (
                         FAQs
                     </Link>
                 </p>
-                <p>
+                {/* <p>
                     <Link to="/pricing">
                         Pricing
                     </Link>
-                </p>
+                </p> */}
                 <p>
                     <Link to="/terms_conditions">
                         Terms of service
