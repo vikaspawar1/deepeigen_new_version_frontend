@@ -659,7 +659,7 @@ export default function BillingAndInvoices({ billingData }: BillingAndInvoicesPr
   }
 
   return (
-    <div className="flex flex-col gap-4 w-full sm:mt-12 md:mt-0 mb-10 sm:max-w-[78vw] md:max-w-[80vw] lg:max-w-[71vw] sm:gap-6 lg:gap-8 py-8 sm:py-10 lg:py-12 flex-1 overflow-x-hidden tablet-center">
+    <div className="flex flex-col gap-4 w-full sm:mt-12 md:mt-0 mb-10 sm:max-w-[78vw] md:max-w-[95vw] lg:max-w-[71vw] sm:gap-6 lg:gap-8 py-8 sm:py-10 lg:py-12 flex-1 overflow-x-hidden tablet-center">
       <style>{`@media (min-width: 768px) and (max-width: 1023px) { .tablet-center { margin-left: auto; margin-right: auto; } }`}</style>
 
       <div className="w-full mt-[-8vw] sm:mt-[-2vw]">

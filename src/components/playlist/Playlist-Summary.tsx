@@ -220,7 +220,7 @@ export default function PlaylistSummary() {
   }
 
   return (
-    <div className=" font-bricolage sm:max-w-[84vw] max-w-[100vw]  md:max-w-[88vw] lg:max-w-[84vw] mx-auto min-h-screen bg-white
+    <div className=" font-bricolage sm:max-w-[84vw] max-w-[100vw]  md:max-w-[95vw] lg:max-w-[95vw] mx-auto min-h-screen bg-white
      px-2 sm:px-4 md:px-8 lg:px-12 py-4 sm:py-6 md:py-10">
       {/* Back */}
       {/* Back */}

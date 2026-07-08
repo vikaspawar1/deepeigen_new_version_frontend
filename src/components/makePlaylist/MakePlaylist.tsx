@@ -467,7 +467,7 @@ export default function MakePlaylist() {
 
   return (
     <div className="min-h-screen bg-white">
-      <div className="max-w-full md:max-w-[84vw] lg:max-w-[83.5vw] mx-auto p-4 md:p-6 lg:p-10">
+      <div className="max-w-full md:max-w-[95vw] lg:max-w-[83.5vw] mx-auto p-4 md:p-6 lg:p-10">
 
         {/* Header */}
         <div className="flex flex-col lg:flex-row justify-between items-start gap-8 lg:gap-12 mb-10 md:mb-16">

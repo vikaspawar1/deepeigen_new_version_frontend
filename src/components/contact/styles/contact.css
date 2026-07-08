@@ -169,7 +169,8 @@
 /* Mobile styles */
 @media (max-width: 768px) {
   .contact-page {
-    padding: 40px 16px;
+    width: 100vw;
+    padding: 20px 20px;
   }
 
   .contact-card {

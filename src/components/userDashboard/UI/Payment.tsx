@@ -257,7 +257,7 @@ export default function Payment() {
   }
 
   return (
-    <div className="min-h-screen  max-w-[100vw] sm:max-w-[82vw] md:max-w-[88vw] 
+    <div className="min-h-screen  max-w-[100vw] sm:max-w-[82vw] md:max-w-[95vw] 
     lg:max-w-[82vw] mx-auto bg-white py-4 sm:py-8 px-2 sm:px-6">
       <div className="">
         {/* Back Link */}

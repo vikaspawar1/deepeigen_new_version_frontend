@@ -321,8 +321,8 @@
 /* Tablet styles */
 @media (max-width: 768px) {
     .careers-page {
-        padding: 40px 20px;
-        width: 88vw;
+        padding: 20px 20px;
+        width: 95vw;
         margin: 0 auto;
         margin-bottom: 40px
     }

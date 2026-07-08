@@ -106,6 +106,8 @@ export default function index() {
           </div>
         </section>
 
+
+
         <section className="team-section">
           <div className="accordion-wrapper">
 

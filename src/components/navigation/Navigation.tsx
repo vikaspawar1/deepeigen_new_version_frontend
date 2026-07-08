@@ -183,11 +183,14 @@ export default function Navigation() {
 
   return (
     <nav className="w-full bg-white border-b border-gray-200 z-50 relative">
-      <div className="mx-auto flex justify-between items-center sm:px-[10vw] px-4 py-6 relative">
+      <div className="mx-auto flex justify-between items-center sm:px-[10vw] md:px-[5vw] lg:px-[10vw] px-4 py-6 relative">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-3 z-10">
           <img src={logo_svg} alt="" className="w-45 h-auto" />
         </Link>
+
+
+
         {/* Desktop Menu */}
         <div className="hidden lg:flex items-center gap-8 absolute left-1/2 transform -translate-x-1/2 z-10">
           {/* Courses Dropdown */}

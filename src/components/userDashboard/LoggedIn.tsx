@@ -409,7 +409,7 @@ export default function LoggedIn() {
       {!loading && (
         <>
           <div className="bg-gradient-to-r from-[#2b1062] to-[#6e228c]">
-            <div className="px-6 md:px-8 w-[100vw] sm:w-[100vw] md:w-[90vw] lg:w-[100vw] mx-auto lg:px-10 xl:px-36 2xl:px-48">
+            <div className="px-6 md:px-8 w-[100vw] sm:w-[100vw] md:w-[95vw] lg:w-[100vw] mx-auto lg:px-10 xl:px-36 2xl:px-48">
               {/* Welcome Section */}
               <div className="flex flex-row items-start justify-between mb-6 gap-4">
                 <div className="flex-1">
@@ -575,7 +575,7 @@ export default function LoggedIn() {
 
 
           {/* Main Content */}
-          <div className="px-6  w-[100vw] sm:w-[100vw] md:w-[90vw] lg:w-[100vw] mx-auto py-12 md:px-8 lg:px-10 xl:px-36 2xl:px-48">
+          <div className="px-6  w-[100vw] sm:w-[100vw] md:w-[95vw] lg:w-[100vw] mx-auto py-12 md:px-8 lg:px-10 xl:px-36 2xl:px-48">
             {/* Courses Section */}
             {activeSection === "courses" && (
               <>
