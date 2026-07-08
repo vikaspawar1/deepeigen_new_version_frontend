@@ -507,23 +507,23 @@ export default function MakePlaylist() {
 
             {/* Button */}
             <button
-              className="px-6 py-3 text-white text-base sm:text-md font-bold rounded-xl cursor-pointer w-full lg:min-w-[16rem] transition-all hover:bg-blue-700 active:scale-[0.98] shadow-lg shadow-blue-100 disabled:bg-gray-300 disabled:shadow-none disabled:cursor-not-allowed"
+              className="px-6 py-3 text-white text-base sm:text-md font-bold rounded-xl  cursor-pointer w-full lg:min-w-[16rem] transition-all hover:bg-blue-700 active:scale-[0.98] shadow-lg shadow-blue-100 disabled:bg-gray-300 disabled:shadow-none disabled:cursor-not-allowed"
               style={{ backgroundColor: primary }}
               onClick={handleSubscribe}
               disabled={submitting || selectedLectures.length === 0}
             >
-              {submitting ? "PREPARING..." : (isAdmin ? "PREPARE FULL ACCESS PLAYLIST" : "SUBSCRIBE TO PLAYLIST")}
+              {submitting ? "Preparing..." : (isAdmin ? "PREPARE FULL ACCESS PLAYLIST" : "SUBSCRIBE TO PLAYLIST")}
             </button>
 
             {/* Info */}
-            <div className="flex  mx-auto items-center gap-1">
+            {/* <div className="flex  mx-auto items-center gap-1">
               <p className="text-sm font-[400] text-gray-600">
                 <span className="text-blue-600 font-black">{selectedLectures.length}</span> lectures selected
               </p>
               <p className="text-sm ml-4 font-[400] text-gray-600 uppercase ">
                 Across <span className="text-blue-600 font-black">{assignments.length}</span> assignments
               </p>
-            </div>
+            </div> */}
 
           </div>
         </div>

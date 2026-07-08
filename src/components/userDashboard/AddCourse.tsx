@@ -200,27 +200,29 @@ export default function Showallcourses() {
 
                     <div className="course-divider my-4"></div>
 
-                    <div className="flex items-center justify-between ">
-                        <div className="flex items-start gap-2">
-                            {/* <span className="text-[10px] sm:text-xs text-gray-500  tracking-wider font-semibold">Indian Fee</span> */}
-                            <div className="flex items-center font-bold text-2xl">
-                                <span className="mr-0.5">₹</span>
-                                <span>{course.indian_fee}</span>
+                    <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                        <div className="flex flex-nowrap items-center gap-18">
+                            {/* Indian Fee */}
+                            <div className="flex items-center gap-2">
+                                <div className="flex items-center font-bold text-2xl">
+                                    <span className="mr-0.5">₹</span>
+                                    <span>{course.indian_fee}</span>
+                                </div>
+                                <span className="text-[10px] sm:text-xs text-gray-400 line-through">
+                                    ₹{course.indian_fee + 2000}
+                                </span>
                             </div>
-                            <span className="text-[10px] sm:text-xs text-gray-400 line-through">
-                                ₹{course.indian_fee + 2000}
-                            </span>
-                        </div>
 
-                        <div className="flex  gap-1">
-                            {/* <span className="text-[10px] sm:text-xs text-gray-500  tracking-wider font-semibold">Foreign Fee</span> */}
-                            <div className="flex items-center font-bold text-lg sm:text-xl">
-                                <span className="mr-0.5">$</span>
-                                <span>{course.foreign_fee ?? 0}</span>
+                            {/* Foreign Fee */}
+                            <div className="flex items-center gap-2">
+                                <div className="flex items-center font-bold text-lg sm:text-xl">
+                                    <span className="mr-0.5">$</span>
+                                    <span>{course.foreign_fee ?? 0}</span>
+                                </div>
+                                <span className="text-[10px] sm:text-xs text-gray-400 line-through">
+                                    ${(course.foreign_fee ?? 0) + 50}
+                                </span>
                             </div>
-                            <span className="text-[10px] sm:text-xs text-gray-400 line-through">
-                                ${(course.foreign_fee ?? 0) + 50}
-                            </span>
                         </div>
 
                         <button
@@ -229,11 +231,10 @@ export default function Showallcourses() {
                                 const slug = course.url_link_name || course.title;
                                 navigate(`/buycourse/${course.id}/${slug}`);
                             }}
-                            className="bg-blue-700 hover:bg-blue-800 text-white font-semibold px-4 cursor-pointer py-3 rounded-lg transition-colors"
+                            className="w-full md:w-auto bg-blue-700 hover:bg-blue-800 text-white font-semibold px-4 cursor-pointer py-3 rounded-lg transition-colors"
                         >
                             Buy Course
                         </button>
-
                     </div>
                 </div>
               </div>

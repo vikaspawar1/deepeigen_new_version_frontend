@@ -60,6 +60,9 @@ export default function PlaylistSummary() {
   const [previewLoading, setPreviewLoading] = useState(false)
   const [displayTotalPrice, setDisplayTotalPrice] = useState(0)
 
+
+  const [paymentLoading, setPaymentLoading] = useState(false);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -122,72 +125,91 @@ export default function PlaylistSummary() {
     }
   }, [selectedDuration, playlistId, loading])
 
+
+
+
+  const handlePayments = async () => {
+    try {
+      setPaymentLoading(true);
+
+      // Your API call
+      await handlePayment(); // Example
+
+      // Success logic
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setPaymentLoading(false);
+    }
+  };
+
+
   const handlePayment = async () => {
-    if (!playlist || !userData) return
+    if (!playlist || !userData) return;
 
     try {
-      // 1️⃣ Initiate Payment (Create Razorpay Order on Backend)
-      const initRes = await api.post(`/customplaylist/initiate_payment/${playlistId}/`, {
-        duration: selectedDuration
-      })
+      setPaymentLoading(true);
+
+      const initRes = await api.post(
+        `/customplaylist/initiate_payment/${playlistId}/`,
+        {
+          duration: selectedDuration,
+        }
+      );
 
       if (!initRes.data.success) {
-        toast.error(initRes.data.message || "Failed to initiate payment")
-        return
+        toast.error(initRes.data.message || "Failed to initiate payment");
+        return;
       }
 
-      const orderData = initRes.data.data
+      const orderData = initRes.data.data;
 
       const options = {
         key: orderData.razorpay_key,
         amount: orderData.amount,
         currency: orderData.currency,
         name: "Deep Eigen",
-        description: `Payment for ${playlist.title} (${selectedDuration})`,
-        image: "/logo.png",
+        description: `Payment for ${playlist.title}`,
         order_id: orderData.razorpay_order_id,
 
-        handler: async function (response: {
-          razorpay_payment_id: string;
-          razorpay_order_id: string;
-          razorpay_signature: string;
-        }) {
+        handler: async (response: any) => {
           try {
-            // 2️⃣ Verify Payment on Backend
-            const verifyRes = await api.post(`/customplaylist/verify_payment/${playlistId}/`, {
-              razorpay_payment_id: response.razorpay_payment_id,
-              razorpay_order_id: response.razorpay_order_id,
-              razorpay_signature: response.razorpay_signature
-            })
+            const verifyRes = await api.post(
+              `/customplaylist/verify_payment/${playlistId}/`,
+              {
+                razorpay_payment_id: response.razorpay_payment_id,
+                razorpay_order_id: response.razorpay_order_id,
+                razorpay_signature: response.razorpay_signature,
+              }
+            );
 
             if (verifyRes.data.success) {
-              toast.success("Payment Successful ")
-              navigate("/user_dashboard", { state: { activeSection: "playlist" } })
+              toast.success("Payment Successful");
+              navigate("/user_dashboard", {
+                state: { activeSection: "playlist" },
+              });
             } else {
-              toast.error(verifyRes.data.message || "Payment verification failed")
+              toast.error("Payment verification failed");
             }
-          } catch (err: any) {
-            toast.error(err.response?.data?.message || "An error occurred during payment verification")
+          } finally {
+            setPaymentLoading(false);
           }
         },
 
-        prefill: {
-          name: orderData.customer_name || "",
-          email: orderData.customer_email || "",
+        modal: {
+          ondismiss: () => {
+            setPaymentLoading(false);
+          },
         },
+      };
 
-        theme: {
-          color: "#174cd2",
-        },
-      }
-
-      const rzp = new window.Razorpay(options)
-      rzp.open()
-
+      const rzp = new window.Razorpay(options);
+      rzp.open();
     } catch (err: any) {
-      toast.error(err.response?.data?.message || "Failed to start payment process")
+      toast.error(err.response?.data?.message || "Payment failed");
+      setPaymentLoading(false);
     }
-  }
+  };
 
   if (loading) {
     return (
@@ -212,7 +234,8 @@ export default function PlaylistSummary() {
   }
 
   return (
-    <div className=" font-bricolage sm:max-w-[84vw] max-w-[100vw]  md:max-w-[88vw] lg:max-w-[84vw] mx-auto min-h-screen bg-[#e9effb] px-3 sm:px-4 md:px-8 lg:px-12 py-4 sm:py-6 md:py-10">
+    <div className=" font-bricolage sm:max-w-[84vw] max-w-[100vw]  md:max-w-[88vw] lg:max-w-[84vw] mx-auto min-h-screen bg-white
+     px-2 sm:px-4 md:px-8 lg:px-12 py-4 sm:py-6 md:py-10">
       {/* Back */}
       {/* Back */}
       <button
@@ -223,7 +246,7 @@ export default function PlaylistSummary() {
       </button>
 
       {/* Card */}
-      <div className="max-w-full md:max-w-[83vw] lg:max-w-[83.5vw] mx-auto bg-white rounded-2xl border border-gray-300 shadow-sm overflow-hidden p-5 sm:p-8 mb-10 md:p-10">
+      <div className="max-w-full md:max-w-[83vw] lg:max-w-[83.5vw] mx-auto bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden p-5 sm:p-8 mb-10 md:p-10">
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-8">
           <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 leading-tight">
@@ -235,7 +258,7 @@ export default function PlaylistSummary() {
         </div>
 
         {/* Name / Email */}
-        <div className="bg-[#f8faff] rounded-xl border border-blue-50/50 px-5 py-4 flex flex-col md:flex-row md:justify-between gap-3 mb-10">
+        <div className="bg-[#f8faff] rounded-xl border border-blue-50/50 px-3 py-4 flex flex-col md:flex-row md:justify-between gap-3 mb-10">
           <p className="text-sm text-gray-700">
             <span className="font-semibold text-gray-900">Name: </span>{userData?.name}
           </p>
@@ -246,12 +269,12 @@ export default function PlaylistSummary() {
         </div>
 
         {/* Subscription */}
-        <div className="mb-10">
-          <h2 className="text-base sm:text-lg font-bold text-gray-900 mb-4">
+        <div className="mb-10 ">
+          <h2 className="text-base sm:text-lg font-semibold text-gray-900 mb-4">
             Subscribe for
           </h2>
 
-          <div className="flex bg-gray-50 text-start p-1.5 rounded-full border border-gray-100 overflow-x-auto scrollbar-hide w-fit">
+          <div className="flex item-start bg-gray-50 text-start p-1 rounded-full border border-gray-100 overflow-x-auto scrollbar-hide w-fit">
             {[
               ["1 Month", "1 Month"],
               ["4 Months", "4 Months"],
@@ -261,7 +284,7 @@ export default function PlaylistSummary() {
                 key={key}
                 disabled={previewLoading}
                 onClick={() => setSelectedDuration(key)}
-                className={`px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold transition-all whitespace-nowrap
+                className={`px-3 py-2.5 rounded-full text-xs sm:text-sm font-bold transition-all whitespace-nowrap
                   ${selectedDuration === key
                     ? "bg-blue-600 text-white shadow-md shadow-blue-100"
                     : "text-gray-600 hover:text-gray-900"
@@ -272,6 +295,7 @@ export default function PlaylistSummary() {
             ))}
           </div>
         </div>
+
 
         {/* Lectures */}
         <div className="mb-10">
@@ -336,7 +360,7 @@ export default function PlaylistSummary() {
                 {playlist.assignments.map(asgn => (
                   <div key={asgn.id} className="flex items-center gap-3 bg-white p-3 rounded-lg border border-gray-300 shadow-sm">
                     <div className="w-6 h-6 bg-blue-50 text-blue-600 rounded flex items-center justify-center text-xs">
-                      📄
+
                     </div>
                     <div className="min-w-0">
                       <p className="text-sm font-semibold text-gray-900 mb-2">{asgn.name}</p>
@@ -369,12 +393,25 @@ export default function PlaylistSummary() {
         {/* Pay */}
         <button
           onClick={handlePayment}
-          disabled={playlist.is_purchased || previewLoading}
-          className="w-full mt-8 bg-blue-600 text-white py-3 rounded-xl text-md font-semibold hover:bg-blue-700 active:scale-[0.99] shadow-lg
-
-           shadow-blue-100 transition-all disabled:bg-gray-300 disabled:cursor-not-allowed disabled:shadow-none"
+          disabled={
+            playlist.is_purchased ||
+            previewLoading ||
+            paymentLoading
+          }
+          className="w-full mt-8 bg-[#174CD2] text-white py-3 rounded-xl text-md font-semibold hover:bg-blue-700 active:scale-[0.99] shadow-lg shadow-blue-100 transition-all disabled:bg-gray-300 disabled:cursor-not-allowed disabled:shadow-none flex items-center justify-center gap-2"
         >
-          {playlist.is_purchased ? "PLAYLIST ALREADY PURCHASED" : previewLoading ? "CALCULATING BEST PRICE..." : `PAY ₹${displayTotalPrice.toFixed(2)}`}
+          {playlist.is_purchased ? (
+            "PLAYLIST ALREADY PURCHASED"
+          ) : paymentLoading ? (
+            <>
+              <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+              Processing...
+            </>
+          ) : previewLoading ? (
+            "CALCULATING BEST PRICE..."
+          ) : (
+            `PAY ₹${displayTotalPrice.toFixed(2)}`
+          )}
         </button>
       </div>
     </div>

@@ -84,7 +84,7 @@ export default function AccountLayout() {
                 {/* Sidebar toggle button for mobile */}
                 <button
                     className="sidebar-toggle lg:hidden absolute text-2xl bg-blue-700 w-12 h-12 text-white 
-                     rounded-full top-[90vh] fixed md:left-[90vw]   left-[83vw] z-50  "
+                     rounded-full top-[80vh] fixed md:left-[90vw]   left-[83vw] z-50  "
                     onClick={() => setIsSidebarOpen(true)}
                     aria-label="Open sidebar"
                 >
