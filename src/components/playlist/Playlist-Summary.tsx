@@ -128,20 +128,6 @@ export default function PlaylistSummary() {
 
 
 
-  const handlePayments = async () => {
-    try {
-      setPaymentLoading(true);
-
-      // Your API call
-      await handlePayment(); // Example
-
-      // Success logic
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setPaymentLoading(false);
-    }
-  };
 
 
   const handlePayment = async () => {
