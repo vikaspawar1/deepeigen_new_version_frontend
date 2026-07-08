@@ -433,9 +433,9 @@ export default function CourseDetails() {
   };
 
   return (
-    <div className="min-h-screen bg-white w-full overflow-x-hidden">
+    <div className="min-h-screen bg-white w-full overflow-x-hidden mb-10">
       {/* Hero Section */}
-      <div className="sm:max-w-[82vw] md:max-w-[95vw] lg:max-w-[90vw] max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8 md:mb-10 lg:mb-12">
+      <div className="sm:max-w-[82vw] md:max-w-[95vw] lg:max-w-[82vw] max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8 md:mb-10 lg:mb-12">
         <div className="rounded-xl md:rounded-2xl min-h-[300px] md:min-h-[320px] lg:min-h-[380px] mt-4 md:mt-6 py-4 md:py-6 lg:py-8 px-3 md:px-4 lg:px-6 bg-gradient-to-r from-[#2B1062] to-[#6E228C] flex flex-col lg:flex-row gap-6 md:gap-8 w-full">
           <div className="flex-1 py-6 md:py-8 lg:py-10 flex flex-col gap-3 md:gap-4 w-full">
             <div className="flex flex-col gap-2 md:gap-3 w-full">
@@ -484,7 +484,7 @@ export default function CourseDetails() {
         </div>
       </div>
       {/* Main Content */}
-      <div className="sm:max-w-[82vw] md:max-w-[95vw] max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="sm:max-w-[82vw] md:max-w-[95vw] lg:max-w-[82vw] max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start w-full">
           {/* Main Content */}
           <div className="lg:col-span-8 w-full">

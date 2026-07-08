@@ -214,7 +214,7 @@ function ChoosePlanStandard() {
 
   return (
     <div className=" font-bricolage  max-w-full sm:max-w-[84vw] md:max-w-[90vw] lg:max-w-[86vw] mx-auto min-h-screen 
-    bg-[#e9effb] px-3 sm:px-4 md:px-8 lg:px-12 py-4 sm:py-6 md:py-10">
+    bg-white px-3 sm:px-4 md:px-8 lg:px-12 py-4 sm:py-6 md:py-10">
 
       <div className=" w-full">
         {/* Back */}

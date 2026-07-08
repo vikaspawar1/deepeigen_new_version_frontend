@@ -1,9 +1,9 @@
-import computerVisionVideo from "../../../assets/course_videos/Computer Vision.mp4";
-import generativeAiVideo from "../../../assets/course_videos/Generative AI.mp4";
-import machineLearningVideo from "../../../assets/course_videos/Machine Learning.mp4";
-import mathematicalOptimizationVideo from "../../../assets/course_videos/Mathematical Optimization.mp4";
-import reinforcementLearningVideo from "../../../assets/course_videos/Reinforcement Learning.mp4";
-import visualOdometryVideo from "../../../assets/course_videos/Visual Odometry.mp4";
+import computerVisionVideo from "../../../assets/videos/Computer Vision.mp4";
+import generativeAiVideo from "../../../assets/videos/Generative Ai.mp4";
+import machineLearningVideo from "../../../assets/videos/Machine Learning.mp4";
+import mathematicalOptimizationVideo from "../../../assets/videos/Mathematical Optimisation.mp4";
+import reinforcementLearningVideo from "../../../assets/videos/Reinforcement Learning.mp4";
+import visualOdometryVideo from "../../../assets/videos/Visual Odometry.mp4";
 import heroBannerVideo from "../../../assets/course_videos/Hero-banner.mp4";
 
 export const getCourseVideo = (title: string): string => {
@@ -17,7 +17,7 @@ export const getCourseVideo = (title: string): string => {
   if (t.includes("generative ai") || t.includes("genai")) {
     return generativeAiVideo;
   }
-  if (t.includes("mathematical optimization")) {
+  if (t.includes("mathematical optimisation")) {
     return mathematicalOptimizationVideo;
   }
   if (t.includes("reinforcement learning")) {

@@ -42,7 +42,7 @@ const faqs = [
             <>
                 <p>
                     Courses at top graduate programs provide you the state-of-the-art
-                    knowledge in the field. However, graudate programs are very selective
+                    knowledge in the field. However, graduate programs are very selective
                     and expensive. Furthermore, they assume that you already have
                     lot of background knowledge before you begin a course.
                 </p>
@@ -74,7 +74,7 @@ const faqs = [
         answer: (
             <>
                 <p>
-                    Deep Eigen AI Labs courses are typically more deeper and broader
+                    Deep Eigen AI Labs courses are typically  deeper and broader
                     than other online courses. Our courses are designed to provide
                     both the depth and breadth of a particular topic. Such knowledge
                     base may help a candidate in securing a job in the relevant areas.
@@ -84,7 +84,7 @@ const faqs = [
                     For example, while Cat-I courses specifically are designed to be
                     as knowledgeable and as competitive as best of the best graduate
                     programs' courses, the Cat-II courses do not necessarily contain
-                    graudate level theory. However, often this boundary is blurred in
+                    graduate level theory. However, often this boundary is blurred in
                     Cat-II courses. Often, there are more hidden topics and other
                     added topics, as compared to those indicated in the course outline
                     -- this depends on a course instructor, if they want to include
@@ -97,7 +97,7 @@ const faqs = [
                     Deep Eigen AI Labs, as they aim to provide you state-of-the-art
                     knowledge. We consider that the only real alternative to Deep Eigen
                     AI Labs's Cat-I courses is a structured graduate program in a
-                    developed country. Graudate programs can provide you equivalent
+                    developed country. Graduate programs can provide you equivalent
                     (or better) knowledge in the fielld. However, not everyone can
                     get into such graduate programs, and not everyone can afford them,
                     given that the fee is increasing every year.
@@ -139,7 +139,7 @@ const faqs = [
 
                 <p className="mt-2">
                     Cat-IA courses can be considered as one semester course on the same
-                    topic at top graudate programs in the world, with additional emphasis
+                    topic at top graduate programs in the world, with additional emphasis
                     on research papers.
                 </p>
 

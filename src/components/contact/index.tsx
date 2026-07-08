@@ -10,7 +10,7 @@ export default function index() {
               <h1 className="contact-title">Contact Us</h1>
               <p className="contact-description">
                 If your have any queries about our services, send an email to help@deepeigen.com and we'll
-                 do our best to reply within 24 hours Alternatively simply pickup the phone and give us a call
+                do our best to reply within 24 hours Alternatively simply pick Up the phone and give us a call
               </p>
             </div>
 
@@ -29,7 +29,7 @@ export default function index() {
                 <div className="contact-text">
                   <div className="contact-label">Location</div>
                   <div className="contact-value">
-                      Swaayatt Robots Pvt. Ltd., 2, COSMOS 67-B, near, Narmadapuram Rd, Vidya Nagar, Bhopal, Madhya Pradesh 462026
+                    Swaayatt Robots Pvt. Ltd., 2, COSMOS 67-B, near, Narmadapuram Rd, Vidya Nagar, Bhopal, Madhya Pradesh 462026
                   </div>
                 </div>
               </div>
@@ -45,10 +45,25 @@ export default function index() {
                 </div>
                 <div className="contact-text">
                   <div className="contact-label">Email</div>
-                  <div className="contact-value">
-                    help@deepeigen.com<br />
-                    registration@deepeigen.com
+
+
+                  < div className="contact-value">
+                    <a
+                      href="mailto:help@deepeigen.com"
+                      className="hover:text-blue-600 hover:underline"
+                    >
+                      help@deepeigen.com
+                    </a>
+                    <br />
+                    <a
+                      href="mailto:registration@deepeigen.com"
+                      className="hover:text-blue-600 hover:underline"
+                    >
+                      registration@deepeigen.com
+                    </a>
                   </div>
+
+
                 </div>
               </div>
 
@@ -61,7 +76,7 @@ export default function index() {
                 </div>
                 <div className="contact-text">
                   <div className="contact-label">Call</div>
-                  <div className="contact-value">917552980307</div>
+                  <div className="contact-value">+91 7552 980 307</div>
                 </div>
               </div>
             </div>
