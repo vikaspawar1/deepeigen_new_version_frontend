@@ -165,6 +165,120 @@
     white-space: normal;
     /* ensures wrapping */
   }
+
+  .accordion-wrapper {
+    width: 100%;
+    border-radius: 26px;
+    overflow: hidden;
+    background: #f8fafc;
+    border: 1px solid rgba(26, 33, 47, 0.12);
+  }
+
+  .accordion-toggle {
+    width: 100%;
+    border: none;
+    padding: 0;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .accordion-header {
+    width: 100%;
+    padding: 26px 28px;
+    background: transparent;
+    display: flex;    flex-direction: row;    align-items: start;
+    justify-content: space-between;
+    gap: 16px;
+    transition: background 0.2s ease;
+    text-align: left;
+  }
+
+  .accordion-toggle:hover .accordion-header {
+    background: rgba(236, 245, 255, 0.7);
+  }
+
+  .accordion-text {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .accordion-icon {
+    display: flex;
+    align-items: end;
+    justify-content: end;
+    width: 32px;
+    height: 32px;
+    color: #5d5d60;
+    font-size: 22px;
+    line-height: 1;
+    transition: transform 0.3s ease;
+  }
+
+  .accordion-icon.open {
+    transform: rotate(180deg);
+  }
+
+  .accordion-panel {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.35s ease, opacity 0.35s ease, padding 0.35s ease;
+  }
+
+  .accordion-panel.open {
+    max-height: 1200px;
+    opacity: 1;
+    padding: 0 28px 28px;
+  }
+
+  .accordion-header .section-title {
+    margin-bottom: 6px;
+    font-size: 20px;
+  }
+
+  .accordion-header .section-subtitle {
+    margin: 0;
+    max-width: 720px;
+    color: rgba(26, 33, 47, 0.7);
+  }
+
+  .team-grid.advisory-grid {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 24px;
+    width: 100%;
+  }
+
+  .team-grid.advisory-grid .team-card {
+    max-width: none;
+    background: #ffffff;
+    border-radius: 22px;
+    padding: 24px;
+    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+    border: 1px solid rgba(226, 232, 240, 0.75);
+    text-align: left;
+  }
+
+  .team-grid.advisory-grid .team-image-wrapper {
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: inset 0 0 0 1px rgba(15, 23, 42, 0.04);
+  }
+
+  .team-grid.advisory-grid .team-info {
+    padding: 16px 0 0;
+  }
+
+  .team-grid.advisory-grid .team-name {
+    font-size: 17px;
+  }
+
+  .team-grid.advisory-grid .team-role {
+    font-size: 13px;
+    line-height: 1.6;
+  }
 }
 
 

@@ -659,9 +659,8 @@ export default function BillingAndInvoices({ billingData }: BillingAndInvoicesPr
   }
 
   return (
-    <div className="flex flex-col gap-4 w-full max-w-[71vw]
-      sm:gap-6 lg:gap-8 py-8 sm:py-10 lg:py-12 flex-1 overflow-x-hidden">
-
+    <div className="flex flex-col gap-4 w-full sm:mt-12 md:mt-0 mb-10 sm:max-w-[78vw] md:max-w-[80vw] lg:max-w-[71vw] sm:gap-6 lg:gap-8 py-8 sm:py-10 lg:py-12 flex-1 overflow-x-hidden tablet-center">
+      <style>{`@media (min-width: 768px) and (max-width: 1023px) { .tablet-center { margin-left: auto; margin-right: auto; } }`}</style>
 
       <div className="w-full mt-[-8vw] sm:mt-[-2vw]">
         <div className="w-full">
@@ -695,7 +694,7 @@ export default function BillingAndInvoices({ billingData }: BillingAndInvoicesPr
             >
               {displayReminders.map((item, i) => (
                 <SwiperSlide key={i}>
-                  <div className="flex  justify-center mr-[50px] sm:mr-0 md:mr-0   px-2 sm:px-2">
+                  <div className="flex justify-center px-2 sm:px-2">
                     <div className="bg-[#ffd06c] p-4 sm:p-5 md:p-6 rounded-xl w-full ">
                       <div className="flex flex-col lg:flex-row lg:items-center gap-3 sm:gap-4 lg:gap-6">
                         {/* Left Section */}
@@ -845,7 +844,8 @@ export default function BillingAndInvoices({ billingData }: BillingAndInvoicesPr
           <h3 className="text-[rgba(3, 4, 6, 0.7)] font-bricolage text-2xl sm:text-base lg:text-base font-semibold tracking-[-0.14px] sm:tracking-[-0.16px] lg:tracking-[-0.16px]">
             Purchase History
           </h3>
-          <div className="flex flex-col justify-center items-start gap-3 sm:gap-4 self-stretch rounded-lg sm:rounded-xl px-3 sm:px-4 lg:px-6 py-3 sm:py-4 lg:py-5 bg-gradient-to-r from-[#E5F4FF] to-[#F8FBFF] w-full">
+          <div className="flex flex-col justify-center items-start gap-3 sm:gap-4 self-stretch rounded-lg sm:rounded-xl px-3 sm:px-4 lg:px-6 py-3 sm:py-4 lg:py-5 
+          bg-gradient-to-r from-[#E5F4FF] to-[#F8FBFF] w-full">
             {loadingCourses ? (
               <div className="w-full flex justify-center items-center py-8">
                 <span className="text-[rgba(26,33,47,0.7)] font-bricolage text-sm">Loading history...</span>
@@ -866,66 +866,69 @@ export default function BillingAndInvoices({ billingData }: BillingAndInvoicesPr
               </div>
             ) : purchasedCourses.filter(p => p.is_playlist || p.is_sub_plan || !p.is_subscription).length > 0 ? (
               purchasedCourses.filter(p => p.is_playlist || p.is_sub_plan || !p.is_subscription).map((item, index, filteredArray) => (
-                <div key={item.id} className="w-full">
-                  <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 self-stretch w-full">
-                    <div className="flex px-2 sm:px-3 lg:px-4 py-3 sm:py-4 lg:py-4 justify-center items-center rounded-md bg-gradient-to-b from-[#000155] to-[#153F9A] w-14 sm:w-16 lg:w-20 h-12 sm:h-14 lg:h-16 flex-shrink-0 overflow-hidden">
-                      <span className="text-white font-bricolage text-[10px] sm:text-[11px] lg:text-xs font-bold leading-tight text-center break-words">
-                        {item.category === 'Subscription' ? 'Subscription' : (item.category.split(' ')[0] || 'Item')}
-                      </span>
-                    </div>
-                    <div className="flex flex-col justify-center items-start gap-1.5 sm:gap-2 flex-1 py-0 min-w-0">
-                      <h4 className="self-stretch text-[#1A212F] font-bricolage text-sm sm:text-base lg:text-base font-semibold line-clamp-2 sm:line-clamp-2">
-                        {item.title}
-                      </h4>
-                      <div className="flex flex-col xs:flex-row xs:items-center gap-1 xs:gap-2 lg:gap-2 flex-wrap">
-                        <span className="text-[rgba(26,33,47,0.7)] font-bricolage text-xs lg:text-xs font-light leading-[150%] whitespace-nowrap">
-                          Purchased on {formatDate(item.purchaseDate)}
+                <div key={item.id} className="w-full rounded-lg   p-4 ">
+                  <div className="flex flex-col gap-4 sm:gap-3">
+                    <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 w-full">
+                      <div className="flex items-start gap-3 flex-1 min-w-0">
+
+
+                        <div className="flex px-3 py-3 justify-center items-center rounded-md bg-gradient-to-b from-[#000155] to-[#153F9A] w-14 sm:w-16 lg:w-20 h-14 sm:h-16
+                         flex-shrink-0 overflow-hidden">
+                          <span className="text-white font-bricolage text-[10px] sm:text-[11px] lg:text-xs font-bold leading-tight text-center break-words">
+                            {item.category === 'Subscription' ? 'Subscription' : (item.category.split(' ')[0] || 'Item')}
+                          </span>
+                        </div>
+
+
+
+
+                        <div className="flex flex-col justify-center items-start gap-2 flex-1 min-w-0">
+                          <h4 className="text-[#1A212F] font-bricolage text-sm sm:text-base lg:text-base font-semibold line-clamp-2">
+                            {item.title}
+                          </h4>
+                          <div className="flex flex-col sm:flex-row sm:items-center gap-2 flex-wrap text-[rgba(26,33,47,0.7)] text-xs lg:text-xs font-light leading-[150%]">
+                            <span className="whitespace-nowrap">Purchased on {formatDate(item.purchaseDate)}</span>
+                            {!item.is_sub_plan && (
+                              <>
+                                <span className="hidden sm:inline-block w-px h-3 bg-[rgba(26,33,47,0.24)]" />
+                                <span className="whitespace-nowrap">Access till {formatDate(item.accessTill)}</span>
+                              </>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="flex flex-col items-start sm:items-end justify-center gap-2 min-w-[120px] sm:min-w-[150px]">
+                        <span className="text-[#1A212F] font-bricolage text-base sm:text-lg font-bold whitespace-nowrap text-right">
+                          {item.price ? `${item.currency || '₹'}${item.price.toFixed(2)}` : `${item.currency || '₹'}0`}
                         </span>
-                        {!item.is_sub_plan && (
-                          <>
-                            <div className="hidden xs:block w-px h-3 sm:h-4 lg:h-4 bg-[rgba(26,33,47,0.24)]" />
-                            <span className="text-[rgba(26,33,47,0.7)] font-bricolage text-xs lg:text-xs font-light leading-[150%] whitespace-nowrap">
-                              Access till {formatDate(item.accessTill)}
-                            </span>
-                          </>
+                        {!item.is_sub_plan ? (
+                          <button
+                            onClick={() => {
+                              setSelectedCourseId(item.id);
+                              setPurchasedModal(true);
+                            }}
+                            className="text-[#174CD2] font-bricolage text-xs lg:text-xs font-semibold underline hover:text-[#0f3ead] whitespace-nowrap text-right"
+                          >
+                            View Payment History
+                          </button>
+                        ) : (
+                          item.is_sub_plan && (
+                            <button
+                              onClick={() => {
+                                setAccessedCoursesModal(true);
+                              }}
+                              className="text-[#174CD2] font-bricolage text-xs lg:text-xs font-semibold underline hover:text-[#0f3ead] whitespace-nowrap text-right"
+                            >
+                              View Accessed Courses
+                            </button>
+                          )
                         )}
                       </div>
                     </div>
-
-
-
-                    <div className="flex flex-col items-start sm:items-end gap-1.5 sm:gap-2 mt-2 sm:mt-0">
-                      <span className="text-[#1A212F] font-bricolage text-base sm:text-lg lg:text-lg font-bold whitespace-nowrap">
-                        {item.price ? `${item.currency || '₹'}${item.price.toFixed(2)}` : `${item.currency || '₹'}0`}
-                      </span>
-                      {!item.is_sub_plan ? (
-                        <button
-                          onClick={() => {
-                            setSelectedCourseId(item.id);
-                            setPurchasedModal(true);
-                          }}
-                          className="text-[rgba(26,33,47,0.7)] font-bricolage cursor-pointer text-xs lg:text-xs font-semibold tracking-[-0.12px] sm:tracking-[-0.14px] lg:tracking-[-0.14px] underline text-left sm:text-right hover:text-[#1A212F] whitespace-nowrap"
-                        >
-                          View Payment History
-                        </button>
-                      ) : (
-                        item.is_sub_plan && (
-                          <button
-                            onClick={() => {
-                              setAccessedCoursesModal(true);
-                            }}
-                            className="text-[rgba(26,33,47,0.7)] font-bricolage cursor-pointer text-xs lg:text-xs font-semibold
-                             tracking-[-0.12px] sm:tracking-[-0.14px] lg:tracking-[-0.14px] underline text-left sm:text-right hover:text-[#1A212F]
-                              whitespace-nowrap"
-                          >
-                            View Accessed Courses
-                          </button>
-                        )
-                      )}
-                    </div>
                   </div>
                   {index < filteredArray.length - 1 && (
-                    <div className="h-px self-stretch bg-[rgba(0,0,0,0.08)] my-3 sm:my-3 lg:my-3" />
+                    <div className="h-px bg-[rgba(26,33,47,0.08)] my-4" />
                   )}
                 </div>
               ))
@@ -1052,7 +1055,7 @@ export default function BillingAndInvoices({ billingData }: BillingAndInvoicesPr
               </div>
 
               {/* Mobile */}
-              <div className="md:hidden flex flex-col mr-10">
+              <div className="md:hidden flex flex-col w-full">
                 {invoices.length > 0 ? invoices.map((invoice) => {
                   const statusBadge = getStatusBadge(invoice.status);
                   const isLoading = invoiceCheckLoading === parseInt(invoice.id);

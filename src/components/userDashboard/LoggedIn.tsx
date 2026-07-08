@@ -437,12 +437,12 @@ export default function LoggedIn() {
                         // Show recent watch data
                         <>
                           <div className="flex items-center gap-2 mb-2">
-                            <p className="text-white/70 text-xs uppercase tracking-wider">
+                            {/* <p className="text-white/70 text-xs uppercase tracking-wider">
                               {recentWatch.video_title ? "Continue Watching" : "Continue Learning"}
-                            </p>
-                            {recentWatch.video_duration && (
+                            </p> */}
+                            {/* {recentWatch.video_duration && (
                               <span className="text-white/50 text-xs">• {recentWatch.video_duration}</span>
-                            )}
+                            )} */}
                             {recentWatch.completed && (
                               <span className="text-green-400 text-xs">• Completed</span>
                             )}
@@ -501,7 +501,7 @@ export default function LoggedIn() {
                         {recentWatch ? "Continue Watching" : "Start Learning"}
                       </button>
                       {/* Watched timestamp - below button */}
-                      {recentWatch?.watched_at && (
+                      {/* {recentWatch?.watched_at && (
                         <p className="text-white/80 text-xs  text-right">
                           Last watched:{" "}
                           {new Date(recentWatch.watched_at).toLocaleDateString("en-US", {
@@ -511,7 +511,7 @@ export default function LoggedIn() {
                             minute: "2-digit",
                           })}
                         </p>
-                      )}
+                      )} */}
                     </div>
 
                   </div>

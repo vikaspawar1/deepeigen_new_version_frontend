@@ -1,7 +1,7 @@
 
 
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
@@ -55,6 +55,19 @@ export default function Payment() {
   const [zipcode, setZipcode] = useState("");
   const [installmentOption, setInstallmentOption] = useState("pay_once");
   const [country, setCountry] = useState("India");
+  const [isCountryOpen, setIsCountryOpen] = useState(false);
+  const countryRef = useRef<HTMLDivElement>(null);
+
+  // Close dropdown on outside click
+  useEffect(() => {
+    const handler = (e: MouseEvent) => {
+      if (countryRef.current && !countryRef.current.contains(e.target as Node)) {
+        setIsCountryOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, []);
 
   // Fetch course details
   useEffect(() => {
@@ -245,7 +258,7 @@ export default function Payment() {
 
   return (
     <div className="min-h-screen  max-w-[100vw] sm:max-w-[82vw] md:max-w-[88vw] 
-    lg:max-w-[82vw] mx-auto bg-[#f8f9fb] py-4 sm:py-8 px-2 sm:px-6">
+    lg:max-w-[82vw] mx-auto bg-white py-4 sm:py-8 px-2 sm:px-6">
       <div className="">
         {/* Back Link */}
         <Link
@@ -302,19 +315,53 @@ export default function Payment() {
               <h2 className="text-xl font-semibold text-gray-900 mb-6">Enrollment Details</h2>
 
               <form onSubmit={handleSubmit}>
-                {/* Country Selection */}
-                <div className="mb-8">
+                {/* Country Selection - Custom Dropdown */}
+                <div className="mb-8" ref={countryRef}>
                   <label className="block text-md font-medium text-gray-700 mb-1">
                     Country
                   </label>
-                  <select
-                    value={country}
-                    onChange={(e) => setCountry(e.target.value)}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  {/* Trigger input */}
+                  <button
+                    type="button"
+                    onClick={() => setIsCountryOpen((prev) => !prev)}
+                    className="w-full flex items-center justify-between px-4 py-3 border border-gray-300 rounded-lg bg-white text-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
                   >
-                    <option value="India">India (₹{course.indian_fee})</option>
-                    <option value="Other">Other Countries (${course.foreign_fee})</option>
-                  </select>
+                    <span>
+                      {country === "India" ? "India" : "Other Countries"}
+                    </span>
+                    <svg
+                      className={`w-4 h-4 text-gray-500 transition-transform duration-200 ${isCountryOpen ? "rotate-180" : ""}`}
+                      fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </button>
+                  {/* Options list — opens below, inside page flow */}
+                  {isCountryOpen && (
+                    <div className="mt-1 w-full border border-gray-200 rounded-lg bg-white shadow-md overflow-hidden z-20">
+                      <button
+                        type="button"
+                        onClick={() => { setCountry("India"); setIsCountryOpen(false); }}
+                        className={`w-full flex items-center justify-between px-4 py-3 text-sm hover:bg-blue-50 transition-colors ${
+                          country === "India" ? "bg-blue-50 text-blue-700 font-medium" : "text-gray-700"
+                        }`}
+                      >
+                        <span>India</span>
+                        <span className="text-xs text-gray-500">₹{course.indian_fee}</span>
+                      </button>
+                      <div className="border-t border-gray-100" />
+                      <button
+                        type="button"
+                        onClick={() => { setCountry("Other"); setIsCountryOpen(false); }}
+                        className={`w-full flex items-center justify-between px-4 py-3 text-sm hover:bg-blue-50 transition-colors ${
+                          country === "Other" ? "bg-blue-50 text-blue-700 font-medium" : "text-gray-700"
+                        }`}
+                      >
+                        <span> Other Countries</span>
+                        <span className="text-xs text-gray-500">${course.foreign_fee}</span>
+                      </button>
+                    </div>
+                  )}
                 </div>
 
                 {/* Installment Options */}
@@ -348,10 +395,12 @@ export default function Payment() {
                       2 Installments
                       <span className="block text-md opacity-75">₹{(courseAmount / 2).toLocaleString()}/mo</span>
                     </button>
+
+
                     <button
                       type="button"
                       onClick={() => setInstallmentOption("pay_thrice")}
-                      className={`py-3 px-3 text-sm rounded-lg border transition-colors ${installmentOption === "pay_thrice"
+                      className={`py-2 px-3 text-sm rounded-lg border transition-colors ${installmentOption === "pay_thrice"
                         ? "bg-blue-600 text-white border-blue-600"
                         : "bg-white text-gray-700 border-gray-300 hover:border-blue-400"
                         }`}
@@ -359,6 +408,8 @@ export default function Payment() {
                       3 Installments
                       <span className="block text-sm opacity-75">₹{(courseAmount / 3).toLocaleString()}/mo</span>
                     </button>
+
+
                   </div>
                 </div>
 

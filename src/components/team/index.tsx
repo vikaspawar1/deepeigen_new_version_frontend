@@ -1,6 +1,8 @@
+import { useState } from 'react';
 import './styles/team.css';
 
 export default function index() {
+  const [isAcademicOpen, setIsAcademicOpen] = useState(false);
   const coreTeam = [
     {
       name: 'Sanjeev Sharma',
@@ -105,29 +107,46 @@ export default function index() {
         </section>
 
         <section className="team-section">
-          <div className="section-header">
-            <h1 className="section-title">Academic Advisory Board</h1>
-            <p className="section-subtitle">
-              Experts guiding the strategic and academic direction of our organization.
-            </p>
-          </div>
+          <div className="accordion-wrapper">
 
-          <div className="team-grid">
-            {advisoryBoard.map((member, index) => (
-              <div key={index} className="team-card">
-                <div className="team-image-wrapper">
-                  <img
-                    src={member.image}
-                    alt={member.name}
-                    className="team-image"
-                  />
+            <button
+              type="button"
+              className="accordion-toggle"
+              onClick={() => setIsAcademicOpen((prev) => !prev)}
+              aria-expanded={isAcademicOpen}
+            >
+              <div className="section-header accordion-header">
+                <div className="accordion-text">
+                  <h1 className="section-title">Academic Advisory Board</h1>
+                  <p className="section-subtitle">
+                    Experts guiding the strategic and academic direction of our organization.
+                  </p>
                 </div>
-                <div className="team-info">
-                  <h3 className="team-name">{member.name}</h3>
-                  <p className="team-role">{member.role}</p>
-                </div>
+                <span className={`accordion-icon ${isAcademicOpen ? 'open' : ''}`}>
+                  <i className="ri-arrow-down-s-line"></i>
+                </span>
               </div>
-            ))}
+            </button>
+
+            <div className={`accordion-panel ${isAcademicOpen ? 'open' : ''}`}>
+              <div className="team-grid advisory-grid">
+                {advisoryBoard.map((member, index) => (
+                  <div key={index} className="team-card">
+                    <div className="team-image-wrapper">
+                      <img
+                        src={member.image}
+                        alt={member.name}
+                        className="team-image"
+                      />
+                    </div>
+                    <div className="team-info">
+                      <h3 className="team-name">{member.name}</h3>
+                      <p className="team-role">{member.role}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </section>
       </div>
