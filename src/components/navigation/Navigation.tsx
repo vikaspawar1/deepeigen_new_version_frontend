@@ -371,9 +371,15 @@ export default function Navigation() {
               {user && (
                 <div className="mb-6 p-4 bg-gray-50 rounded-lg">
                   <div className="flex items-center gap-3">
-                    <div className="bg-blue-600 text-white w-12 h-12 rounded-full flex items-center justify-center text-lg font-semibold">
-                      {user.first_name?.charAt(0).toUpperCase() || 'U'}
-                    </div>
+
+                    
+                     <div className="flex-shrink-0 bg-blue-600 text-white w-12 h-12 rounded-full flex items-center justify-center text-lg font-semibold">
+    {user.first_name?.charAt(0).toUpperCase() || "U"}
+  </div>
+
+
+
+
                     <div>
                       <p className="font-semibold text-gray-800">{user.first_name || 'User'}</p>
                       <p className="text-sm text-gray-500">{user.email}</p>
