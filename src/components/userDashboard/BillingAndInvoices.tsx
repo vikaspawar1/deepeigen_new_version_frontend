@@ -918,7 +918,7 @@ export default function BillingAndInvoices({ billingData }: BillingAndInvoicesPr
                               onClick={() => {
                                 setAccessedCoursesModal(true);
                               }}
-                              className="text-[#174CD2] font-bricolage text-xs lg:text-xs font-semibold underline hover:text-[#0f3ead] whitespace-nowrap text-right"
+                              className="text-[#174CD2] font-bricolage cursor-pointer text-xs lg:text-xs font-semibold underline hover:text-[#0f3ead] whitespace-nowrap text-right"
                             >
                               View Accessed Courses
                             </button>
@@ -1017,7 +1017,7 @@ export default function BillingAndInvoices({ billingData }: BillingAndInvoicesPr
                             <button
                               onClick={() => handleDownloadInvoice(invoice)}
                               disabled={isLoading}
-                              className="p-1.5 rounded-md hover:bg-[#E5F4FF] text-[#174CD2] transition-colors disabled:opacity-50 disabled:cursor-not-allowed group"
+                              className="p-1.5 rounded-md hover:bg-[#E5F4FF] text-[#174CD2] cursor-pointer transition-colors disabled:opacity-50 disabled:cursor-not-allowed group"
                               title={isLoading ? 'Checking invoice status...' : 'Download invoice'}
                             >
                               {isLoading ? (

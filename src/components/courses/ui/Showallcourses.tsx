@@ -202,7 +202,7 @@ export default function Showallcourses() {
                     <div className="course-divider my-4"></div>
 
                     <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-                        <div className="flex flex-nowrap items-center gap-18">
+                        <div className="flex flex-nowrap items-center  sm:gap-10  gap-18">
                             {/* Indian Fee */}
                             <div className="flex items-center gap-2">
                                 <div className="flex items-center font-bold text-2xl">
@@ -232,7 +232,7 @@ export default function Showallcourses() {
                                 const slug = course.url_link_name || course.title;
                                 navigate(`/buycourse/${course.id}/${slug}`);
                             }}
-                            className="w-full md:w-auto bg-blue-700 hover:bg-blue-800 text-white font-semibold px-4 cursor-pointer py-3 rounded-lg transition-colors"
+                            className="w-full md:w-auto bg-blue-700 hover:bg-blue-800 text-white font-semibold sm:px-4  px-4 cursor-pointer py-3 rounded-lg transition-colors"
                         >
                             Buy Course
                         </button>
