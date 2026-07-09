@@ -18,15 +18,24 @@ const FooterLeft = () => (
             <p>
                 Deep Eigen is an education platform providing access to graduate level
                 courses related to artificial intelligence and autonomous driving, with
-                an aim to provide quality content at a level similar to top universities
+                an aim to provide you with quality content at a level similar to top universities
                 around the world.
+
             </p>
-            <p>
-                Deep Eigen AI Labs conducts foundational research at the intersection
-                of Physical AI and Applied Mathematics, exploring the principles that
-                govern learning, perception, and embodied intelligence.
-            </p>
+            <div>
+                <p>
+
+                    Deep Eigen AI Labs conducts foundational research at the intersection
+                    of Physical AI and Applied Mathematics, exploring the principles that
+                    govern learning, perception, and embodied intelligence.
+                </p>
+            </div>
+
+
+
         </div>
+
+
         <SocialIcons />
     </div>
 );

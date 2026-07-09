@@ -43,18 +43,18 @@ const faqs = [
                 <p>
                     Courses at top graduate programs provide you the state-of-the-art
                     knowledge in the field. However, graduate programs are very selective
-                    and expensive. Furthermore, they assume that you already have
+                    and expensive. Furthermore, they assume that you already have <a href="http://" target="_blank" rel="noopener noreferrer"></a>
                     lot of background knowledge before you begin a course.
                 </p>
 
                 <p className="mt-2">
                     The Cat-I courses at Deep Eigen AI Labs also provide you the state-of-the-art
-                    knowledge, combining information from text-books and research papers. However,
+                    knowledge, combining information from textbooks and research papers. However,
                     our courses try to teach concepts from scratch, covering most of the required
                     background knowledge. We assume that the audience has little background knowledge
                     of the particular field, and thus the primary lectures combined with secondary
                     TA lectures provide you a holistic course which is easy to follow and understand.
-                    The programming assignments on the other hand ensure that you know how every
+                    The programming assignments, on the other hand, ensure that you know how every
                     concept is applied to solve a real-world problem.
                 </p>
 
@@ -76,7 +76,7 @@ const faqs = [
                 <p>
                     Deep Eigen AI Labs courses are typically  deeper and broader
                     than other online courses. Our courses are designed to provide
-                    both the depth and breadth of a particular topic. Such knowledge
+                    both the depth and breadth of a particular topic. Such a knowledge
                     base may help a candidate in securing a job in the relevant areas.
                 </p>
 
@@ -84,27 +84,27 @@ const faqs = [
                     For example, while Cat-I courses specifically are designed to be
                     as knowledgeable and as competitive as best of the best graduate
                     programs' courses, the Cat-II courses do not necessarily contain
-                    graduate level theory. However, often this boundary is blurred in
+                    graduate-level theory. However, often this boundary is blurred in
                     Cat-II courses. Often, there are more hidden topics and other
                     added topics, as compared to those indicated in the course outline
                     -- this depends on a course instructor, if they want to include
-                    additional topics (other than those mentioned in a course-outline)
+                    additional topics (other than those mentioned in a course outline)
                     to provide a more holistic experience to the registrants.
                 </p>
 
                 <p className="mt-2">
-                    There are rarely any alternative to the Cat-I courses offered by
-                    Deep Eigen AI Labs, as they aim to provide you state-of-the-art
+                    There is rarely any alternative to the Cat-I courses offered by
+                    Deep Eigen AI Labs, as they aim to provide you with state-of-the-art
                     knowledge. We consider that the only real alternative to Deep Eigen
                     AI Labs's Cat-I courses is a structured graduate program in a
-                    developed country. Graduate programs can provide you equivalent
+                    developed country. Graduate programs can provide you with equivalent
                     (or better) knowledge in the field. However, not everyone can
                     get into such graduate programs, and not everyone can afford them,
                     given that the fee is increasing every year.
                 </p>
 
                 <p className="mt-2">
-                    The other alternative, for masses, is to enroll in courses by other
+                    The other alternative, for the masses, is to enroll in courses by other
                     online platforms. Some such platforms have already trained thousands
                     of students and professionals. However, the knowledge provided by
                     such platforms is very basic, and is good enough only when you want
@@ -138,13 +138,13 @@ const faqs = [
                 </p>
 
                 <p className="mt-2">
-                    Cat-IA courses can be considered as one semester course on the same
+                    Cat-IA courses can be considered as one-semester course on the same
                     topic at top graduate programs in the world, with additional emphasis
                     on research papers.
                 </p>
 
                 <p className="mt-2">
-                    Cat-IB courses are equivalent to a one semester course on the
+                    Cat-IB courses are equivalent to a one-semester course on the
                     same topic at top graduate programs in the world.
                 </p>
 
@@ -159,7 +159,7 @@ const faqs = [
                 </p>
 
                 <p>
-                    When Cat-I courses are designed to be an advanced undergraduate level
+                    When Cat-I courses are designed to be an advanced undergraduate-level
                     course, the course page will specifically indicate that.
                 </p>
             </>

@@ -29,7 +29,7 @@ export default function index() {
                 <div className="contact-text">
                   <div className="contact-label">Location</div>
                   <div className="contact-value">
-                    Swaayatt Robots Pvt. Ltd., 2, COSMOS 67-B, near, Narmadapuram Rd, Vidya Nagar, Bhopal, Madhya Pradesh 462026
+                    Swaayatt Robots Pvt. Ltd., 5th Floor, COSMOS 67-B, near, Narmadapuram Rd, Vidya Nagar, Bhopal, Madhya Pradesh 462026
                   </div>
                 </div>
               </div>
