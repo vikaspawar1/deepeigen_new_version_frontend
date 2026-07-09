@@ -10,7 +10,7 @@ export default function index() {
               <h1 className="contact-title">Contact Us</h1>
               <p className="contact-description">
                 If your have any queries about our services, send an email to help@deepeigen.com and we'll
-                do our best to reply within 24 hours Alternatively simply pick Up the phone and give us a call
+                do our best to reply within 24 hours. Alternatively, you can simply pick up the phone and give us a call.
               </p>
             </div>
 

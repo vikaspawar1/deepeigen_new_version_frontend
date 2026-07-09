@@ -17,7 +17,7 @@ export const getCourseVideo = (title: string): string => {
   if (t.includes("generative ai") || t.includes("genai")) {
     return generativeAiVideo;
   }
-  if (t.includes("mathematical optimisation")) {
+  if (t.includes("mathematical optimisation") || t.includes("mathematical optimization")) {
     return mathematicalOptimizationVideo;
   }
   if (t.includes("reinforcement learning")) {

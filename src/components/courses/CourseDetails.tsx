@@ -196,15 +196,15 @@ export default function CourseDetails() {
 
   if (loading) {
     return (
-     <div className="min-h-screen flex items-center mt-[-160px] justify-center ">
-            <div className="text-center">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#174cd2] mx-auto mb-4"></div>
+      <div className="min-h-screen flex items-center mt-[-160px] justify-center ">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#174cd2] mx-auto mb-4"></div>
 
-                <p className="text-gray-600  ">
-                    Loading courses...
-                </p>
-            </div>
+          <p className="text-gray-600  ">
+            Loading courses...
+          </p>
         </div>
+      </div>
     );
   }
 
@@ -289,6 +289,7 @@ export default function CourseDetails() {
               </div>
             </div>
 
+
             {course.teaching_assistants.length > 0 && (
               <div>
                 <h3 className="font-semibold text-lg mb-4">Teaching Assistants</h3>
@@ -296,9 +297,17 @@ export default function CourseDetails() {
                   {course.teaching_assistants.map((ta) => (
                     <div key={ta.id} className="flex items-start gap-4 p-4 bg-gray-50 rounded-lg">
                       <img
-                        src={`${api.defaults.baseURL}${ta.profile_picture}`}
+                        src={
+                          ta.profile_picture
+                            ? `${api.defaults.baseURL}${ta.profile_picture}`
+                            : "https://api.builder.io/api/v1/image/assets/TEMP/6b1c46c2a59cca9a62704e45ef6b23ab9b2f8efb?width=972"
+                        }
                         alt={ta.name}
-                        className="w-16 h-16 rounded-full object-cover"
+                        className="w-16 h-16 rounded-full object-cover flex-shrink-0"
+                        onError={(e) => {
+                          e.currentTarget.src =
+                            "https://api.builder.io/api/v1/image/assets/TEMP/6b1c46c2a59cca9a62704e45ef6b23ab9b2f8efb?width=972";
+                        }}
                       />
                       <div>
                         <h4 className="font-semibold">{ta.name}</h4>
@@ -312,6 +321,9 @@ export default function CourseDetails() {
             )}
           </div>
         );
+
+
+
 
       case "curriculum":
         return (
@@ -656,14 +668,14 @@ export default function CourseDetails() {
                     </div>
                   </div>
 
-                  <button 
+                  <button
                     onClick={() => {
                       if (isAdmin) {
                         toast.info("You already have Full Access via Administrative privileges.");
                         return;
                       }
                       navigate("/pricing")
-                    }} 
+                    }}
                     className={`w-full py-2.5 md:py-3 px-4 border border-blue-700 text-blue-700 bg-transparent font-semibold text-xs md:text-sm rounded-lg cursor-pointer transition-colors hover:bg-blue-50 hover:border-blue-900 hover:text-blue-900 min-h-[40px] md:min-h-[44px] flex items-center justify-center ${isAdmin ? 'opacity-50 cursor-not-allowed' : ''}`}
                   >
                     {isAdmin ? "Admin Access Enabled" : "Subscribe"}

@@ -98,7 +98,7 @@ const faqs = [
                     knowledge. We consider that the only real alternative to Deep Eigen
                     AI Labs's Cat-I courses is a structured graduate program in a
                     developed country. Graduate programs can provide you equivalent
-                    (or better) knowledge in the fielld. However, not everyone can
+                    (or better) knowledge in the field. However, not everyone can
                     get into such graduate programs, and not everyone can afford them,
                     given that the fee is increasing every year.
                 </p>
