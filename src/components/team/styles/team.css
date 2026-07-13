@@ -122,7 +122,6 @@
     width: 100%;
     max-width: 320px;
     /* perfect for mobile & tablets */
-    margin: 0 auto;
   }
 
   .team-image-wrapper {
@@ -131,7 +130,7 @@
     /* keeps image square */
     border-radius: 12px;
     overflow: hidden;
-  }
+  } 
 
   .team-image {
     width: 100%;
@@ -229,9 +228,9 @@
   }
 
   .accordion-panel.open {
-    max-height: 1200px;
+    max-height: 3000px;
     opacity: 1;
-    padding: 0 28px 28px;
+    padding: 20px 28px 28px;
   }
 
   .accordion-header .section-title {
@@ -365,7 +364,7 @@
   }
 
   .accordion-panel.open {
-    padding: 0 16px 20px;
+    padding: 16px 16px 24px;
   }
 
   .accordion-icon {
