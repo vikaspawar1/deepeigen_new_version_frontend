@@ -332,6 +332,7 @@ export default function Navigation() {
               h-full w-full max-w-80
               bg-white z-50 lg:hidden
               transform transition-transform duration-500 ease-out
+              flex flex-col
             "
             style={{
               transform: mobileOpen ? "translateX(0)" : "translateX(100%)",
@@ -369,7 +370,7 @@ export default function Navigation() {
             </div>
 
             {/* Menu Content */}
-            <div className="h-full overflow-y-auto p-6">
+            <div className="flex-1 overflow-y-auto p-6">
               {/* User Info if logged in */}
               {user && (
                 <div className="mb-6 p-4 bg-gray-50 rounded-lg">
@@ -383,9 +384,9 @@ export default function Navigation() {
 
 
 
-                    <div>
-                      <p className="font-semibold text-gray-800">{user.first_name || 'User'}</p>
-                      <p className="text-sm text-gray-500">{user.email}</p>
+                    <div className="min-w-0 flex-1">
+                      <p className="font-semibold text-gray-800 truncate">{user.first_name || 'User'}</p>
+                      <p className="text-sm text-gray-500 truncate">{user.email}</p>
                     </div>
                   </div>
                 </div>

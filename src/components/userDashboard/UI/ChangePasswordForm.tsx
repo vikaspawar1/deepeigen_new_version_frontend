@@ -64,8 +64,9 @@ export default function ChangePasswordForm() {
   };
 
   return (
-    <div className="max-w-full mx-auto  lg:max-w-md  w-full px-6">
-      <h1 className="text-[#1A212F] text-start text-[32px] lg:text-[40px] font-normal leading-normal tracking-[-0.64px] lg:tracking-[-0.8px] mb-6 lg:mb-10 text-center lg:text-left">
+    <div className="max-w-full lg:max-w-md w-full px-6">
+      <h1 className="text-[#1A212F] text-[32px] lg:text-[40px] font-normal leading-normal tracking-[-0.64px] 
+      lg:tracking-[-0.8px] mb-6 lg:mb-10 text-start">
         Change Password
       </h1>
       <form className="max-w-full lg:max-w-md w-full space-y-4 lg:space-y-5" onSubmit={handleSubmit}>
