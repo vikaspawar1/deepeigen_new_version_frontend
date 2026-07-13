@@ -60,8 +60,7 @@ export default function PlaylistSummary() {
   const [previewLoading, setPreviewLoading] = useState(false)
   const [displayTotalPrice, setDisplayTotalPrice] = useState(0)
 
-
-  const [paymentLoading, setPaymentLoading] = useState(false);
+  const [paymentLoading, setPaymentLoading] = useState(false)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -125,30 +124,25 @@ export default function PlaylistSummary() {
     }
   }, [selectedDuration, playlistId, loading])
 
-
-
-
-
-
   const handlePayment = async () => {
-    if (!playlist || !userData) return;
+    if (!playlist || !userData) return
 
     try {
-      setPaymentLoading(true);
+      setPaymentLoading(true)
 
       const initRes = await api.post(
         `/customplaylist/initiate_payment/${playlistId}/`,
         {
           duration: selectedDuration,
         }
-      );
+      )
 
       if (!initRes.data.success) {
-        toast.error(initRes.data.message || "Failed to initiate payment");
-        return;
+        toast.error(initRes.data.message || "Failed to initiate payment")
+        return
       }
 
-      const orderData = initRes.data.data;
+      const orderData = initRes.data.data
 
       const options = {
         key: orderData.razorpay_key,
@@ -167,35 +161,35 @@ export default function PlaylistSummary() {
                 razorpay_order_id: response.razorpay_order_id,
                 razorpay_signature: response.razorpay_signature,
               }
-            );
+            )
 
             if (verifyRes.data.success) {
-              toast.success("Payment Successful");
+              toast.success("Payment Successful")
               navigate("/user_dashboard", {
                 state: { activeSection: "playlist" },
-              });
+              })
             } else {
-              toast.error("Payment verification failed");
+              toast.error("Payment verification failed")
             }
           } finally {
-            setPaymentLoading(false);
+            setPaymentLoading(false)
           }
         },
 
         modal: {
           ondismiss: () => {
-            setPaymentLoading(false);
+            setPaymentLoading(false)
           },
         },
-      };
+      }
 
-      const rzp = new window.Razorpay(options);
-      rzp.open();
+      const rzp = new window.Razorpay(options)
+      rzp.open()
     } catch (err: any) {
-      toast.error(err.response?.data?.message || "Payment failed");
-      setPaymentLoading(false);
+      toast.error(err.response?.data?.message || "Payment failed")
+      setPaymentLoading(false)
     }
-  };
+  }
 
   if (loading) {
     return (
@@ -219,61 +213,53 @@ export default function PlaylistSummary() {
     )
   }
 
-  return (
-    <div className=" font-bricolage sm:max-w-[82vw] max-w-[100vw]  md:max-w-[95vw] lg:max-w-[82vw] mx-auto min-h-screen bg-white
-     px-2 sm:px-4 md:px-8 lg:px-12 py-4 sm:py-6 md:py-10">
-      {/* Back */}
-      {/* Back */}
-      <button
-        onClick={() => navigate(-1)}
-        className="flex items-center font-bold   gap-2 text-gray-700 mb-6 hover:text-blue-600 transition-colors"
-      >
-        <i className="ri-arrow-left-line text-xl"></i><span className="text-base font-bold">Go back</span>
-      </button>
+  const lectureTotal = playlist.lectures.reduce((sum, l) => sum + parseFloat(String(l.price || 0)), 0)
+  const assignmentTotal = 100 * (playlist.assignments_count || 0)
 
-      {/* Card */}
-      <div className="max-w-full md:max-w-[83vw] lg:max-w-[83.5vw] mx-auto bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden p-5 sm:p-8 mb-10 md:p-10">
-        {/* Header */}
-        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-8">
-          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 leading-tight">
-            {playlist.title}
+  return (
+    <div className="font-bricolage w-full min-h-screen bg-[#e9effb] px-4 py-8 sm:py-12 md:py-16 flex flex-col justify-center items-center">
+      {/* Container card */}
+      <div className="w-full max-w-[100vw]   sm:max-w-[60vw]  md:max-w-[90vw] lg:max-w-[60vw] bg-white rounded-[24px] border border-slate-200 p-6 sm:p-10 md:p-12 shadow-[0_4px_24px_rgba(0,0,0,0.02)]">
+        
+        {/* Header (Title + Order ID) */}
+        <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-2 mb-6">
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-800 tracking-tight leading-none">
+            Playlist Summary
           </h1>
-          <span className="text-sm text-gray-500 font-semibold bg-gray-100 px-3 py-1 rounded-full w-fit">
+          <span className="text-xs sm:text-sm text-slate-700 font-semibold opacity-70">
             Order ID: #{playlist.id}
           </span>
         </div>
 
-        {/* Name / Email */}
-        <div className="bg-[#f8faff] rounded-xl border border-blue-50/50 px-3 py-4 flex flex-col md:flex-row md:justify-between gap-3 mb-10">
-          <p className="text-sm text-gray-700">
-            <span className="font-semibold text-gray-900">Name: </span>{userData?.name}
+        {/* User Info grey banner */}
+        <div className="bg-[#f8faff] rounded-[16px] p-4 flex flex-col sm:flex-row justify-between gap-3 text-sm text-[#1a212f] mb-8 border border-slate-100">
+          <p className="text-slate-600">
+            <span className="font-bold text-slate-800">Name:</span> {userData?.name}
           </p>
-          <p className="text-sm text-gray-700 break-all">
-            <span className="font-semibold text-gray-900">Registered Email: </span>
-            {userData?.email}
+          <p className="text-slate-600 break-all">
+            <span className="font-bold text-slate-800">Registered Email:</span> {userData?.email}
           </p>
         </div>
 
-        {/* Subscription */}
-        <div className="mb-10 ">
-          <h2 className="text-base sm:text-lg font-semibold text-gray-900 mb-4">
+        {/* Subscribe for row */}
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-6 border-b border-slate-100 mb-6">
+          <h2 className="text-base sm:text-lg font-bold text-slate-800">
             Subscribe for
           </h2>
-
-          <div className="flex item-start bg-gray-50 text-start p-1 rounded-full border border-gray-100 overflow-x-auto scrollbar-hide w-fit">
+          <div className="flex bg-[#fafafa] border border-slate-200 rounded-full p-1 w-fit">
             {[
               ["1 Month", "1 Month"],
-              ["4 Months", "4 Months"],
-              ["12 Months", "12 Months"],
+              ["6 Months", "6 Months"],
+              ["1 Year", "1 Year"],
             ].map(([key, label]) => (
               <button
                 key={key}
                 disabled={previewLoading}
                 onClick={() => setSelectedDuration(key)}
-                className={`px-3 py-2.5 rounded-full text-xs sm:text-sm font-bold transition-all whitespace-nowrap
+                className={`px-5 py-2 rounded-full text-xs sm:text-sm font-bold transition-all whitespace-nowrap
                   ${selectedDuration === key
-                    ? "bg-blue-600 text-white shadow-md shadow-blue-100"
-                    : "text-gray-600 hover:text-gray-900"
+                    ? "bg-[#174cd2] text-white shadow-[0_2px_8px_rgba(23,76,210,0.15)]"
+                    : "text-slate-600 hover:text-slate-900 bg-transparent"
                   } ${previewLoading ? "opacity-50 cursor-not-allowed" : ""}`}
               >
                 {label}
@@ -282,101 +268,72 @@ export default function PlaylistSummary() {
           </div>
         </div>
 
-
-        {/* Lectures */}
-        <div className="mb-10">
-          <div className="flex justify-between items-end mb-5">
-            <h3 className="text-base sm:text-lg font-bold text-gray-900">
-              Selected Lectures ({playlist.lectures.length})
-            </h3>
-            <span className={`text-lg sm:text-xl font-bold text-gray-700 ${previewLoading ? "animate-pulse" : ""}`}>
-              ₹{playlist.lectures.reduce((sum, l) => sum + parseFloat(String(l.price || 0)), 0).toFixed(2)}
-            </span>
-          </div>
-
-          <div className="max-h-[60vh] overflow-y-auto space-y-3 pr-2 custom-scrollbar scrollbar-hide">
-            {playlist.lectures.map(l => (
-              <div
-                key={l.id}
-                className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 rounded-xl border border
-                 transition-all bg-white border-gray-300 hover:border-blue-200 "
-
-
-              >
-                <div className="flex items-start gap-3 flex-1">
-                  <div className="w-8 h-8 shrink-0 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center text-xs font-bold">
-                    ▶
-                  </div>
-                  <div className="min-w-0">
-                    <p className="text-sm sm:text-base text-gray-900 font-semibold leading-snug line-clamp-2">
-                      {l.title}
-                    </p>
-                    <p className="text-xs text-gray-500 mt-1 font-medium">
-                      {l.course} • {l.duration || "N/A"}
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-center justify-end sm:justify-start">
-                  <span className="text-sm sm:text-base text-gray-900 font-bold whitespace-nowrap">
-                    ₹{l.price ? parseFloat(String(l.price)).toFixed(2) : "0.00"}
-                  </span>
-                </div>
-              </div>
-            ))}
-          </div>
+        {/* Selected Lectures Header */}
+        <div className="flex justify-between items-center pb-3 border-b border-slate-200 mb-4">
+          <h3 className="text-base sm:text-lg font-bold text-slate-800 font-bricolage">
+            Selected Lectures ({playlist.lectures.length})
+          </h3>
+          <span className="text-lg sm:text-xl font-bold text-slate-800">
+            ₹{lectureTotal.toFixed(2)}
+          </span>
         </div>
 
+        {/* Scrollable list of lectures */}
+        <div className="max-h-[300px] overflow-y-auto pr-1 space-y-3 custom-scrollbar mb-8">
+          {playlist.lectures.map((l, index) => (
+            <div
+              key={l.id || index}
+              className="flex items-center justify-between py-2 border-b border-slate-50 last:border-b-0"
+            >
+              <div className="flex items-center gap-4 min-w-0">
+                {/* Play Button Icon */}
+                <div className="w-8 h-8 bg-slate-100 rounded-full flex items-center justify-center shrink-0">
+                  <svg className="w-3 h-3 text-slate-500 fill-current ml-0.5" viewBox="0 0 24 24">
+                    <path d="M8 5v14l11-7z" />
+                  </svg>
+                </div>
+                <span className="text-sm sm:text-base text-slate-700 font-medium truncate">
+                  {l.title}
+                </span>
+              </div>
+              <div className="shrink-0 pl-4">
+                {l.price === 0 ? (
+                  <span className="text-sm font-semibold text-green-500">Purchased</span>
+                ) : (
+                  <span className="text-sm sm:text-base text-slate-600 font-medium">
+                    ₹{l.price ? parseFloat(String(l.price)).toFixed(2) : "0.00"}
+                  </span>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
 
-
-        {/* Assignment */}
+        {/* Custom Assignment row */}
         {playlist.include_assignments && (
-          <div className="py-8 border-t border-gray-100">
-            <div className="flex justify-between items-end mb-5">
-              <h3 className="text-base sm:text-lg font-bold text-gray-900">
-                Custom Assignments ({playlist.assignments_count || 0})
+          <div className="mb-8">
+            <div className="flex justify-between items-center pb-3 border-b border-slate-200">
+              <h3 className="text-base sm:text-lg font-bold text-slate-800 font-bricolage">
+                Custom Assignment
               </h3>
-              <span className="text-lg sm:text-xl font-bold text-gray-700">
-                ₹{(100 * (playlist.assignments_count || 0) * (selectedDuration.includes("Month") ? parseInt(selectedDuration) : (selectedDuration.includes("Year") ? 12 : 1))).toFixed(2)}
+              <span className="text-lg sm:text-xl font-bold text-slate-800">
+                ₹{assignmentTotal.toFixed(2)}
               </span>
             </div>
-
-            {playlist.assignments && playlist.assignments.length > 0 && (
-              <div className="bg-gray-50 rounded-xl p-4 grid grid-cols-1 md:grid-cols-4 gap-3 border border-gray-100">
-                {playlist.assignments.map(asgn => (
-                  <div key={asgn.id} className="flex items-center gap-3 bg-white p-3 rounded-lg border border-gray-300 shadow-sm">
-                    <div className="w-6 h-6 bg-blue-50 text-blue-600 rounded flex items-center justify-center text-xs">
-
-                    </div>
-                    <div className="min-w-0">
-                      <p className="text-sm font-semibold text-gray-900 mb-2">{asgn.name}</p>
-                      <p className="text-[10px] text-gray-500 uppercase font-semibold tracking-tight">{asgn.course_title} • {asgn.assignment_type}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-
-            {(!playlist.assignments || playlist.assignments.length === 0) && (
-              <p className="text-xs text-gray-400 italic font-medium px-2">
-                Assignments will be calculated based on selected lectures.
-              </p>
-            )}
           </div>
         )}
 
-        {/* Total */}
-        <div className="flex justify-between items-center py-6 border-t border-gray-100 bg-blue-50/30 px-5 -mx-5 sm:px-8 sm:-mx-8 md:px-10 md:-mx-10">
-          <h3 className="text-lg font-bold text-gray-900">Grand Total</h3>
-          <div className="text-right">
-            <span className={`text-2xl sm:text-3xl font-black text-blue-600 ${previewLoading ? "animate-pulse" : ""}`}>
-              ₹{displayTotalPrice.toFixed(2)}
-            </span>
-            <p className="text-[10px] font-bold text-blue-500 uppercase tracking-widest mt-1">Inclusive of all taxes</p>
-          </div>
+        {/* Total Summary Row */}
+        <div className="flex justify-between items-center pb-3 border-b border-slate-200 mb-8">
+          <h3 className="text-base sm:text-lg font-bold text-slate-800 font-bricolage">
+            Total
+          </h3>
+          <span className={`text-xl sm:text-2xl font-bold text-[#174cd2] ${previewLoading ? "opacity-60" : ""}`}>
+            ₹{displayTotalPrice.toFixed(2)}
+          </span>
         </div>
 
-        {/* Pay */}
+        {/* Pay Button */}
         <button
           onClick={handlePayment}
           disabled={
@@ -384,21 +341,22 @@ export default function PlaylistSummary() {
             previewLoading ||
             paymentLoading
           }
-          className="w-full mt-8 bg-[#174CD2] text-white py-3 rounded-xl text-md font-semibold hover:bg-blue-700 active:scale-[0.99] shadow-lg shadow-blue-100 transition-all disabled:bg-gray-300 disabled:cursor-not-allowed disabled:shadow-none flex items-center justify-center gap-2"
+          className="w-full bg-[#174cd2] text-white py-2 rounded-[12px] text-base sm:text-lg font-bold hover:bg-blue-700 active:scale-[0.99] transition-all duration-200 flex items-center justify-center gap-2"
         >
           {playlist.is_purchased ? (
             "PLAYLIST ALREADY PURCHASED"
           ) : paymentLoading ? (
             <>
-              <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+              <div className="w-5 h-5 border-2 capitalize border-white border-t-transparent rounded-full animate-spin"></div>
               Processing...
             </>
           ) : previewLoading ? (
-            "CALCULATING BEST PRICE..."
+            "Calculating best price..."
           ) : (
-            `PAY ₹${displayTotalPrice.toFixed(2)}`
+            `Pay ₹${displayTotalPrice.toFixed(2)}`
           )}
         </button>
+
       </div>
     </div>
   )
